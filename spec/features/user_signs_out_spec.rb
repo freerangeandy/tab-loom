@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-xfeature 'user signs out', %Q{
+feature 'user signs out', %Q{
   As an authenticated user
   I want to sign out
   So that my identity is forgotten about on the machine I'm using
