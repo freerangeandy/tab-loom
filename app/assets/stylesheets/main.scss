@@ -1,3 +1,28 @@
+$columns: 72;
+// $courier-ratio: 0.6; // width/height ratio of courier
+// $font-ratio: $courier-ratio;
 $line-height: 1;
 $font-size: 16px;
+// $unit: 1em;
+// $buffer: 0.5em;
 $fixed-width: 80ch;
+
+.foobar .ck-editor{
+  min-width: $fixed-width;
+  max-width: $fixed-width;
+}
+
+.ck-content {
+  font: $font-size Courier, monospace;
+  line-height: $line-height;
+  overflow: hidden;
+  white-space: nowrap;
+  // :last-child {
+  //   margin: 0 0 0 0;
+  // }
+}
+
+// .main-pane {
+//   margin: auto;
+//   text-align: center;
+// }
