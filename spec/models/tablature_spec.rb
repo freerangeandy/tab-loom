@@ -1,6 +1,6 @@
 require "rails_helper"
 
-sample1 = %Q(
+landslide_verse = %Q(
 e|-----------------|----------------|----------------|----------------|
 B|-------1---------|------3---------|------1---------|------3---------|
 G|---0-------0-----|--0-------0-----|--0-------0-----|--0-------0-----|
@@ -9,7 +9,7 @@ A|-3-------3-------|2-------2-------|0-------0-------|2-------2-------|
 E|-----------------|----------------|----------------|----------------|
 )
 
-sample2 = %Q(
+landslide_chorus = %Q(
 e|-------3-------|-------------|-------0-----|-0-----0-----|
 B|---0-------0---|-1-----1-----|-3-----------|---1---------|
 G|---------------|---0---------|---0---------|-----0-------|
@@ -22,13 +22,13 @@ describe Tablature do
   let!(:user1) { FactoryBot.create(:user) }
   let!(:user2) { FactoryBot.create(:user) }
 
-  let(:landslide_verse) { Tablature.new( content: sample1, user: user1 ) }
-  let(:landslide_chorus) { Tablature.new( content: sample2, user: user2 ) }
+  let(:sample_tab1) { Tablature.new( content: landslide_verse, user: user1 ) }
+  let(:sample_tab2) { Tablature.new( content: landslide_chorus, user: user2 ) }
   let(:tab_initialized_without_arguments) { Tablature.new }
 
   describe ".new" do
     it "should return a Tablature object" do
-      expect(landslide_verse).to be_a(Tablature)
+      expect(sample_tab1).to be_a(Tablature)
     end
 
     it "should not raise an error when initialized without any arguments" do
@@ -38,7 +38,7 @@ describe Tablature do
 
   describe "#content" do
     it "should return the content" do
-      expect(landslide_verse.content).to eq(sample1)
+      expect(sample_tab1.content).to eq(landslide_verse)
     end
 
     it "should return '' for a tablature initialized without arguments" do
@@ -48,7 +48,7 @@ describe Tablature do
 
   describe "#user" do
     it "should return the associated user" do
-      expect(landslide_verse.user).to eq(user1)
+      expect(sample_tab1.user).to eq(user1)
     end
 
     it "should return nil for a tablature initialized without arguments" do
@@ -59,12 +59,12 @@ describe Tablature do
   describe ".all" do
     it "should return an array of Tablature objects from the database" do
       first_tab_data = [
-        sample1,
+        landslide_verse,
         user1.id
       ]
 
       last_tab_data = [
-        sample2,
+        landslide_chorus,
         user2.id
       ]
 
@@ -94,19 +94,19 @@ describe Tablature do
 
   describe "#errors" do
     it "should return an empty array for a newly initialized object" do
-      expect(landslide_verse.errors.messages).to eq({})
+      expect(sample_tab1.errors.messages).to eq({})
     end
   end
 
   describe "#valid?" do
     context "for a valid object" do
       it "should return true" do
-        expect(landslide_verse.valid?).to eq(true)
+        expect(sample_tab1.valid?).to eq(true)
       end
 
       it "should not add any error messages" do
-        landslide_verse.valid?
-        expect(landslide_verse.errors.messages).to eq({})
+        sample_tab1.valid?
+        expect(sample_tab1.errors.messages).to eq({})
       end
     end
 
@@ -143,15 +143,15 @@ describe Tablature do
   describe "#save" do
     context "valid object" do
       it "should return true" do
-        expect(landslide_verse.save).to eq(true)
+        expect(sample_tab1.save).to eq(true)
       end
 
       it "should add the attributes to the database" do
-        landslide_verse.save
+        sample_tab1.save
 
         tab_attributes = [
-          landslide_verse.content,
-          landslide_verse.user_id
+          sample_tab1.content,
+          sample_tab1.user_id
         ]
 
         tabs_data = nil
