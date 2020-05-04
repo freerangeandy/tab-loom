@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState, useRef } from 'react';
 import ReactQuill, { Quill } from 'react-quill';
 import Delta from 'quill-delta';
 import 'react-quill/dist/quill.snow.css';
@@ -13,44 +13,61 @@ D|----------------|----------------|----------------|----------------|<br>
 A|----------------|----------------|----------------|----------------|<br>
 E|----------------|----------------|----------------|----------------|`
 
+const preventUpdate = (markup) => {
+  return (!correctRowCount(markup) || anyRowOverflow(markup))
+}
+
+const correctRowCount = (markup) => {
+  const rows = [...markup.matchAll(/<p>/g)]
+  const rowCount = rows.length
+  return rowCount === 6
+}
+
+const anyRowOverflow = (markup) => {
+  let overflow = false
+  const markupSplitCleaned = markup
+    .split(/<\/?p>/)
+    .map(el => el.trim())
+    .filter(el => el.length > 0)
+
+  markupSplitCleaned.forEach((row, rowIdx) => {
+    if (row.length > overflowThreshold) {
+      console.log(`OVERFLOW (line ${rowIdx + 1})`)
+      overflow = true;
+    }
+  })
+  return overflow
+}
+
 const TestEditor = props => {
-  const [value, setValue] = useState(sample);
-
-  const anyRowOverflowed = (markup) => {
-    let overflow = false
-    // const markupSplitCleaned = Array.from(markup).map(el => el.textContent)
-    const markupSplitCleaned = markup
-      .split(/<\/?p>/)
-      .map(el => el.trim())
-      .filter(el => el.length > 0)
-
-    markupSplitCleaned.forEach((row, rowIdx) => {
-      if (row.length > overflowThreshold) {
-        console.log(`OVERFLOW (line ${rowIdx + 1})`)
-        overflow = true;
-      }
-    })
-    return overflow
-  }
+  const [textState, setTextState] = useState(sample);
+  const testRef = useRef(null)
 
   const changeHandler = (newValue, delta, source, editor) => {
-    if (anyRowOverflowed(newValue)){
-      const contents = editor.getContents()
-      const invertDel = new Delta(delta).invert(contents)
-      const finalDel = contents.compose(invertDel)
-      console.log("BLOCKED UPDATE")
-      setValue(finalDel)
+    const contents = editor.getContents()
+    const history = testRef.current != null ? testRef.current.editor.history : null
+
+    if (preventUpdate(newValue)){
+      // const invertDel = new Delta(delta).invert(contents)
+      // const finalDel = contents.compose(invertDel)
+      //
+      // console.log("BLOCKED UPDATE")
+      // setTextState(finalDel)
+      if (history != null) history.undo()
     } else {
-      setValue(newValue)
+      setTextState(newValue)
     }
   }
 
   return (
+    <Fragment>
     <ReactQuill
       theme="snow"
-      value={value}
+      value={textState}
+      ref={testRef}
       onChange={(val, del, s, ed) => changeHandler(val, del, s, ed)}
     />
+    </Fragment>
   );
 }
 
