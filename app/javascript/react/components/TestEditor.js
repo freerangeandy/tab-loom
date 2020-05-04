@@ -39,22 +39,56 @@ const anyRowOverflow = (markup) => {
   return overflow
 }
 
+const deltaAttrCount = (delta, attr) => {
+  let attrCount = 0
+  delta.ops.forEach(action => {
+    if (attr in action) {
+      attrCount = attr === 'insert' ? action[attr].length : action[attr]
+    }
+  });
+  return attrCount
+}
+
+const fillDeleteDelta = delta => {
+  let deleteCount = 0
+
+  delta.ops.forEach(action => {
+    if ('retain' in action) {
+      retainCount = action.retain
+    }
+    if ('delete' in action) {
+      deleteCount = action.delete
+    }
+  });
+
+  const addedDashes = '-'.repeat(deleteCount)
+  return new Delta().retain(retainCount).insert(addedDashes)
+}
+
 const TestEditor = props => {
   const [textState, setTextState] = useState(sample);
   const testRef = useRef(null)
 
   const changeHandler = (newValue, delta, source, editor) => {
     const contents = editor.getContents()
+    let cleanDelta = new Delta(delta)
     const history = testRef.current != null ? testRef.current.editor.history : null
 
+    const deleteCount = deltaAttrCount(cleanDelta, 'delete')
+    const retainCount = deltaAttrCount(cleanDelta, 'retain')
+    const insertCount = deltaAttrCount(cleanDelta, 'insert')
+        debugger
+
     if (preventUpdate(newValue)){
-      // const invertDel = new Delta(delta).invert(contents)
-      // const finalDel = contents.compose(invertDel)
-      //
-      // console.log("BLOCKED UPDATE")
-      // setTextState(finalDel)
       if (history != null) history.undo()
+    } else if(deleteCount - insertCount > 0) {
+        const addedDashes = '-'.repeat(deleteCount)
+        const newDelta = new Delta().retain(retainCount).insert(addedDashes)
+        const finalDel = contents.compose(newDelta)
+        debugger
+        setTextState(finalDel)
     } else {
+
       setTextState(newValue)
     }
   }
