@@ -1,7 +1,8 @@
 import React from 'react'
+import TestEditor from './components/TestEditor'
 
 export const App = (props) => {
-  return (<h1>Make It So React</h1>)
+  return (<div><TestEditor /></div>)
 }
 
 export default App

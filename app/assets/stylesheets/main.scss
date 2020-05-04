@@ -1,3 +1,17 @@
 $line-height: 1;
 $font-size: 16px;
 $fixed-width: 80ch;
+
+.wrapper-class {
+  width: $fixed-width;
+  border: 1px solid green;
+}
+
+.editor-class {
+  width: $fixed-width;
+  border: 1px solid red;
+}
+
+.toolbar-class {
+  border: 1px solid blue;
+}
