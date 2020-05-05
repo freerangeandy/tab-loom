@@ -5,7 +5,7 @@ import 'react-quill/dist/quill.snow.css';
 
 const overflowThreshold = 70
 
-const sample = `
+const template = `
 e|----------------|----------------|----------------|----------------|<br>
 B|----------------|----------------|----------------|----------------|<br>
 G|----------------|----------------|----------------|----------------|<br>
@@ -39,12 +39,22 @@ const anyRowOverflow = (markup) => {
   return overflow
 }
 
+const deltaAttrCount = (delta, attr) => {
+  let attrCount = 0
+  delta.ops.forEach(action => {
+    if (attr in action) {
+      attrCount = attr === 'insert' ? action[attr].length : action[attr]
+    }
+  });
+  return attrCount
+}
+
 const TestEditor = props => {
-  const [textState, setTextState] = useState(sample);
+  const [textState, setTextState] = useState(template);
   const testRef = useRef(null)
 
   const changeHandler = (newValue, delta, source, editor) => {
-    const contents = editor.getContents()
+    // const contents = editor.getContents()
     const history = testRef.current != null ? testRef.current.editor.history : null
 
     if (preventUpdate(newValue)){
@@ -59,6 +69,13 @@ const TestEditor = props => {
     }
   }
 
+  const changeSelectionHandler = (range, source, editor) => {
+    const editorByRef = testRef.current != null ? testRef.current.editor : null
+    if (editorByRef) {
+      editorByRef.setSelection(range.index, 1)
+    }
+  }
+
   return (
     <Fragment>
     <ReactQuill
@@ -66,6 +83,7 @@ const TestEditor = props => {
       value={textState}
       ref={testRef}
       onChange={(val, del, s, ed) => changeHandler(val, del, s, ed)}
+      onChangeSelection={(r, s, ed) => changeSelectionHandler(r, s, ed)}
     />
     </Fragment>
   );
