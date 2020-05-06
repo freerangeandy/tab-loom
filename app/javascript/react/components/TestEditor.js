@@ -3,15 +3,19 @@ import ReactQuill, { Quill } from 'react-quill';
 import Delta from 'quill-delta';
 import 'react-quill/dist/quill.snow.css';
 
-const overflowThreshold = 70
+import * as util from '../shared/utility'
 
-const template = `
-e|----------------|----------------|----------------|----------------|<br>
-B|----------------|----------------|----------------|----------------|<br>
-G|----------------|----------------|----------------|----------------|<br>
-D|----------------|----------------|----------------|----------------|<br>
-A|----------------|----------------|----------------|----------------|<br>
-E|----------------|----------------|----------------|----------------|`
+const COLUMN_COUNT = 70
+
+const blankLine = '-'.repeat(COLUMN_COUNT)
+const blankTab = [
+  blankLine,
+  blankLine,
+  blankLine,
+  blankLine,
+  blankLine,
+  blankLine,
+]
 
 const preventUpdate = (markup) => {
   return (!correctRowCount(markup) || anyRowOverflow(markup))
@@ -31,7 +35,7 @@ const anyRowOverflow = (markup) => {
     .filter(el => el.length > 0)
 
   markupSplitCleaned.forEach((row, rowIdx) => {
-    if (row.length > overflowThreshold) {
+    if (row.length > COLUMN_COUNT) {
       console.log(`OVERFLOW (line ${rowIdx + 1})`)
       overflow = true;
     }
@@ -39,40 +43,40 @@ const anyRowOverflow = (markup) => {
   return overflow
 }
 
-const deltaAttrCount = (delta, attr) => {
-  let attrCount = 0
-  delta.ops.forEach(action => {
-    if (attr in action) {
-      attrCount = attr === 'insert' ? action[attr].length : action[attr]
-    }
-  });
-  return attrCount
-}
+const offset = (index) => index % (COLUMN_COUNT + 1)
 
 const TestEditor = props => {
-  const [textState, setTextState] = useState(template);
-  const testRef = useRef(null)
+  const [tabState, setTabState] = useState(blankTab)
+  const editorRef = useRef(null)
 
   const changeHandler = (newValue, delta, source, editor) => {
-    // const contents = editor.getContents()
-    const history = testRef.current != null ? testRef.current.editor.history : null
+    const history = editorRef.current != null ? editorRef.current.editor.history : null
 
     if (preventUpdate(newValue)){
-      // const invertDel = new Delta(delta).invert(contents)
-      // const finalDel = contents.compose(invertDel)
-      //
-      // console.log("BLOCKED UPDATE")
-      // setTextState(finalDel)
       if (history != null) history.undo()
     } else {
-      setTextState(newValue)
+      const newStateArray = util.markupStringToStringArray(newValue)
+      setTabState(newStateArray)
     }
   }
 
-  const changeSelectionHandler = (range, source, editor) => {
-    const editorByRef = testRef.current != null ? testRef.current.editor : null
+  const keyPressHandler = (e) => {
+    const editorByRef = editorRef.current != null ? editorRef.current.editor : null
     if (editorByRef) {
-      editorByRef.setSelection(range.index, 1)
+      let newIndex = editorByRef.getSelection().index
+      if (offset(newIndex) === COLUMN_COUNT) {
+        newIndex--
+      }
+
+      if (e.key === 'ArrowLeft' && offset(newIndex) !== 0) {
+        newIndex--
+        editorByRef.setSelection(newIndex, 1)
+      } else if(e.key === 'Backspace') {
+        editorByRef.setSelection(newIndex, 1)
+        editorByRef.insertText(0,'-')
+      } else {
+        editorByRef.setSelection(newIndex, 1)
+      }
     }
   }
 
@@ -80,10 +84,10 @@ const TestEditor = props => {
     <Fragment>
     <ReactQuill
       theme="snow"
-      value={textState}
-      ref={testRef}
+      value={util.stringArrayToMarkupString(tabState)}
+      ref={editorRef}
       onChange={(val, del, s, ed) => changeHandler(val, del, s, ed)}
-      onChangeSelection={(r, s, ed) => changeSelectionHandler(r, s, ed)}
+      onKeyDown={e => keyPressHandler(e)}
     />
     </Fragment>
   );

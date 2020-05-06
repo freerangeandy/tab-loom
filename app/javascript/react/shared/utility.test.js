@@ -6,8 +6,8 @@ import {
   nestedArrayToJsonTab,
   nestedArrayToStringArray,
   stringArrayToNestedArray,
-  stringArrayToLineBreakString,
-  lineBreakStringToStringArray
+  stringArrayToMarkupString,
+  markupStringToStringArray
 } from './utility.js'
 
 describe("JSON of strings <=> nested array of strings", () => {
@@ -73,8 +73,8 @@ describe("nested array of strings <=> array of full-line strings", () => {
   })
 })
 
-describe("array of full-line strings <=> string with line breaks", () => {
-  let testStringArray, testLineBreakString
+describe("array of full-line strings <=> markup string", () => {
+  let testStringArray, testMarkupString
 
   beforeEach(() => {
     testStringArray = [
@@ -86,16 +86,16 @@ describe("array of full-line strings <=> string with line breaks", () => {
       `-7-9-12-12${'-'.repeat(11)}17`
     ]
 
-    testLineBreakString = `${'-'.repeat(16)}0h1${'-'.repeat(4)}3<br>${'-'.repeat(9)}13/0`
-    + `${'-'.repeat(11)}<br>8p7${'-'.repeat(5)}18-19-16${'-'.repeat(8)}<br>`
-    + `${'-'.repeat(24)}<br>01221312341512524${'-'.repeat(8)}<br>-7-9-12-12${'-'.repeat(11)}17`
+    testMarkupString = `<p>${'-'.repeat(16)}0h1${'-'.repeat(4)}3</p><p>${'-'.repeat(9)}13/0`
+    + `${'-'.repeat(11)}</p><p>8p7${'-'.repeat(5)}18-19-16${'-'.repeat(8)}</p><p>`
+    + `${'-'.repeat(24)}</p><p>01221312341512524${'-'.repeat(8)}</p><p>-7-9-12-12${'-'.repeat(11)}17</p>`
   })
 
-  it('should convert from array of full-line strings to string with line breaks', () => {
-    expect(stringArrayToLineBreakString(testStringArray)).toEqual(testLineBreakString)
+  it('should convert from array of full-line strings to markup string', () => {
+    expect(stringArrayToMarkupString(testStringArray)).toEqual(testMarkupString)
   })
 
-  it('should convert from string with line breaks to array of full-line strings', () => {
-    expect(lineBreakStringToStringArray(testLineBreakString)).toEqual(testStringArray)
+  it('should convert from markup string to array of full-line strings', () => {
+    expect(markupStringToStringArray(testMarkupString)).toEqual(testStringArray)
   })
 })

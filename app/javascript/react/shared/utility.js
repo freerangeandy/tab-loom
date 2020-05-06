@@ -42,9 +42,7 @@ export const nestedArrayToStringArray = (nestedArray) => {
 
 export const stringArrayToNestedArray = (stringArray) => {
   return stringArray.map(notationString => {
-    const notationChunks = notationString
-      .split(/(-+)/)
-      .filter(str => str.length > 0)
+    const notationChunks = notationString.split(/(-+)/).filter(str => str.length > 0)
     return notationChunks.map(notationChunk => {
       if (notationChunk.startsWith('-')) {
         return `-${notationChunk.length}`
@@ -55,10 +53,11 @@ export const stringArrayToNestedArray = (stringArray) => {
   })
 }
 
-export const stringArrayToLineBreakString = (stringArray) => {
-  return stringArray.join('<br>')
+export const stringArrayToMarkupString = (stringArray) => {
+  return `<p>${stringArray.join('</p><p>')}</p>`
 }
 
-export const lineBreakStringToStringArray = (lineBreakString) => {
-  return lineBreakString.split('<br>')
+export const markupStringToStringArray = (markupString) => {
+  const markupStringNoEndTags = markupString.replace(/<\/p>/g, '')
+  return markupStringNoEndTags.split('<p>').filter(str => str.length > 0)
 }
