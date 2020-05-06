@@ -7,14 +7,14 @@ import * as util from '../shared/utility'
 
 const COLUMN_COUNT = 70
 
-const blankLine = '-'.repeat(COLUMN_COUNT)
+const blankLine = '-'.repeat(COLUMN_COUNT-2)
 const blankTab = [
-  blankLine,
-  blankLine,
-  blankLine,
-  blankLine,
-  blankLine,
-  blankLine,
+  'e|'.concat(blankLine),
+  'B|'.concat(blankLine),
+  'G|'.concat(blankLine),
+  'D|'.concat(blankLine),
+  'A|'.concat(blankLine),
+  'E|'.concat(blankLine),
 ]
 
 const preventUpdate = (markup) => {
@@ -43,15 +43,34 @@ const anyRowOverflow = (markup) => {
   return overflow
 }
 
-const offset = (index) => index % (COLUMN_COUNT + 1)
+const getRow = (index) => parseInt(index / (COLUMN_COUNT + 1))
+const getOffset = (index) => index % (COLUMN_COUNT + 1)
+const indexAtRowEnd = (index) => getOffset(index) === COLUMN_COUNT
+const indexAtRowStart = (index) => getOffset(index) >= 0 && getOffset(index) <= 1
+
+const shiftSelectionLeft = (editor, curIndex) => {
+  curIndex--
+  editor.setSelection(curIndex, 1)
+}
+
+const insertDashIntoTabArray = (tabArray, curIndex, length = 0) => {
+  const [row, offset] = [getRow(curIndex), getOffset(curIndex)]
+  tabArray[row] = tabArray[row].slice(0, offset) + '-' + tabArray[row].slice(offset+length)
+  return tabArray
+}
+
+const clearStrayFormattingFromText = (text) => {
+  let newText = text.replace(/&[^&;]+;| |\./g, '-')
+  return newText
+}
 
 const TestEditor = props => {
   const [tabState, setTabState] = useState(blankTab)
   const editorRef = useRef(null)
 
-  const changeHandler = (newValue, delta, source, editor) => {
+  const changeHandler = (changedText, delta, source, editor) => {
     const history = editorRef.current != null ? editorRef.current.editor.history : null
-
+    const newValue = clearStrayFormattingFromText(changedText)
     if (preventUpdate(newValue)){
       if (history != null) history.undo()
     } else {
@@ -60,23 +79,37 @@ const TestEditor = props => {
     }
   }
 
-  const keyPressHandler = (e) => {
+  const keyDownHandler = (e) => {
     const editorByRef = editorRef.current != null ? editorRef.current.editor : null
     if (editorByRef) {
-      let newIndex = editorByRef.getSelection().index
-      if (offset(newIndex) === COLUMN_COUNT) {
-        newIndex--
-      }
+      let newIndex = editorByRef.getSelection().index || 0
 
-      if (e.key === 'ArrowLeft' && offset(newIndex) !== 0) {
-        newIndex--
-        editorByRef.setSelection(newIndex, 1)
+      if (e.key === 'ArrowLeft' && !indexAtRowStart(newIndex)) {
+          shiftSelectionLeft(editorByRef, newIndex)
       } else if(e.key === 'Backspace') {
-        editorByRef.setSelection(newIndex, 1)
-        editorByRef.insertText(0,'-')
+        if (!indexAtRowStart(newIndex)){
+          shiftSelectionLeft(editorByRef, newIndex)
+        }
+        let newStateArray = insertDashIntoTabArray(new Array(...tabState), newIndex)
+        setTabState(newStateArray)
+      } else if (e.key === ' ') {
+        let newStateArray = insertDashIntoTabArray(new Array(...tabState), newIndex, 1)
+        setTabState(newStateArray)
       } else {
-        editorByRef.setSelection(newIndex, 1)
+        if (indexAtRowEnd(newIndex)) {
+          shiftSelectionLeft(editorByRef, newIndex)
+        }
       }
+    }
+  }
+
+  const changeSelectHandler = (range, source, editor) => {
+    const editorByRef = editorRef.current != null ? editorRef.current.editor : null
+    if (editorByRef) {
+      let newIndex = editor.getSelection().index || 0
+      while (indexAtRowStart(newIndex)) newIndex++
+      while (indexAtRowEnd(newIndex)) newIndex--
+      editorByRef.setSelection(newIndex, 1)
     }
   }
 
@@ -87,7 +120,8 @@ const TestEditor = props => {
       value={util.stringArrayToMarkupString(tabState)}
       ref={editorRef}
       onChange={(val, del, s, ed) => changeHandler(val, del, s, ed)}
-      onKeyDown={e => keyPressHandler(e)}
+      onChangeSelection={(ra, s, ed) => changeSelectHandler(ra, s, ed)}
+      onKeyDown={e => keyDownHandler(e)}
     />
     </Fragment>
   );
