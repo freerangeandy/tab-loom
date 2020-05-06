@@ -21,6 +21,7 @@
     "prop-types": "~15.6.0",
     "quill-delta": "^4.2.2",
     "react": "~16.8.0",
+    "react-bootstrap": "^1.0.1",
     "react-dom": "~16.8.0",
     "react-quill": "^2.0.0-beta.2",
     "react-router-dom": "5.0.0",
