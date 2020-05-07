@@ -30,7 +30,7 @@ class Api::V1::TablaturesController < ApplicationController
   protected
 
   def tab_params
-    params.require(:tablature).permit(:title, :content, :user_id)
+    params.require(:tablature).permit(:title, :content, :user_id, :user_name)
   end
 
   def authorize_user
