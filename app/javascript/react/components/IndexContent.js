@@ -1,6 +1,6 @@
 import React from 'react'
 
-const SidebarContent = props => {
+const IndexContent = props => {
   return (
     <div >
       <h4>Profile name</h4>
@@ -15,4 +15,4 @@ const SidebarContent = props => {
   )
 }
 
-export default SidebarContent
+export default IndexContent

@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ChordsSideBar = props => {
+const ChordsSidebar = props => {
 
   return (
     <div>
@@ -9,4 +9,4 @@ const ChordsSideBar = props => {
   )
 }
 
-export default ChordsSideBar
+export default ChordsSidebar
