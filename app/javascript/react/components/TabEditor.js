@@ -110,8 +110,12 @@ const TestEditor = props => {
     }
   }
 
-  let disabledSave = saveable ? {} : {disabled: 'disabled'}
+  const saveClickHandler = (event) => {
+    props.fetchSaveFromContent(tabState.join("\n"))
+    setSaveable(false)
+  }
 
+  let disabledSave = saveable ? {} : {disabled: 'disabled'}
   return (
     <Fragment>
       <ReactQuill
@@ -122,8 +126,13 @@ const TestEditor = props => {
         onChangeSelection={(ra, s, ed) => changeSelectHandler(ra, s, ed)}
         onKeyDown={e => keyDownHandler(e)}
       />
-      <Button className="saveButton" variant="primary" size="md" {...disabledSave}>
-        Save
+      <Button
+        className="saveButton"
+        variant="primary"
+        size="md"
+        {...disabledSave}
+        onClick={(e) => saveClickHandler(e)}>
+          Save
       </Button>
     </Fragment>
   );

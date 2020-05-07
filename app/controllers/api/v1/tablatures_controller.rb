@@ -23,6 +23,18 @@ class Api::V1::TablaturesController < ApplicationController
     end
   end
 
+  def update
+    tab = Tablature.find(params[:id])
+    tab.update_attributes(tab_params)
+
+    if tab.save
+      render json: tab
+    else
+      render json: {error: tab.errors.full_messages.to_sentence}
+    end
+  end
+
+
   def serialized_data(data, serializer)
     ActiveModelSerializers::SerializableResource.new(data, serializer: serializer)
   end
@@ -30,7 +42,7 @@ class Api::V1::TablaturesController < ApplicationController
   protected
 
   def tab_params
-    params.require(:tablature).permit(:title, :content, :user_id, :user_name)
+    params.require(:tablature).permit(:title, :content, :user_id)
   end
 
   def authorize_user
