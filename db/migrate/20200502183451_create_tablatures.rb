@@ -1,6 +1,7 @@
 class CreateTablatures < ActiveRecord::Migration[5.2]
   def up
     create_table :tablatures do |t|
+      t.string :title, null: false, default: ""
       t.text :content, null: false, default: ""
       t.belongs_to :user, null: false
 
