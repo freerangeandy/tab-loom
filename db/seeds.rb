@@ -15,4 +15,4 @@ E|-----------------|----------------|----------------|----------------|
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 basic_user = User.create(username: 'basic', email: 'basic@bort.com', password: 'bortman', password_confirmation: 'bortman')
-landslide_verse = Tablature.create(content: sample, user: basic_user)
+landslide_verse = Tablature.create(title: "Landslide verse", content: sample, user: basic_user)

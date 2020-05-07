@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 2020_05_02_183451) do
   enable_extension "plpgsql"
 
   create_table "tablatures", force: :cascade do |t|
+    t.string "title", default: "", null: false
     t.text "content", default: "", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
