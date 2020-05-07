@@ -1,13 +1,83 @@
+// colors
+// $color1: #8d8741;
+// $color2: #659dbd;
+// $color3: #daad86;
+// $color4: #bc986a;
+// $color5: #fbeec1;
+$color1: #4285f4;
+$color2: #5c2018;
+$color3: #bc4639;
+$color4: #d4a59a;
+$color5: #f3e0dc;
+
+// layout
+.col {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+// top bar
+.tabTopBar {
+  font: Arial, sans-serif;
+  background-color: $color1;
+  h1 {
+    font-size: 48px;
+  }
+  a {
+    color: white;
+  }
+  li {
+    list-style: none;
+    font-size: 24px;
+    background-color: $color1;
+  }
+}
+
+// sidebars
+.sidebarRight .sidebarLeft{
+  min-height: 100vh;
+  z-index: 100;
+}
+
+.sidebarRight {
+  background-color: $color4;
+  div {
+    padding: 12px 0 0 12px;
+    left: 0;
+  }
+}
+
+.sidebarLeft {
+  color: $color5;
+  background-color: $color2;
+  div {
+    padding: 12px 0 0 12px;
+    right: 0;
+  }
+}
+
+// tab editor
 $line-height: 1;
 $font-size: 16px;
 $fixed-width: 80ch;
+
+.editorContainer {
+  min-height: 100vh;
+  background-color: $color5;
+  padding: 12px 24px;
+}
 
 .quill {
   min-width: $fixed-width;
   max-width: $fixed-width;
 }
 
+.ql-toolbar {
+  background-color: white;
+}
+
 .ql-editor {
+  background-color: white;
   font: $font-size Monospace;
   line-height: 1;
   padding: 0;

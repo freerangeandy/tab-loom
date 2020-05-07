@@ -1,16 +1,15 @@
-import React, {useState} from 'react'
+import React from 'react'
 import Sidebar from 'react-sidebar'
 
 import IndexContent from '../components/IndexContent'
 
 const IndexSidebar = props => {
-  const [sidebarOpen, setSidebarOpen] = useState(false)
-
   return (
     <Sidebar
-    sidebar={<IndexContent />}
-    docked={true}
-    rootClassName={'sidebar'}
+      sidebar={<IndexContent />}
+      docked={true}
+      defaultSidebarWidth={'0'}
+      rootClassName={'sidebarLeft'}
     >
       <div> </div>
     </Sidebar>
