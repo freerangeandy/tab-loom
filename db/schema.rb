@@ -10,13 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_02_183451) do
+ActiveRecord::Schema.define(version: 2020_05_07_183258) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "tablatures", force: :cascade do |t|
-    t.text "content", default: "", null: false
+    t.string "title", default: "", null: false
+    t.text "e_1", default: "", null: false
+    t.text "b_2", default: "", null: false
+    t.text "g_3", default: "", null: false
+    t.text "d_4", default: "", null: false
+    t.text "a_5", default: "", null: false
+    t.text "e_6", default: "", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
