@@ -22,8 +22,8 @@ describe Tablature do
   let!(:user1) { FactoryBot.create(:user) }
   let!(:user2) { FactoryBot.create(:user) }
 
-  let(:sample_tab1) { Tablature.new( content: landslide_verse, user: user1 ) }
-  let(:sample_tab2) { Tablature.new( content: landslide_chorus, user: user2 ) }
+  let(:sample_tab1) { Tablature.new( title: "Sample 1", content: landslide_verse, user: user1 ) }
+  let(:sample_tab2) { Tablature.new( title: "Sample 2", content: landslide_chorus, user: user2 ) }
   let(:tab_initialized_without_arguments) { Tablature.new }
 
   describe ".new" do
@@ -33,6 +33,16 @@ describe Tablature do
 
     it "should not raise an error when initialized without any arguments" do
       expect{tab_initialized_without_arguments }.to_not raise_error
+    end
+  end
+
+  describe "#title" do
+    it "should return the title" do
+      expect(sample_tab1.title).to eq("Sample 1")
+    end
+
+    it "should return '' for a tablature initialized without arguments" do
+      expect(tab_initialized_without_arguments.title).to eq("")
     end
   end
 
@@ -59,27 +69,31 @@ describe Tablature do
   describe ".all" do
     it "should return an array of Tablature objects from the database" do
       first_tab_data = [
+        "Sample 1",
         landslide_verse,
         user1.id
       ]
 
       last_tab_data = [
+        "Sample 2",
         landslide_chorus,
         user2.id
       ]
 
-      Tablature.create(content: first_tab_data.first, user_id: first_tab_data.last)
-      Tablature.create(content: last_tab_data.first, user_id: last_tab_data.last)
+      Tablature.create(title: first_tab_data.first, content: first_tab_data.second, user_id: first_tab_data.last)
+      Tablature.create(title: last_tab_data.first, content: last_tab_data.second, user_id: last_tab_data.last)
 
       tabs = Tablature.all
 
       first_tab = tabs.first
       first_tab_attributes = [
+        first_tab.title,
         first_tab.content,
         first_tab.user_id,
       ]
       last_tab = tabs.last
       last_tab_attributes = [
+        last_tab.title,
         last_tab.content,
         last_tab.user_id
       ]
@@ -111,32 +125,54 @@ describe Tablature do
     end
 
     context "for an invalid object" do
-      let(:tab_with_blank_attributes) do
-        Tablature.new({ content: "", user: nil })
+      let(:tab_with_blank_title) do
+        Tablature.new({ title: "", content: landslide_verse, user: user1 })
       end
 
+      let(:tab_with_blank_content) do
+        Tablature.new({ title: "Sample 1", content: "", user: user1 })
+      end
+
+      let(:tab_with_no_user) do
+        Tablature.new({ title: "Sample 1", content: landslide_verse, user: nil })
+      end
+
+      let(:tab_with_blank_attributes) do
+        Tablature.new({ title: "", content: "", user: nil })
+      end
+
+      let(:blank_title_message) {"Title can't be blank"}
       let(:blank_content_message) {"Content can't be blank"}
       let(:blank_user_message) {"User can't be blank"}
       let(:missing_user_message) {"User must exist"}
-      let(:all_error_messages) {[missing_user_message,blank_user_message,blank_content_message]}
+      let(:all_error_messages) {[missing_user_message,
+        blank_user_message,
+        blank_content_message,
+        blank_title_message
+      ]}
 
       it "should return false" do
         expect(tab_with_blank_attributes.valid?).to eq(false)
       end
 
       it "should add an error message if any of the attributes are blank" do
-        tab_with_blank_attributes.valid?
-        expect(tab_with_blank_attributes.errors.full_messages).to eq(all_error_messages)
+        tab_with_blank_title.valid?
+        tab_with_blank_content.valid?
+        tab_with_no_user.valid?
+        expect(tab_with_blank_title.errors.full_messages).to eq([blank_title_message])
+        expect(tab_with_blank_content.errors.full_messages).to eq([blank_content_message])
+        expect(tab_with_no_user.errors.full_messages).to include(blank_user_message, missing_user_message)
       end
 
-      #
-      # it "should be able to add multiple error messages" do
-      #   cereal_with_invalid_attributes.valid?
-      #   expect(cereal_with_invalid_attributes.errors).to include(
-      #     missing_fields_message,
-      #     description_too_short_message
-      #   )
-      # end
+      it "should be able to add multiple error messages" do
+        tab_with_blank_attributes.valid?
+        expect(tab_with_blank_attributes.errors.full_messages).to include(
+          missing_user_message,
+          blank_user_message,
+          blank_content_message,
+          blank_title_message
+        )
+      end
     end
   end
 
@@ -150,6 +186,7 @@ describe Tablature do
         sample_tab1.save
 
         tab_attributes = [
+          sample_tab1.title,
           sample_tab1.content,
           sample_tab1.user_id
         ]
@@ -159,14 +196,15 @@ describe Tablature do
         tabs_data = Tablature.all
         tab_data = tabs_data.last
 
-        expect(tab_attributes[0]).to eq(tab_data["content"])
-        expect(tab_attributes[1]).to eq(tab_data["user_id"])
+        expect(tab_attributes[0]).to eq(tab_data["title"])
+        expect(tab_attributes[1]).to eq(tab_data["content"])
+        expect(tab_attributes[2]).to eq(tab_data["user_id"])
       end
     end
 
     context "invalid object" do
       let(:tab_with_blank_attributes) do
-        Tablature.new({ content: "", user: nil })
+        Tablature.new({ title: "", content: "", user: nil })
       end
 
       it "should return false" do
