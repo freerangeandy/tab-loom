@@ -4,18 +4,9 @@ import Delta from 'quill-delta';
 import 'react-quill/dist/quill.snow.css';
 
 import * as util from '../shared/utility'
+import {COLUMN_COUNT} from '../shared/inStringConsts.js'
 
-const COLUMN_COUNT = 70
-
-const blankLine = '-'.repeat(COLUMN_COUNT-2)
-const blankTab = [
-  'e|'.concat(blankLine),
-  'B|'.concat(blankLine),
-  'G|'.concat(blankLine),
-  'D|'.concat(blankLine),
-  'A|'.concat(blankLine),
-  'E|'.concat(blankLine),
-]
+// const blankTab = `e|${blankLine}\nB|${blankLine}\nG|${blankLine}\nD|${blankLine}\nA|${blankLine}\nE|${blankLine}\n`
 
 const preventUpdate = (markup) => {
   return (!correctRowCount(markup) || anyRowOverflow(markup))
@@ -65,7 +56,7 @@ const clearStrayFormattingFromText = (text) => {
 }
 
 const TestEditor = props => {
-  const [tabState, setTabState] = useState(blankTab)
+  const [tabState, setTabState] = useState(props.content)
   const editorRef = useRef(null)
 
   const changeHandler = (changedText, delta, source, editor) => {

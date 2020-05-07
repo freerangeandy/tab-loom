@@ -6,3 +6,4 @@ export const A_5 = 'a_5'
 export const E_6 = 'e_6'
 
 export const IN_STRINGS = [E_1, B_2, G_3, D_4, A_5, E_6]
+export const COLUMN_COUNT = 70
