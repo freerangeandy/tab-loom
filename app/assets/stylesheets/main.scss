@@ -42,7 +42,7 @@ $color5: #f3e0dc;
 .sidebarRight {
   background-color: $color4;
   div {
-    padding: 12px 0 0 12px;
+    padding: 0.5rem 0 0 0.5rem;
     left: 0;
   }
 }
@@ -51,7 +51,7 @@ $color5: #f3e0dc;
   color: $color5;
   background-color: $color2;
   div {
-    padding: 12px 0 0 12px;
+    padding: 0.5rem 0 0 0.5rem;
     right: 0;
   }
 }
@@ -64,7 +64,7 @@ $fixed-width: 80ch;
 .editorContainer {
   min-height: 100vh;
   background-color: $color5;
-  padding: 12px 24px;
+  padding: 1rem 2rem;
 }
 
 .quill {
@@ -74,13 +74,14 @@ $fixed-width: 80ch;
 
 .ql-toolbar {
   background-color: white;
+  display: none;
 }
 
 .ql-editor {
   background-color: white;
   font: $font-size Monospace;
   line-height: 1;
-  padding: 0;
+  padding: 1rem;
   white-space: nowrap;
   overflow: hidden;
 }

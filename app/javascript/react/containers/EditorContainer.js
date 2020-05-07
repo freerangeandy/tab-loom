@@ -1,12 +1,12 @@
 import React from 'react'
 
-import TabEditor from '../components/TabEditor'
+import TabPane from '../components/TabPane'
 
 const EditorContainer = props => {
   return (
     <div className="editorContainer" >
       <TabEditor />
-
+      <TabPane />
     </div>
   )
 }
