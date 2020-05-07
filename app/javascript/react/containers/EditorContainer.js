@@ -4,7 +4,10 @@ import TabEditor from '../components/TabEditor'
 
 const EditorContainer = props => {
   return (
-    <TabEditor />
+    <div className="editorContainer" >
+      <TabEditor />
+
+    </div>
   )
 }
 
