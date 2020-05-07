@@ -109,7 +109,10 @@ const TestEditor = props => {
       let newIndex = editor.getSelection().index || 0
       while (indexAtRowStart(newIndex)) newIndex++
       while (indexAtRowEnd(newIndex)) newIndex--
-      editorByRef.setSelection(newIndex, 1)
+      if (newIndex !== editor.getSelection().index || editor.getSelection().length !== 1) {
+        editorByRef.setSelection(newIndex, 1)
+        console.log("another selection !")
+      }
     }
   }
 

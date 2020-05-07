@@ -1,11 +1,11 @@
 import React from 'react'
 
-import TestEditor from './components/TestEditor'
+import Layout from './containers/Layout'
 
 export const App = (props) => {
   return (
     <div>
-      <TestEditor />
+      <Layout />
     </div>
   )
 }
