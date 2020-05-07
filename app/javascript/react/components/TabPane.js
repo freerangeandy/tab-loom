@@ -19,7 +19,8 @@ const TabPane = props => {
 
   let editorContent = blankTab
   if (content.length > 0) {
-    editorContent = util.markupStringToStringArray(content)
+    // ugly
+    editorContent = util.markupStringToStringArray(content.replace(/\n/ig, '<p>'))
   }
 
   return (

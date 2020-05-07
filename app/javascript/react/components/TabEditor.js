@@ -2,7 +2,7 @@ import React, { Fragment, useState, useRef } from 'react';
 import ReactQuill, { Quill } from 'react-quill';
 import Delta from 'quill-delta';
 import 'react-quill/dist/quill.snow.css';
-
+import Button from 'react-bootstrap/Button'
 import * as util from '../shared/utility'
 import {COLUMN_COUNT} from '../shared/inStringConsts.js'
 
@@ -57,6 +57,8 @@ const clearStrayFormattingFromText = (text) => {
 
 const TestEditor = props => {
   const [tabState, setTabState] = useState(props.content)
+  const [saveable, setSaveable] = useState(false)
+
   const editorRef = useRef(null)
 
   const changeHandler = (changedText, delta, source, editor) => {
@@ -67,6 +69,7 @@ const TestEditor = props => {
     } else {
       const newStateArray = util.markupStringToStringArray(newValue)
       setTabState(newStateArray)
+      setSaveable(true)
     }
   }
 
@@ -107,16 +110,21 @@ const TestEditor = props => {
     }
   }
 
+  let disabledSave = saveable ? {} : {disabled: 'disabled'}
+
   return (
     <Fragment>
-    <ReactQuill
-      theme="snow"
-      value={util.stringArrayToMarkupString(tabState)}
-      ref={editorRef}
-      onChange={(val, del, s, ed) => changeHandler(val, del, s, ed)}
-      onChangeSelection={(ra, s, ed) => changeSelectHandler(ra, s, ed)}
-      onKeyDown={e => keyDownHandler(e)}
-    />
+      <ReactQuill
+        theme="snow"
+        value={util.stringArrayToMarkupString(tabState)}
+        ref={editorRef}
+        onChange={(val, del, s, ed) => changeHandler(val, del, s, ed)}
+        onChangeSelection={(ra, s, ed) => changeSelectHandler(ra, s, ed)}
+        onKeyDown={e => keyDownHandler(e)}
+      />
+      <Button className="saveButton" variant="primary" size="md" {...disabledSave}>
+        Save
+      </Button>
     </Fragment>
   );
 }
