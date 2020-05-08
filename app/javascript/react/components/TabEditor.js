@@ -101,7 +101,7 @@ const TestEditor = props => {
   }
 
   const saveClickHandler = (event) => {
-    props.fetchSaveFromContent(tabState)
+    props.saveContent(tabState)
     setSaveable(false)
   }
 

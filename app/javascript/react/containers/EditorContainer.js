@@ -32,17 +32,17 @@ const EditorContainer = props => {
     .catch(error => console.error(`Error in fetch: ${error.message}`))
   }, [])
 
-  const fetchSaveTab = (newTab, tabPayload) => {
-    const tabPayloadWithUser = {...tabPayload, user_id: currentUser.id}
-    if (newTab) fetchPostNewTab(tabPayloadWithUser)
-    else fetchPatchTab(tabPayloadWithUser)
+  const saveTab = (newTab, tabPayloadMissingUser) => {
+    const tabPayload = {...tabPayloadMissingUser, user_id: currentUser.id}
+    if (newTab) fetchSaveTab(tabPayload, "POST")
+    else fetchSaveTab(tabPayload, "PATCH", `/${tabID}`)
   }
 
-  const fetchPostNewTab = (tabPayloadWithUser) => {
-    fetch("/api/v1/tablatures", {
+  const fetchSaveTab = (tabPayload, method, pathSuffix = "") => {
+    fetch(`/api/v1/tablatures${pathSuffix}`, {
       credentials: "same-origin",
-      method: "POST",
-      body: JSON.stringify(tabPayloadWithUser),
+      method: method,
+      body: JSON.stringify(tabPayload),
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json"
@@ -64,38 +64,7 @@ const EditorContainer = props => {
     .catch(error => console.error(`Error in fetch: ${error.message}`))
   }
 
-  const fetchPatchTab = (tabPayloadWithUser) => {
-    fetch(`/api/v1/tablatures/${tabID}`, {
-      credentials: "same-origin",
-      method: "PATCH",
-      body: JSON.stringify(tabPayloadWithUser),
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      }
-    })
-    .then(response => {
-      if (response.ok) {
-        return response
-      } else {
-        let errorMessage = `${response.status} (${response.statusText})`,
-           error = new Error(errorMessage)
-        throw error
-      }
-    })
-    .then(response => response.json())
-    .then(tab => {
-      setTab(tab)
-    })
-    .catch(error => console.error(`Error in fetch: ${error.message}`))
-  }
-
-  let tabPane
-  if (tab != null) {
-    tabPane = (
-      <TabPane tablature={tab} fetchSaveTab={fetchSaveTab} />
-    )
-  }
+  let tabPane = tab ? <TabPane tablature={tab} saveTab={saveTab} /> : null
 
   return (
     <div className="editorContainer" >

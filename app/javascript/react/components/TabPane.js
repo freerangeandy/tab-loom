@@ -24,18 +24,23 @@ const TabPane = props => {
     editorContent = convertLineBreaksToParagraphs(content)
   }
 
-  const fetchSaveFromContent = (content) => {
-    const tabPayload = { title: title, content: content }
-    props.fetchSaveTab(isNewTab, tabPayload)
+  let displayTitle = "Untitled Tab"
+  if (title.length > 0) {
+    displayTitle = title
+  }
+
+  const saveContent = (content) => {
+    const tabPayloadMissingUser = { title: title, content: content }
+    props.saveTab(isNewTab, tabPayloadMissingUser)
   }
 
   return (
     <>
-      <h5>{title}</h5>
+      <h5>{displayTitle}</h5>
       <TabEditor
         newTab={isNewTab}
         content={editorContent}
-        fetchSaveFromContent={fetchSaveFromContent}
+        saveContent={saveContent}
         />
     </>
   )
