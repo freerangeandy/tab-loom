@@ -3,7 +3,10 @@ export const convertLineBreaksToParagraphs = (tabContent) => {
 }
 
 export const insertDashIntoTabContent = (tabContent, curIndex, length = 0) => {
-  return tabContent.slice(0, curIndex) + '-' + tabContent.slice(curIndex+length)
+  const paragraphBuffer = 3
+  const contentBeforeDash = tabContent.slice(0, paragraphBuffer + curIndex)
+  const contentAfterDash = tabContent.slice(paragraphBuffer + curIndex + length)
+  return contentBeforeDash + '-' + contentAfterDash
 }
 
 export const clearStrayFormattingFromText = (text) => {
