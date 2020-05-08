@@ -21,26 +21,37 @@ $color5: #f3e0dc;
   font: Arial, sans-serif;
   background-color: $color1;
   h1 {
+    margin-left: 0.5rem;
     font-size: 48px;
+    font-weight: 800;
   }
   a {
     color: white;
   }
   li {
+    padding-right: 1rem;
     list-style: none;
+    font-weight: 600;
     font-size: 24px;
     background-color: $color1;
   }
 }
 
 // sidebars
-.sidebarRight .sidebarLeft{
+.sidebarRight, .sidebarLeft {
   min-height: 100vh;
   z-index: 100;
+  h4 {
+    font-weight: 600;
+  }
+  h5 {
+    font-weight: 500;
+  }
 }
 
 .sidebarRight {
-  background-color: $color4;
+  color: $color5;
+  background-color: $color3;
   div {
     padding: 0.5rem 0 0 0.5rem;
     left: 0;
@@ -65,6 +76,9 @@ $fixed-width: 80ch;
   min-height: 100vh;
   background-color: $color5;
   padding: 1rem 2rem;
+  h5 {
+    font-weight: 600;
+  }
 }
 
 .quill {
@@ -88,5 +102,5 @@ $fixed-width: 80ch;
 
 .saveButton {
   float: right;
-  margin-top: 0.2rem;
+  margin-top: 0.5rem;
 }
