@@ -1,56 +1,14 @@
-import {E_1, B_2, G_3, D_4, A_5, E_6, IN_STRINGS} from './inStringConsts.js'
-
-// internal
-const dashBlockToString = dashBlock => {
-  const dashCount = parseInt(dashBlock.slice(1))
-  return '-'.repeat(dashCount)
+export const convertLineBreaksToParagraphs = (tabContent) => {
+  return`<p>${tabContent.trim().replace(/\n/ig, '</p><p>')}</p>`
 }
 
-const dashStringToBlock = dashString => {
-  return `-${dashString.length}`
+export const insertDashIntoTabContent = (tabContent, curIndex, length = 0) => {
+  return tabContent.slice(0, curIndex) + '-' + tabContent.slice(curIndex+length)
 }
 
-// for export
-export const jsonTabToNestedArray = (jsonObj) => {
-  let nestedArray = []
-  nestedArray = IN_STRINGS.map(inString => {
-    return jsonObj[inString].split(',')
-  })
-  return nestedArray
-}
-
-export const nestedArrayToJsonTab = (nestedArray) => {
-  let jsonTab = {}
-  IN_STRINGS.forEach((inString, inStringIdx) => {
-    jsonTab[inString] = nestedArray[inStringIdx].join()
-  })
-  return jsonTab
-}
-
-export const nestedArrayToStringArray = (nestedArray) => {
-  return nestedArray.map(notationArray => {
-    const notationString = notationArray.reduce((notationAcc, notation) => {
-      if (notation.startsWith('-')) {
-        return notationAcc.concat(dashBlockToString(notation))
-      } else {
-        return notationAcc.concat(notation)
-      }
-    }, '')
-    return notationString
-  })
-}
-
-export const stringArrayToNestedArray = (stringArray) => {
-  return stringArray.map(notationString => {
-    const notationChunks = notationString.split(/(-+)/).filter(str => str.length > 0)
-    return notationChunks.map(notationChunk => {
-      if (notationChunk.startsWith('-')) {
-        return `-${notationChunk.length}`
-      } else {
-        return notationChunk
-      }
-    })
-  })
+export const clearStrayFormattingFromText = (text) => {
+  let newText = text.replace(/&[^&;]+;| |\./g, '-')
+  return newText
 }
 
 export const stringArrayToMarkupString = (stringArray) => {

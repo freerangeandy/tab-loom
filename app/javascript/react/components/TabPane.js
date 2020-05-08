@@ -1,8 +1,8 @@
 import React, {Fragment} from 'react'
 
 import TabEditor from '../components/TabEditor'
-import {COLUMN_COUNT} from '../shared/inStringConsts.js'
-import * as util from '../shared/utility'
+import { COLUMN_COUNT } from '../shared/inStringConsts.js'
+import { convertLineBreaksToParagraphs } from '../shared/utility'
 
 const blankLine = '-'.repeat(COLUMN_COUNT-2)
 const blankTab = [
@@ -12,7 +12,7 @@ const blankTab = [
   'D|'.concat(blankLine),
   'A|'.concat(blankLine),
   'E|'.concat(blankLine),
-]
+].join("\n")
 
 const TabPane = props => {
   const {title, content} = props.tablature
@@ -20,9 +20,8 @@ const TabPane = props => {
   let editorContent = blankTab
   let isNewTab = true
   if (content.length > 0) {
-    // ugly
     isNewTab = false
-    editorContent = util.markupStringToStringArray(content.replace(/\n/ig, '<p>'))
+    editorContent = convertLineBreaksToParagraphs(content)
   }
 
   const fetchSaveFromContent = (content) => {
