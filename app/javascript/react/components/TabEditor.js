@@ -40,6 +40,11 @@ const shiftSelectionLeft = (editor, curIndex) => {
   curIndex--
   editor.setSelection(curIndex, 1)
 }
+
+const shiftSelectionRight = (editor, curIndex) => {
+  curIndex++
+  editor.setSelection(curIndex, 1)
+}
 // const getRow = (index) => parseInt(index / (COLUMN_COUNT + 1))
 const getOffset = (index) => index % (COLUMN_COUNT + 1)
 const indexAtRowEnd = (index) => getOffset(index) === COLUMN_COUNT
@@ -76,6 +81,8 @@ const TestEditor = props => {
         let newState = insertDashIntoTabContent(tabState, newIndex)
         setTabState(newState)
       } else if (e.key === ' ') {
+        e.preventDefault()
+        shiftSelectionRight(editorByRef, newIndex)
         let newState = insertDashIntoTabContent(tabState, newIndex, 1)
         setTabState(newState)
       } else {

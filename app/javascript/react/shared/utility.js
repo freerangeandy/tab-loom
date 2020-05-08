@@ -1,5 +1,6 @@
 export const convertLineBreaksToParagraphs = (tabContent) => {
-  return`<p>${tabContent.trim().replace(/\n/ig, '</p><p>')}</p>`
+  const tabContentParagraphs = tabContent.trim().replace(/[\n\r]/ig, '</p><p>')
+  return`<p>${tabContentParagraphs}</p>`
 }
 
 export const convertParagraphsToLineBreaks = (tabContent) => {
@@ -15,6 +16,6 @@ export const insertDashIntoTabContent = (tabContent, curIndex, length = 0) => {
 }
 
 export const clearStrayFormattingFromText = (text) => {
-  let newText = text.replace(/&[^&;]+;| |\./g, '-')
+  let newText = text.replace(/&[^&;]+;| /g, '-')
   return newText
 }
