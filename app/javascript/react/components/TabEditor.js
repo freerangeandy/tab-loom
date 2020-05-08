@@ -2,7 +2,6 @@ import React, { Fragment, useState, useRef } from 'react';
 import ReactQuill, { Quill } from 'react-quill';
 import Delta from 'quill-delta';
 import 'react-quill/dist/quill.snow.css';
-import Button from 'react-bootstrap/Button'
 
 import {
   insertDashIntoTabContent,
@@ -51,8 +50,9 @@ const indexAtRowEnd = (index) => getOffset(index) === COLUMN_COUNT
 const indexAtRowStart = (index) => getOffset(index) >= 0 && getOffset(index) <= 1
 
 const TestEditor = props => {
-  const [tabState, setTabState] = useState(props.content)
-  const [saveable, setSaveable] = useState(false)
+  const tabContent = props.tabContent
+  const setTabContent = props.setTabContent
+  const setSaveable = props.setSaveable
 
   const editorRef = useRef(null)
 
@@ -62,7 +62,7 @@ const TestEditor = props => {
     if (preventUpdate(newValue)){
       if (history != null) history.undo()
     } else {
-      setTabState(newValue)
+      setTabContent(newValue)
       setSaveable(true)
     }
   }
@@ -78,13 +78,13 @@ const TestEditor = props => {
         if (!indexAtRowStart(newIndex)){
           shiftSelectionLeft(editorByRef, newIndex)
         }
-        let newState = insertDashIntoTabContent(tabState, newIndex)
-        setTabState(newState)
+        let newContent = insertDashIntoTabContent(tabContent, newIndex)
+        setTabContent(newContent)
       } else if (e.key === ' ') {
         e.preventDefault()
         shiftSelectionRight(editorByRef, newIndex)
-        let newState = insertDashIntoTabContent(tabState, newIndex, 1)
-        setTabState(newState)
+        let newContent = insertDashIntoTabContent(tabContent, newIndex, 1)
+        setTabContent(newContent)
       } else {
         if (indexAtRowEnd(newIndex)) {
           shiftSelectionLeft(editorByRef, newIndex)
@@ -107,30 +107,16 @@ const TestEditor = props => {
     }
   }
 
-  const saveClickHandler = (event) => {
-    props.saveContent(tabState)
-    setSaveable(false)
-  }
-
-  let disabledSave = saveable ? {} : {disabled: 'disabled'}
   return (
     <Fragment>
       <ReactQuill
         theme="snow"
-        value={tabState}
+        value={tabContent}
         ref={editorRef}
         onChange={(val, del, s, ed) => changeHandler(val, del, s, ed)}
         onChangeSelection={(ra, s, ed) => changeSelectHandler(ra, s, ed)}
         onKeyDown={e => keyDownHandler(e)}
       />
-      <Button
-        className="saveButton"
-        variant="primary"
-        size="md"
-        {...disabledSave}
-        onClick={(e) => saveClickHandler(e)}>
-          Save
-      </Button>
     </Fragment>
   );
 }

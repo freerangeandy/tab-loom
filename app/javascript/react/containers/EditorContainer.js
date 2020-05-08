@@ -14,8 +14,9 @@ const EditorContainer = props => {
     content: BLANK_TAB
   })
   const [isNewTab, setIsNewTab] = useState(true)
+  const [saveable, setSaveable] = useState(false)
 
-  let tabID = 1 //hard-coded, should be props.match.params.id
+  let tabID = 3 //hard-coded, should be props.match.params.id
 
   useEffect(() => {
     fetch(`/api/v1/tablatures/${tabID}.json`)
@@ -39,8 +40,8 @@ const EditorContainer = props => {
     .catch(error => console.error(`Error in fetch: ${error.message}`))
   }, [])
 
-  const saveTab = (tabPayloadMissingUser) => {
-    const tabPayload = {...tabPayloadMissingUser, user_id: currentUser.id}
+  const saveTab = () => {
+    const tabPayload = {...tab, user_id: currentUser.id}
     if (isNewTab) fetchSaveTab(tabPayload, "POST")
     else fetchSaveTab(tabPayload, "PATCH", `/${tabID}`)
   }
@@ -72,8 +73,18 @@ const EditorContainer = props => {
   }
 
   let tabPane
-  if (tab.id != null) {
-      tabPane = <TabPane tablature={tab} saveTab={saveTab} />
+  if (currentUser.id != null) {
+    tabPane = (
+      <TabPane
+        tab={tab}
+        setTab={setTab}
+        saveable={saveable}
+        setSaveable={setSaveable}
+        saveTab={saveTab}
+      />
+    )
+  } else {
+    tabPane = <h4>Sign in to begin editing</h4>
   }
 
   return (
