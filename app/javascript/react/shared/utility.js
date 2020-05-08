@@ -2,11 +2,16 @@ export const convertLineBreaksToParagraphs = (tabContent) => {
   return`<p>${tabContent.trim().replace(/\n/ig, '</p><p>')}</p>`
 }
 
+export const convertParagraphsToLineBreaks = (tabContent) => {
+  const tabContentLineBreaks = tabContent.replace(/<\/p><p>/g, '\n')
+  return tabContentLineBreaks.replace(/<\/?p>/g, '')
+}
+
 export const insertDashIntoTabContent = (tabContent, curIndex, length = 0) => {
-  const paragraphBuffer = 3
-  const contentBeforeDash = tabContent.slice(0, paragraphBuffer + curIndex)
-  const contentAfterDash = tabContent.slice(paragraphBuffer + curIndex + length)
-  return contentBeforeDash + '-' + contentAfterDash
+  const tabContentLineBreaks = convertParagraphsToLineBreaks(tabContent)
+  const contentBeforeDash = tabContentLineBreaks.slice(0, curIndex)
+  const contentAfterDash = tabContentLineBreaks.slice(curIndex + length)
+  return convertLineBreaksToParagraphs(contentBeforeDash + '-' + contentAfterDash)
 }
 
 export const clearStrayFormattingFromText = (text) => {
