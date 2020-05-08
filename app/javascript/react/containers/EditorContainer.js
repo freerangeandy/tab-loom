@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from 'react'
 
 import TabPane from '../components/TabPane'
+import {BLANK_TAB} from '../shared/inStringConsts'
 
 const EditorContainer = props => {
   const [currentUser, setCurrentUser] = useState({
     id: null,
     role: "visitor"
   })
-  const [tab, setTab] = useState(null)
+  const [tab, setTab] = useState({
+    id: null,
+    title: "Untitled Tab",
+    content: BLANK_TAB
+  })
+  const [isNewTab, setIsNewTab] = useState(true)
 
   let tabID = 1 //hard-coded, should be props.match.params.id
 
@@ -27,14 +33,15 @@ const EditorContainer = props => {
       if (body.current_user !== null) {
         setCurrentUser(body.current_user)
       }
+      setIsNewTab(false)
       setTab(body.tablature)
     })
     .catch(error => console.error(`Error in fetch: ${error.message}`))
   }, [])
 
-  const saveTab = (newTab, tabPayloadMissingUser) => {
+  const saveTab = (tabPayloadMissingUser) => {
     const tabPayload = {...tabPayloadMissingUser, user_id: currentUser.id}
-    if (newTab) fetchSaveTab(tabPayload, "POST")
+    if (isNewTab) fetchSaveTab(tabPayload, "POST")
     else fetchSaveTab(tabPayload, "PATCH", `/${tabID}`)
   }
 
@@ -64,7 +71,10 @@ const EditorContainer = props => {
     .catch(error => console.error(`Error in fetch: ${error.message}`))
   }
 
-  let tabPane = tab ? <TabPane tablature={tab} saveTab={saveTab} /> : null
+  let tabPane
+  if (tab.id != null) {
+      tabPane = <TabPane tablature={tab} saveTab={saveTab} />
+  }
 
   return (
     <div className="editorContainer" >
