@@ -16,7 +16,7 @@ const EditorContainer = props => {
   const [isNewTab, setIsNewTab] = useState(true)
   const [saveable, setSaveable] = useState(false)
 
-  let tabID = 3 //hard-coded, should be props.match.params.id
+  let tabID = 1 //hard-coded, should be props.match.params.id
 
   useEffect(() => {
     fetch(`/api/v1/tablatures/${tabID}.json`)
