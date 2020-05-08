@@ -10,12 +10,3 @@ export const clearStrayFormattingFromText = (text) => {
   let newText = text.replace(/&[^&;]+;| |\./g, '-')
   return newText
 }
-
-export const stringArrayToMarkupString = (stringArray) => {
-  return `<p>${stringArray.join('</p><p>')}</p>`
-}
-
-export const markupStringToStringArray = (markupString) => {
-  const markupStringNoEndTags = markupString.replace(/<\/p>/g, '')
-  return markupStringNoEndTags.split('<p>').filter(str => str.length > 0)
-}
