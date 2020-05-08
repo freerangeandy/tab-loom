@@ -1,16 +1,19 @@
 import React from 'react'
 
 const IndexContent = props => {
+  const currentUser = props.currentUser
+  const tabList = props.tabList
+
+  let tabDisplayList
+  if (tabList.length > 0) {
+    tabDisplayList = tabList.map((tab) => {
+      return (<h5 key={tab.id}>{tab.title}</h5>)
+    })
+  }
   return (
     <div >
-      <h4>Profile name</h4>
-      <h5>Tab 1</h5>
-      <ul>
-        <li>Intro</li>
-        <li>Verse</li>
-        <li>Chorus</li>
-        <li>Bridge</li>
-      </ul>
+      <h4>{currentUser.username}</h4>
+      {tabDisplayList}
     </div>
   )
 }
