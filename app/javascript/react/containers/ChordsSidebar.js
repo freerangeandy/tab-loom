@@ -9,7 +9,7 @@ const ChordsSidebar = props => {
       sidebar={<ChordsContent />}
       docked={true}
       pullRight
-      defaultSidebarWidth={'0'}
+      defaultSidebarWidth={0}
       rootClassName={'sidebarRight'}
     >
       <div> </div>

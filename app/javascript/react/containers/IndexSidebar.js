@@ -8,7 +8,7 @@ const IndexSidebar = props => {
     <Sidebar
       sidebar={<IndexContent />}
       docked={true}
-      defaultSidebarWidth={'0'}
+      defaultSidebarWidth={0}
       rootClassName={'sidebarLeft'}
     >
       <div> </div>
