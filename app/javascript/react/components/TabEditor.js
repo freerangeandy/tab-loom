@@ -64,8 +64,8 @@ const TestEditor = props => {
 
   const keyDownHandler = (e) => {
     const editorByRef = editorRef.current != null ? editorRef.current.editor : null
-    if (editorByRef) {
-      let newIndex = editorByRef.getSelection().index || 0
+    if (editorByRef && editorByRef.hasFocus()) {
+      let newIndex = editorByRef.getSelection().index
 
       if (e.key === 'ArrowLeft' && !indexAtRowStart(newIndex)) {
           shiftSelectionLeft(editorByRef, newIndex)
@@ -88,8 +88,9 @@ const TestEditor = props => {
 
   const changeSelectHandler = (range, source, editor) => {
     const editorByRef = editorRef.current != null ? editorRef.current.editor : null
-    if (editorByRef) {
-      let newIndex = editor.getSelection().index || 0
+    if (editorByRef && editorByRef.hasFocus()) {
+      let newIndex = editorByRef.getSelection().index
+
       while (indexAtRowStart(newIndex)) newIndex++
       while (indexAtRowEnd(newIndex)) newIndex--
       if (newIndex !== editor.getSelection().index || editor.getSelection().length !== 1) {
