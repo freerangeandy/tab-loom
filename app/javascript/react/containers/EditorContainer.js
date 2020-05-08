@@ -4,10 +4,8 @@ import TabPane from '../components/TabPane'
 import {BLANK_TAB} from '../shared/inStringConsts'
 
 const EditorContainer = props => {
-  const [currentUser, setCurrentUser] = useState({
-    id: null,
-    role: "visitor"
-  })
+  const currentUser = props.currentUser
+
   const [tab, setTab] = useState({
     id: null,
     title: "Untitled Tab",
@@ -31,9 +29,6 @@ const EditorContainer = props => {
     })
     .then(response => response.json())
     .then(body => {
-      if (body.current_user !== null) {
-        setCurrentUser(body.current_user)
-      }
       setIsNewTab(false)
       setTab(body.tablature)
     })
