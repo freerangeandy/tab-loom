@@ -6,11 +6,13 @@ import IndexContent from '../components/IndexContent'
 const IndexSidebar = props => {
   const currentUser = props.currentUser
   const tabList = props.tabList
+  const setTabShowIndex = props.setTabShowIndex
 
   const indexContent = (
     <IndexContent
       currentUser={currentUser}
       tabList={tabList}
+      setTabShowIndex={setTabShowIndex}
     />
   )
 
