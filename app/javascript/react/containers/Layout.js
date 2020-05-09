@@ -26,8 +26,10 @@ const Layout = props => {
     })
     .then(response => response.json() )
     .then(user => {
-      setCurrentUser({ id: user.id, username: user.username })
-      setTabList(user.tablatures)
+      if (user != null){
+        setCurrentUser({ id: user.id, username: user.username })
+        setTabList(user.tablatures)
+      }
     })
     .catch(error => console.error(`Error in fetch: ${error.message}`))
   }, [])
