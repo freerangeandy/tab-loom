@@ -4,14 +4,15 @@ import Button from 'react-bootstrap/Button'
 import TabEditor from '../components/TabEditor'
 
 const TabPane = props => {
-  const {title, content} = props.tab
+  const tab = props.tab
+  const setTab = props.setTab
   const saveable = props.saveable
   const setSaveable = props.setSaveable
   const saveTab = props.saveTab
 
   const setTabContent = (content) => {
-    props.setTab({
-      ...props.tab,
+    setTab({
+      ...tab,
       content: content
     })
   }
@@ -21,12 +22,12 @@ const TabPane = props => {
     setSaveable(false)
   }
 
-  let disabledSave = saveable ? {} : {disabled: 'disabled'}
+  let disabledSave = saveable ? {} : { disabled: 'disabled' }
   return (
     <>
-      <h5>{title}</h5>
+      <h5>{tab.title}</h5>
       <TabEditor
-        tabContent={content}
+        tabContent={tab.content}
         setTabContent={setTabContent}
         setSaveable={setSaveable}
         />

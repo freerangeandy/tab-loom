@@ -1,49 +1,18 @@
 import React, { useState, useEffect } from 'react'
 
 import TabPane from '../components/TabPane'
-import {BLANK_TAB} from '../shared/inStringConsts'
 
 const EditorContainer = props => {
-  const [currentUser, setCurrentUser] = useState({
-    id: null,
-    role: "visitor"
-  })
-  const [tab, setTab] = useState({
-    id: null,
-    title: "Untitled Tab",
-    content: BLANK_TAB
-  })
-  const [isNewTab, setIsNewTab] = useState(true)
+  const currentUser = props.currentUser
+  const tab = props.tabShow
+  const setTab = props.setTabShow
+
   const [saveable, setSaveable] = useState(false)
-
-  let tabID = 1 //hard-coded, should be props.match.params.id
-
-  useEffect(() => {
-    fetch(`/api/v1/tablatures/${tabID}.json`)
-    .then((response) => {
-      if (response.ok) {
-        return response
-      } else {
-        let errorMessage = `${response.status} (${response.statusText})`
-        let error = new Error(errorMessage)
-        throw(error)
-      }
-    })
-    .then(response => response.json())
-    .then(body => {
-      if (body.current_user !== null) {
-        setCurrentUser(body.current_user)
-      }
-      setIsNewTab(false)
-      setTab(body.tablature)
-    })
-    .catch(error => console.error(`Error in fetch: ${error.message}`))
-  }, [])
 
   const saveTab = () => {
     const tabPayload = {...tab, user_id: currentUser.id}
-    if (isNewTab) fetchSaveTab(tabPayload, "POST")
-    else fetchSaveTab(tabPayload, "PATCH", `/${tabID}`)
+    if (tab.id === null)  fetchSaveTab(tabPayload, "POST")
+    else                  fetchSaveTab(tabPayload, "PATCH", `/${tab.id}`)
   }
 
   const fetchSaveTab = (tabPayload, method, pathSuffix = "") => {
@@ -88,7 +57,7 @@ const EditorContainer = props => {
   }
 
   return (
-    <div className="editorContainer" >
+    <div className="editorContainer">
       {tabPane}
     </div>
   )

@@ -85,6 +85,7 @@ const TestEditor = props => {
         shiftSelectionRight(editorByRef, newIndex)
         let newContent = insertDashIntoTabContent(tabContent, newIndex, 1)
         setTabContent(newContent)
+        setSaveable(true)
       } else {
         if (indexAtRowEnd(newIndex)) {
           shiftSelectionLeft(editorByRef, newIndex)
