@@ -1,7 +1,8 @@
 import React, { Fragment } from 'react'
 import Button from 'react-bootstrap/Button'
 
-import TabEditor from '../components/TabEditor'
+import TabEditor from './TabEditor'
+import TabTitle from './TabTitle'
 
 const TabPane = props => {
   const tab = props.tab
@@ -22,10 +23,14 @@ const TabPane = props => {
     setSaveable(false)
   }
 
+  const setTitle = (newTitle) => {
+    console.log("set title" + newTitle)
+  }
+
   let disabledSave = saveable ? {} : { disabled: 'disabled' }
   return (
     <>
-      <h5>{tab.title}</h5>
+      <TabTitle title={tab.title} setTitle={setTitle} />
       <TabEditor
         tabContent={tab.content}
         setTabContent={setTabContent}
