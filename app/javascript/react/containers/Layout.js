@@ -26,8 +26,10 @@ const Layout = props => {
     })
     .then(response => response.json() )
     .then(user => {
-      setCurrentUser({ id: user.id, username: user.username })
-      setTabList(user.tablatures)
+      if (user != null){
+        setCurrentUser({ id: user.id, username: user.username })
+        setTabList(user.tablatures)
+      }
     })
     .catch(error => console.error(`Error in fetch: ${error.message}`))
   }, [])
@@ -41,8 +43,8 @@ const Layout = props => {
     ])
   }
 
-  let tabShow = { id: null, title: "Untitled Tab", content: BLANK_TAB }
-  if (tabList.length > 0)  {
+  let tabShow = { id: null, title: `Untitled Tab ${tabList.length}`, content: BLANK_TAB }
+  if (tabShowIndex < tabList.length)  {
     tabShow = tabList[tabShowIndex]
   }
 
