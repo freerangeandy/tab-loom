@@ -22,11 +22,16 @@ const IndexContent = props => {
     })
   }
 
+  let newTabButton = <h5>Sign in to add new tabs</h5>
+  if (currentUser.id != null) {
+    newTabButton = <h5 onClick={() => showNewTab()}>+ New Tab</h5>
+  }
+
   return (
     <div >
       <h4>{currentUser.username}</h4>
       {tabDisplayList}
-      <h5 onClick={() => showNewTab()}>+ New Tab</h5>
+      {newTabButton}
     </div>
   )
 }
