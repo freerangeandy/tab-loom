@@ -5,6 +5,10 @@ const IndexContent = props => {
   const tabList = props.tabList
   const setTabShowIndex = props.setTabShowIndex
 
+  const showNewTab = () => {
+    setTabShowIndex(tabList.length)
+  }
+
   let tabDisplayList
   if (tabList.length > 0) {
     tabDisplayList = tabList.map((tab, index) => {
@@ -22,6 +26,7 @@ const IndexContent = props => {
     <div >
       <h4>{currentUser.username}</h4>
       {tabDisplayList}
+      <h5 onClick={() => showNewTab()}>+ New Tab</h5>
     </div>
   )
 }
