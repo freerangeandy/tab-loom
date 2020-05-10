@@ -1,7 +1,10 @@
-import React, { Fragment, useState, useRef } from 'react';
+import React, { Fragment, useRef } from 'react';
+import { useSelector, useDispatch } from 'react-redux'
 import ReactQuill, { Quill } from 'react-quill';
 import Delta from 'quill-delta';
 import 'react-quill/dist/quill.snow.css';
+
+import allActions from '../actions'
 
 import {
   insertDashIntoTabContent,
@@ -50,11 +53,15 @@ const indexAtRowEnd = (index) => getOffset(index) === COLUMN_COUNT
 const indexAtRowStart = (index) => getOffset(index) >= 0 && getOffset(index) <= 1
 
 const TestEditor = props => {
-  const tabContent = props.tabContent
-  const setTabContent = props.setTabContent
-  const setSaveable = props.setSaveable
-
   const editorRef = useRef(null)
+  const dispatch = useDispatch()
+  const tabContent = useSelector(state => state.tabEditor.tab.content)
+  const setTabContent = (content) => {
+    dispatch(allActions.editorActions.setTabContent(content))
+  }
+  const setSaveable = (saveable) => {
+    dispatch(allActions.editorActions.setSaveable(saveable))
+  }
 
   const changeHandler = (changedText, delta, source, editor) => {
     const history = editorRef.current != null ? editorRef.current.editor.history : null

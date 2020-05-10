@@ -1,24 +1,36 @@
 import React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+
+import allActions from '../actions'
 
 const IndexContent = props => {
-  const currentUser = props.currentUser
-  const tabList = props.tabList
-  const tabShowIndex = props.tabShowIndex
-  const setTabShowIndex = props.setTabShowIndex
+  const dispatch = useDispatch()
+  const currentUser = useSelector(state => state.currentUser)
+  const tabList = useSelector(state => state.userTabs.list)
+  const tabSelectedIndex = useSelector(state => state.userTabs.selectedIndex)
+  const setTabSelectedIndex = (index) => {
+    dispatch(allActions.tabsActions.setSelectedIndex(index))
+    setTabShown(index)
+  }
+  const setTabShown = (index) => {
+    const tab = tabList[index]
+    dispatch(allActions.editorActions.setTab(tab))
+  }
 
   const showNewTab = () => {
-    setTabShowIndex(tabList.length)
+    setTabSelectedIndex(tabList.length)
+    setTabShown(tabList.length)
   }
 
   let tabDisplayList
   if (tabList.length > 0) {
     tabDisplayList = tabList.map((tab, index) => {
-      const indexItemClass = index === tabShowIndex ? "indexItemSelected" : "indexItem"
+      const indexItemClass = index === tabSelectedIndex ? "indexItemSelected" : "indexItem"
       return (
         <h5
           className={indexItemClass}
           key={tab.id}
-          onClick={() => setTabShowIndex(index)}>
+          onClick={() => setTabSelectedIndex(index)}>
           {tab.title}
         </h5>
       )

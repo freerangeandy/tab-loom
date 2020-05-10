@@ -24,9 +24,11 @@
     "react-bootstrap": "^1.0.1",
     "react-dom": "~16.8.0",
     "react-quill": "^2.0.0-beta.2",
+    "react-redux": "^7.2.0",
     "react-router-dom": "5.0.0",
     "react-sidebar": "^3.0.2",
-    "redbox-react": "1.6.0"
+    "redbox-react": "1.6.0",
+    "redux": "^4.0.5"
   },
   "devDependencies": {
     "babel-jest": "^24.9.0",

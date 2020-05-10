@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
@@ -7,11 +8,17 @@ import EditorContainer from './EditorContainer'
 import IndexSidebar from './IndexSidebar'
 import ChordsSidebar from './ChordsSidebar'
 import { BLANK_TAB } from '../shared/inStringConsts'
+import allActions from '../actions'
 
 const Layout = props => {
-  const [currentUser, setCurrentUser] = useState({ id: null, username: "visitor" })
-  const [tabList, setTabList] = useState([])
-  const [tabShowIndex, setTabShowIndex] = useState(0)
+  const dispatch = useDispatch()
+  const tab = useSelector(state => state.tabEditor.tab)
+  const setCurrentUser = (user) => {
+    dispatch(allActions.userActions.setCurrentUser(user))
+  }
+  const setTabList = (tabList) => {
+    dispatch(allActions.tabsActions.setTabList(tabList))
+  }
 
   useEffect(() => {
     fetch("/api/v1/users/:id.json")
@@ -34,37 +41,14 @@ const Layout = props => {
     .catch(error => console.error(`Error in fetch: ${error.message}`))
   }, [])
 
-  const getTabFromId = (tabId) => tabList.find(tab => tab.id === tabId)
-  const setTabShow = (tab) => {
-    setTabList([
-      ...tabList.slice(0,tabShowIndex),
-      tab,
-      ...tabList.slice(tabShowIndex + 1)
-    ])
-  }
-
-  let tabShow = { id: null, title: `Untitled Tab ${tabList.length}`, content: BLANK_TAB }
-  if (tabShowIndex < tabList.length)  {
-    tabShow = tabList[tabShowIndex]
-  }
-
   return (
     <Container fluid>
       <Row>
         <Col>
-          <IndexSidebar
-            currentUser={currentUser}
-            tabList={tabList}
-            tabShowIndex={tabShowIndex}
-            setTabShowIndex={setTabShowIndex}
-          />
+          <IndexSidebar />
         </Col>
         <Col className="col">
-          <EditorContainer
-            currentUser={currentUser}
-            tabShow={tabShow}
-            setTabShow={setTabShow}
-          />
+          <EditorContainer />
         </Col>
         <Col>
           <ChordsSidebar />
