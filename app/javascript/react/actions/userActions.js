@@ -1,6 +1,6 @@
-const setUser = (user) => {
+const setCurrentUser = (user) => {
   return {
-    type: "SET_USER",
+    type: "SET_CURRENT_USER",
     payload: user
   }
 }
@@ -12,6 +12,6 @@ const logOut = () => {
 }
 
 export default {
-  setUser,
+  setCurrentUser,
   logOut
 }
