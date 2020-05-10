@@ -55,6 +55,7 @@ const Layout = props => {
           <IndexSidebar
             currentUser={currentUser}
             tabList={tabList}
+            tabShowIndex={tabShowIndex}
             setTabShowIndex={setTabShowIndex}
           />
         </Col>

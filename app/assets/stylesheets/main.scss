@@ -38,7 +38,7 @@ $color5: #f3e0dc;
 }
 
 // sidebars
-.sidebarRight, .sidebarLeft {
+.chordsSidebar, .indexSidebar {
   min-height: 100vh;
   z-index: 100;
   h4 {
@@ -49,7 +49,7 @@ $color5: #f3e0dc;
   }
 }
 
-.sidebarRight {
+.chordsSidebar {
   color: $color5;
   background-color: $color3;
   div {
@@ -58,12 +58,18 @@ $color5: #f3e0dc;
   }
 }
 
-.sidebarLeft {
+.indexSidebar {
   color: $color5;
   background-color: $color2;
   div {
     padding: 0.5rem 0 0 0.5rem;
     right: 0;
+  }
+  .indexItem {
+    cursor: pointer;
+  }
+  .indexItemSelected {
+    color: yellow;
   }
 }
 
@@ -103,4 +109,15 @@ $fixed-width: 80ch;
 .saveButton {
   float: right;
   margin-top: 0.5rem;
+}
+
+.editTitle {
+  margin-bottom: 1rem;
+  h5, input {
+    width: 40%;
+  }
+  input {
+    font-weight: 600;
+    font-size: 16px;
+  }
 }
