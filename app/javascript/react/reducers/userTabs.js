@@ -12,9 +12,9 @@ const userTabs = (state = defaultTabsState, action) => {
       }
     case "UPDATE_IN_LIST":
       const updatedList = [
-        ...state.list.slice(0,selectedIndex),
+        ...state.list.slice(0,state.selectedIndex),
         action.payload,
-        ...state.list.slice(selectedIndex + 1)
+        ...state.list.slice(state.selectedIndex + 1)
       ]
       return {
         ...state,

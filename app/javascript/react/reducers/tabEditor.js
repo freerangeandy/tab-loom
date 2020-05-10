@@ -1,7 +1,7 @@
 import { BLANK_TAB } from '../shared/inStringConsts'
 
 const defaultEditorState = {
-  editorTab: {
+  tab: {
     id: null,
     title: "Untitled Tab",
     content: BLANK_TAB
@@ -12,19 +12,25 @@ const defaultEditorState = {
 
 const tabEditor = (state = defaultEditorState, action) => {
   switch(action.type) {
+    case "SET_TAB":
+      const tabShow = action.payload ? action.payload : defaultEditorState.tab
+      return {
+        ...state,
+        tab: tabShow
+      }
     case "SET_TITLE":
       return {
         ...state,
-        editorTab: {
-          ...state.editorTab,
+        tab: {
+          ...state.tab,
           title: action.payload
         }
       }
     case "SET_CONTENT":
       return {
         ...state,
-        editorTab: {
-          ...state.editorTab,
+        tab: {
+          ...state.tab,
           content: action.payload
         }
       }

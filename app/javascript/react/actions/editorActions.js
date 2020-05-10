@@ -1,3 +1,10 @@
+const setTab = (tab) => {
+  return {
+    type: "SET_TAB",
+    payload: tab
+  }
+}
+
 const setTabTitle = (title) => {
   return {
     type: "SET_TITLE",
@@ -27,6 +34,7 @@ const setColumn = (colIndex) => {
 }
 
 export default {
+  setTab,
   setTabTitle,
   setTabContent,
   setSaveable,
