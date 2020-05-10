@@ -2,11 +2,11 @@ import React, { useState, useEffect, useRef } from 'react'
 import FormControl from 'react-bootstrap/FormControl'
 
 const TabTitle = (props) => {
-  const setTitle = props.setTitle
-  const title = props.title
+  const setSaveable = props.setSaveable
+  const setTabTitle = props.setTabTitle
+  const tabTitle = props.tabTitle
 
   const [editMode, setEditMode] = useState(false)
-  const [currentTitle, setCurrentTitle] = useState(props.title)
   const editTitleRef = useRef(null)
 
   const clickOutHandler = event => {
@@ -15,7 +15,8 @@ const TabTitle = (props) => {
     }
   }
   const changeHandler = (event) => {
-    setCurrentTitle(event.target.value)
+    setTabTitle(event.target.value)
+    setSaveable(true)
   }
 
   let titleDisplay
@@ -25,11 +26,11 @@ const TabTitle = (props) => {
         ref={editTitleRef}
         className="editTitle"
         onChange={(e) => changeHandler(e)}
-        defaultValue={props.title} />
+        defaultValue={tabTitle} />
     )
     document.addEventListener("mousedown", clickOutHandler)
   } else {
-    titleDisplay = <h5 onClick={()=> setEditMode(true)}>{props.title}</h5>
+    titleDisplay = <h5 onClick={()=> setEditMode(true)}>{tabTitle}</h5>
   }
 
   return (

@@ -19,7 +19,6 @@ const TabPane = props => {
   }
 
   const setTabTitle = (title) => {
-    console.log("set title" + newTitle)
     setTab({
       ...tab,
       title: title
@@ -35,7 +34,7 @@ const TabPane = props => {
   return (
     <>
       <TabTitle
-        title={tab.title}
+        tabTitle={tab.title}
         setTabTitle={setTabTitle}
         setSaveable={setSaveable}
         />
