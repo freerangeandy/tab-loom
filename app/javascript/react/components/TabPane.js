@@ -1,30 +1,19 @@
 import React, { Fragment } from 'react'
 import Button from 'react-bootstrap/Button'
+import { useSelector, useDispatch } from 'react-redux'
 
 import TabEditor from './TabEditor'
 import TabTitle from './TabTitle'
+import allActions from '../actions'
 
 const TabPane = props => {
-  const tab = props.tab
-  const setTab = props.setTab
-  const saveable = props.saveable
-  const setSaveable = props.setSaveable
   const saveTab = props.saveTab
-
-  const setTabContent = (content) => {
-    setTab({
-      ...tab,
-      content: content
-    })
+  const dispatch = useDispatch()
+  const saveable = useSelector(state => state.tabEditor.saveable)
+  const setSaveable = (saveable) => {
+    dispatch(allActions.editorActions.setSaveable(saveable))
   }
-
-  const setTabTitle = (title) => {
-    setTab({
-      ...tab,
-      title: title
-    })
-  }
-
+  
   const saveClickHandler = (event) => {
     saveTab()
     setSaveable(false)
@@ -33,16 +22,8 @@ const TabPane = props => {
   let disabledSave = saveable ? {} : { disabled: 'disabled' }
   return (
     <>
-      <TabTitle
-        tabTitle={tab.title}
-        setTabTitle={setTabTitle}
-        setSaveable={setSaveable}
-        />
-      <TabEditor
-        tabContent={tab.content}
-        setTabContent={setTabContent}
-        setSaveable={setSaveable}
-        />
+      <TabTitle />
+      <TabEditor />
       <Button
         className="saveButton"
         variant="primary"

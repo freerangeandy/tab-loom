@@ -1,13 +1,21 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 
 import TabPane from '../components/TabPane'
+import allActions from '../actions'
 
 const EditorContainer = props => {
-  const currentUser = props.currentUser
-  const tab = props.tabShow
-  const setTab = props.setTabShow
+  const dispatch = useDispatch()
+  const currentUser = useSelector(state => state.currentUser)
+  const tabList = useSelector(state => state.userTabs.list)
+  const tab = useSelector(state => state.tabEditor.tab)
+  const tabSelectedIndex = useSelector(state => state.userTabs.selectedIndex)
+  const setTab = (tab) => { dispatch(allActions.editorActions.setTab(tab)) }
+  const updateInList = (tab) => { dispatch(allActions.tabsActions.updateInList(tab)) }
 
-  const [saveable, setSaveable] = useState(false)
+  useEffect(() => {
+    setTab(tabList[tabSelectedIndex])
+  },[tabList])
 
   const saveTab = () => {
     const tabPayload = {...tab, user_id: currentUser.id}
@@ -37,6 +45,7 @@ const EditorContainer = props => {
     .then(response => response.json())
     .then(tab => {
       setTab(tab)
+      updateInList(tab)
     })
     .catch(error => console.error(`Error in fetch: ${error.message}`))
   }
@@ -44,13 +53,7 @@ const EditorContainer = props => {
   let tabPane
   if (currentUser.id != null) {
     tabPane = (
-      <TabPane
-        tab={tab}
-        setTab={setTab}
-        saveable={saveable}
-        setSaveable={setSaveable}
-        saveTab={saveTab}
-      />
+      <TabPane saveTab={saveTab} />
     )
   } else {
     tabPane = <h4>Sign in to begin editing</h4>
