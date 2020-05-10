@@ -110,3 +110,14 @@ $fixed-width: 80ch;
   float: right;
   margin-top: 0.5rem;
 }
+
+.editTitle {
+  margin-bottom: 1rem;
+  h5, input {
+    width: 40%;
+  }
+  input {
+    font-weight: 600;
+    font-size: 16px;
+  }
+}

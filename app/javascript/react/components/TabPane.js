@@ -18,19 +18,27 @@ const TabPane = props => {
     })
   }
 
+  const setTabTitle = (title) => {
+    console.log("set title" + newTitle)
+    setTab({
+      ...tab,
+      title: title
+    })
+  }
+
   const saveClickHandler = (event) => {
     saveTab()
     setSaveable(false)
   }
 
-  const setTitle = (newTitle) => {
-    console.log("set title" + newTitle)
-  }
-
   let disabledSave = saveable ? {} : { disabled: 'disabled' }
   return (
     <>
-      <TabTitle title={tab.title} setTitle={setTitle} />
+      <TabTitle
+        title={tab.title}
+        setTabTitle={setTabTitle}
+        setSaveable={setSaveable}
+        />
       <TabEditor
         tabContent={tab.content}
         setTabContent={setTabContent}
