@@ -5,52 +5,15 @@ import Delta from 'quill-delta';
 import 'react-quill/dist/quill.snow.css';
 
 import allActions from '../actions'
-
 import {
   insertDashIntoTabContent,
-  clearStrayFormattingFromText
+  clearStrayFormattingFromText,
+  preventUpdate,
+  shiftSelectionRight,
+  shiftSelectionLeft,
+  indexAtRowEnd,
+  indexAtRowStart
 } from '../shared/utility'
-import { COLUMN_COUNT } from '../shared/inStringConsts.js'
-
-const preventUpdate = (markup) => {
-  return (!correctRowCount(markup) || anyRowOverflow(markup))
-}
-
-const correctRowCount = (markup) => {
-  const rows = [...markup.matchAll(/<p>/g)]
-  const rowCount = rows.length
-  return rowCount === 6
-}
-
-const anyRowOverflow = (markup) => {
-  let overflow = false
-  const markupSplitCleaned = markup
-    .split(/<\/?p>/)
-    .map(el => el.trim())
-    .filter(el => el.length > 0)
-
-  markupSplitCleaned.forEach((row, rowIdx) => {
-    if (row.length > COLUMN_COUNT) {
-      console.log(`OVERFLOW (line ${rowIdx + 1})`)
-      overflow = true;
-    }
-  })
-  return overflow
-}
-
-const shiftSelectionLeft = (editor, curIndex) => {
-  curIndex--
-  editor.setSelection(curIndex, 1)
-}
-
-const shiftSelectionRight = (editor, curIndex) => {
-  curIndex++
-  editor.setSelection(curIndex, 1)
-}
-// const getRow = (index) => parseInt(index / (COLUMN_COUNT + 1))
-const getOffset = (index) => index % (COLUMN_COUNT + 1)
-const indexAtRowEnd = (index) => getOffset(index) === COLUMN_COUNT
-const indexAtRowStart = (index) => getOffset(index) >= 0 && getOffset(index) <= 1
 
 const TestEditor = props => {
   const editorRef = useRef(null)
