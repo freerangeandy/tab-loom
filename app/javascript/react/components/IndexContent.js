@@ -5,19 +5,18 @@ import IndexItem from './IndexItem'
 import allActions from '../actions'
 
 const IndexContent = props => {
+  const deleteTabByIndex = props.deleteTabByIndex
   const dispatch = useDispatch()
   const currentUser = useSelector(state => state.currentUser)
   const tabList = useSelector(state => state.userTabs.list)
   const tabSelectedIndex = useSelector(state => state.userTabs.selectedIndex)
+  const setTabShown = (index) => {
+    dispatch(allActions.editorActions.setTab(tabList[index]))
+  }
   const setTabSelectedIndex = (index) => {
     dispatch(allActions.tabsActions.setSelectedIndex(index))
     setTabShown(index)
   }
-  const setTabShown = (index) => {
-    const tab = tabList[index]
-    dispatch(allActions.editorActions.setTab(tab))
-  }
-
   const showNewTab = () => {
     setTabSelectedIndex(tabList.length)
     setTabShown(tabList.length)
@@ -33,6 +32,7 @@ const IndexContent = props => {
           index={index}
           indexItemClass={indexItemClass}
           indexItemTitle={tab.title}
+          deleteHandler={() => deleteTabByIndex(index)}
           clickHandler={() => setTabSelectedIndex(index)} />
       )
     })

@@ -15,7 +15,7 @@ const EditorContainer = props => {
 
   useEffect(() => {
     setTab(tabList[tabSelectedIndex])
-  },[tabList])
+  },[tabList, tabSelectedIndex])
 
   const saveTab = () => {
     const tabPayload = {...tab, user_id: currentUser.id}

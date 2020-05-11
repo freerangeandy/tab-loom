@@ -6,18 +6,16 @@ import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import allActions from '../actions'
 
 const IndexItem = (props) => {
-  const indexItemClass = props.indexItemClass
-  const indexItemTitle = props.indexItemTitle
-  const clickHandler = props.clickHandler
+  const { indexItemClass, indexItemTitle, clickHandler, deleteHandler } = props
 
   return (
     <li className="d-flex flex-row">
-      <button type="button" class="close" aria-label="Close">
-        <span aria-hidden="true"><FontAwesomeIcon icon={ faTimesCircle } /></span>
+      <button type="button" onClick={deleteHandler} className="close" aria-label="Close">
+        <span aria-hidden="true">
+          <FontAwesomeIcon icon={ faTimesCircle } />
+        </span>
       </button>
-      <h5
-        className={indexItemClass}
-        onClick={clickHandler}>
+      <h5 className={indexItemClass} onClick={clickHandler}>
         {indexItemTitle}
       </h5>
     </li>
