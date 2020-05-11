@@ -65,8 +65,25 @@ $color5: #f3e0dc;
     padding: 0.5rem 0 0 0.5rem;
     right: 0;
   }
+  li {
+    list-style: none;
+    span:hover {
+      color: $color3;
+    }
+  }
+  h5 {
+    margin-top: 0.3rem;
+    margin-left: 0.3rem;
+    margin-bottom: 0;
+  }
+  svg {
+    height: 1.0rem;
+  }
   .indexItem {
     cursor: pointer;
+    &:hover {
+      color: $color4;
+    }
   }
   .indexItemSelected {
     color: yellow;

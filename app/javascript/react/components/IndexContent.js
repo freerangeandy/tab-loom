@@ -1,6 +1,7 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
+import IndexItem from './IndexItem'
 import allActions from '../actions'
 
 const IndexContent = props => {
@@ -27,12 +28,12 @@ const IndexContent = props => {
     tabDisplayList = tabList.map((tab, index) => {
       const indexItemClass = index === tabSelectedIndex ? "indexItemSelected" : "indexItem"
       return (
-        <h5
-          className={indexItemClass}
+        <IndexItem
           key={tab.id}
-          onClick={() => setTabSelectedIndex(index)}>
-          {tab.title}
-        </h5>
+          index={index}
+          indexItemClass={indexItemClass}
+          indexItemTitle={tab.title}
+          clickHandler={() => setTabSelectedIndex(index)} />
       )
     })
   }
@@ -45,9 +46,9 @@ const IndexContent = props => {
   }
 
   return (
-    <div >
+    <div>
       <h4>{currentUser.username}</h4>
-      {tabDisplayList}
+      <ul>{tabDisplayList}</ul>
       {newTabButton}
     </div>
   )
