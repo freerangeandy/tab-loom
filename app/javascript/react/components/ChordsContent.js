@@ -4,6 +4,7 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import Chord from './Chord'
 
 const chordTypes = ["M", "m", "7", "m7", "M7", "sus2", "sus4", "dim"]
+const roots = [/*"C", */"C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
 const ChordsContent = props => {
   const messageMaker = (root, type, frets) => {
     return `${root} ${type} chord: [${frets.join(', ')}]`
@@ -19,6 +20,17 @@ const ChordsContent = props => {
       </ButtonGroup>
     )
   }
+
+  const rootChordList = roots.map(root => {
+    return (
+      <li key={root} className="d-flex flex-row">
+        <ButtonGroup size="sm">
+          <h5>{root}</h5>
+          {chordButtonGroup(root)}
+        </ButtonGroup>
+      </li>
+    )
+  })
 
   return (
     <div >
@@ -37,50 +49,7 @@ const ChordsContent = props => {
             <Chord root="C" type="dim" frets={['x','x', 1, 2, 1, 2]} messageMaker={messageMaker}/>
           </ButtonGroup>
         </li>
-        <li className="d-flex flex-row">
-          <h5>C#</h5>
-          {chordButtonGroup('C#')}
-        </li>
-        <li className="d-flex flex-row">
-          <h5>D</h5>
-          {chordButtonGroup('D')}
-        </li>
-        <li className="d-flex flex-row">
-          <h5>D#</h5>
-          {chordButtonGroup('D#')}
-        </li>
-        <li className="d-flex flex-row">
-          <h5>E</h5>
-          {chordButtonGroup('E')}
-        </li>
-        <li className="d-flex flex-row">
-          <h5>F</h5>
-          {chordButtonGroup('F')}
-        </li>
-        <li className="d-flex flex-row">
-          <h5>F#</h5>
-          {chordButtonGroup('F#')}
-        </li>
-        <li className="d-flex flex-row">
-          <h5>G</h5>
-          {chordButtonGroup('G')}
-        </li>
-        <li className="d-flex flex-row">
-          <h5>G#</h5>
-          {chordButtonGroup('G#')}
-        </li>
-        <li className="d-flex flex-row">
-          <h5>A</h5>
-          {chordButtonGroup('A')}
-        </li>
-        <li className="d-flex flex-row">
-          <h5>A#</h5>
-          {chordButtonGroup('A#')}
-        </li>
-        <li className="d-flex flex-row">
-          <h5>B</h5>
-          {chordButtonGroup('B')}
-        </li>
+        {rootChordList}
       </ul>
     </div>
   )
