@@ -12,13 +12,6 @@ const updateInList = (tab) => {
   }
 }
 
-const appendToList = (tab) => {
-  return {
-    type: "APPEND_TO_LIST",
-    payload: tab
-  }
-}
-
 const setSelectedIndex = (index) => {
   return {
     type: "SET_SELECTED_INDEX",
@@ -26,9 +19,15 @@ const setSelectedIndex = (index) => {
   }
 }
 
+const decrementSelectedIndex = () => {
+  return {
+    type: "DECREMENT_SELECTED_INDEX"
+  }
+}
+
 export default {
   setTabList,
   updateInList,
-  appendToList,
-  setSelectedIndex
+  setSelectedIndex,
+  decrementSelectedIndex
 }

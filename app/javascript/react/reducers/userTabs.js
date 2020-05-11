@@ -30,6 +30,12 @@ const userTabs = (state = defaultTabsState, action) => {
         ...state,
         selectedIndex: action.payload
       }
+    case "DECREMENT_SELECTED_INDEX":
+      const newIndex = state.selectedIndex === 0 ? 0 : state.selectedIndex - 1
+      return {
+        ...state,
+        selectedIndex: newIndex
+      }
     default:
       return state
   }

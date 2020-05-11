@@ -7,7 +7,6 @@ import Col from 'react-bootstrap/Col'
 import EditorContainer from './EditorContainer'
 import IndexSidebar from './IndexSidebar'
 import ChordsSidebar from './ChordsSidebar'
-import { BLANK_TAB } from '../shared/inStringConsts'
 import allActions from '../actions'
 
 const Layout = props => {
@@ -31,7 +30,7 @@ const Layout = props => {
         throw(error)
       }
     })
-    .then(response => response.json() )
+    .then(response => response.json())
     .then(user => {
       if (user != null){
         setCurrentUser({ id: user.id, username: user.username })

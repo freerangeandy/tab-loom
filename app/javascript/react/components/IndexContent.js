@@ -1,22 +1,22 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
+import IndexItem from './IndexItem'
 import allActions from '../actions'
 
 const IndexContent = props => {
+  const deleteTabByIndex = props.deleteTabByIndex
   const dispatch = useDispatch()
   const currentUser = useSelector(state => state.currentUser)
   const tabList = useSelector(state => state.userTabs.list)
   const tabSelectedIndex = useSelector(state => state.userTabs.selectedIndex)
+  const setTabShown = (index) => {
+    dispatch(allActions.editorActions.setTab(tabList[index]))
+  }
   const setTabSelectedIndex = (index) => {
     dispatch(allActions.tabsActions.setSelectedIndex(index))
     setTabShown(index)
   }
-  const setTabShown = (index) => {
-    const tab = tabList[index]
-    dispatch(allActions.editorActions.setTab(tab))
-  }
-
   const showNewTab = () => {
     setTabSelectedIndex(tabList.length)
     setTabShown(tabList.length)
@@ -27,12 +27,13 @@ const IndexContent = props => {
     tabDisplayList = tabList.map((tab, index) => {
       const indexItemClass = index === tabSelectedIndex ? "indexItemSelected" : "indexItem"
       return (
-        <h5
-          className={indexItemClass}
+        <IndexItem
           key={tab.id}
-          onClick={() => setTabSelectedIndex(index)}>
-          {tab.title}
-        </h5>
+          index={index}
+          indexItemClass={indexItemClass}
+          indexItemTitle={tab.title}
+          deleteHandler={() => deleteTabByIndex(index)}
+          clickHandler={() => setTabSelectedIndex(index)} />
       )
     })
   }
@@ -45,9 +46,9 @@ const IndexContent = props => {
   }
 
   return (
-    <div >
+    <div>
       <h4>{currentUser.username}</h4>
-      {tabDisplayList}
+      <ul>{tabDisplayList}</ul>
       {newTabButton}
     </div>
   )
