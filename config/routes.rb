@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :tablatures, only: [:show, :create, :update]
+      resources :tablatures, only: [:show, :create, :update, :destroy]
       resources :users, only: [:show] do
         resources :tablatures, only: [:index]
       end

@@ -34,6 +34,15 @@ class Api::V1::TablaturesController < ApplicationController
     end
   end
 
+  def destroy
+    tab_by_current_user = current_user.tablatures.exists?(params[:id])
+    if tab_by_current_user
+      tab = Tablature.find(params[:id])
+      user = tab.user
+      tab.delete
+      render json: user.tablatures
+    end
+  end
 
   def serialized_data(data, serializer)
     ActiveModelSerializers::SerializableResource.new(data, serializer: serializer)
