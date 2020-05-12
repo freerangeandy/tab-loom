@@ -1,28 +1,46 @@
 import React from "react"
 import { BLANK_TAB, COLUMN_COUNT } from './inStringConsts'
 import {
+  overtypeStringAtPos,
   getContentAfterChordInsert
 } from './utility.js'
-//
-// describe("example", () => {
-//   it('should not print the error list', () => {
-//     expect(true).toBe(true)
-//   })
-// })
+
+describe("overtypeStringAtPos", () => {
+  let testString, insertChar
+  
+  beforeEach(() => {
+    testString = "0123456"
+    insertChar = "y"
+  })
+
+  it('should not return a string of different length than the input', () => {
+    const insertPos = 3
+    const stringAfterInsert = overtypeStringAtPos(testString, insertPos, insertChar)
+    expect(stringAfterInsert.length).toEqual(testString.length)
+  })
+
+  it('should replace the existing char at insert position with the insert char', () => {
+    const insertPos = 3
+    const previousCharAtPos = testString.charAt(insertPos)
+    const stringAfterInsert = overtypeStringAtPos(testString, insertPos, insertChar)
+    expect(stringAfterInsert.indexOf(previousCharAtPos)).toEqual(-1)
+    expect(stringAfterInsert.charAt(insertPos)).toEqual(insertChar)
+  })
+})
 
 describe("getContentAfterChordInsert", () => {
   let testContent, testChordNotes, testColumn, numActiveCols, prefixLength
 
   beforeEach(() => {
     testContent = BLANK_TAB
-    numActiveCols = COLUMN_COUNT - 2
     prefixLength = 2
+    numActiveCols = COLUMN_COUNT - prefixLength
     testChordNotes = [3, 2, 0, 0, 0, 3]
   })
 
   it('should insert a chord into the first column (after row prefix)', () => {
     testColumn = prefixLength + 0
-    const expectedContent =  [
+    const expectedContent = [
       '<p>e|'.concat(testChordNotes[5]).concat('-'.repeat(numActiveCols - 1)).concat('</p>'),
       '<p>B|'.concat(testChordNotes[4]).concat('-'.repeat(numActiveCols - 1)).concat('</p>'),
       '<p>G|'.concat(testChordNotes[3]).concat('-'.repeat(numActiveCols - 1)).concat('</p>'),

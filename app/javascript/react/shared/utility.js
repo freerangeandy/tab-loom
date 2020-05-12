@@ -57,7 +57,7 @@ export const shiftSelectionRight = (editor, curIndex) => {
   editor.setSelection(curIndex, 1)
 }
 
-const insertCharIntoString = (string, position, char) => {
+export const overtypeStringAtPos = (string, position, char) => {
   return string.slice(0, position) + char + string.slice(position + 1)
 }
 
@@ -65,7 +65,7 @@ export const getContentAfterChordInsert = (content, column, chordNotes) => {
   const splitContent = convertParagraphsToLineBreaks(content).split('\n')
   const flippedNotes = chordNotes.reverse()
   let splitContentPostInsert = splitContent.map((row, rowIndex) => {
-    return insertCharIntoString(row, column, flippedNotes[rowIndex])
+    return overtypeStringAtPos(row, column, flippedNotes[rowIndex])
   })
 
   const contentPostInsert = splitContentPostInsert.join('\n')
