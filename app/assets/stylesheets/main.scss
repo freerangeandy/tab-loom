@@ -144,12 +144,18 @@ $fixed-width: 80ch;
 }
 
 .editTitle {
-  margin-bottom: 1rem;
   h5, input {
-    width: 40%;
+    width: 50%;
+  }
+  h5 {
+    margin-bottom: 1rem;
   }
   input {
     font-weight: 600;
-    font-size: 16px;
+    font-size: 1.25rem;
+    line-height: 1.7rem;
+    margin-bottom: 0.95rem;
+    height: inherit;
+    padding: 0;
   }
 }
