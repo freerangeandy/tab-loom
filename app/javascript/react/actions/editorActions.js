@@ -33,10 +33,17 @@ const setColumn = (colIndex) => {
   }
 }
 
+const resetColumn = () => {
+  return {
+    type: "RESET_COLUMN",
+  }
+}
+
 export default {
   setTab,
   setTabTitle,
   setTabContent,
   setSaveable,
-  setColumn
+  setColumn,
+  resetColumn
 }

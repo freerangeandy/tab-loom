@@ -44,6 +44,11 @@ const tabEditor = (state = defaultEditorState, action) => {
         ...state,
         column: action.payload
       }
+    case "RESET_COLUMN":
+      return {
+        ...state,
+        column: defaultEditorState.column
+      }
     default:
       return state
   }
