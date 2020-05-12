@@ -7,12 +7,13 @@ import { getContentAfterChordInsert } from '../shared/utility'
 const chordTypes = ["M", "m", "7", "m7", "M7", "sus2", "sus4", "dim"]
 const roots = [/*"C", */"C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
 const ChordsContent = props => {
-  const { column, tabContent, setTabContent, setSaveable } = props
+  const { column, tabContent, setTabContent, setSaveable, incrementColumn } = props
 
   const insertChord = (root, type, frets) => {
-    console.log(`${root} ${type} chord: [${frets.join(', ')}]`)
+    console.log(`${root}${type} chord: [${frets.join(', ')}]`)
     const contentAfterInsert = getContentAfterChordInsert(tabContent, column, frets)
     setTabContent(contentAfterInsert)
+    incrementColumn()
     setSaveable(true)
   }
 

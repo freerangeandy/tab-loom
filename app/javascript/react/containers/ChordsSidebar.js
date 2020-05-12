@@ -15,13 +15,17 @@ const ChordsSidebar = props => {
   const setSaveable = (saveable) => {
     dispatch(allActions.editorActions.setSaveable(saveable))
   }
+  const incrementColumn = () => {
+    dispatch(allActions.editorActions.incrementColumn())
+  }
 
   const chordsContent = (
     <ChordsContent
       column={column}
       tabContent={tabContent}
       setTabContent={setTabContent}
-      setSaveable={setSaveable}/>
+      setSaveable={setSaveable}
+      incrementColumn={incrementColumn} />
   )
 
   return (
@@ -30,9 +34,8 @@ const ChordsSidebar = props => {
       docked={true}
       pullRight
       defaultSidebarWidth={0}
-      rootClassName={'chordsSidebar'}
-    >
-      <div> </div>
+      rootClassName={'chordsSidebar'}>
+      <div></div>
     </Sidebar>
   )
 }

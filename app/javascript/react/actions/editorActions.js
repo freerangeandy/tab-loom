@@ -39,11 +39,18 @@ const resetColumn = () => {
   }
 }
 
+const incrementColumn = () => {
+  return {
+    type: "INCREMENT_COLUMN"
+  }
+}
+
 export default {
   setTab,
   setTabTitle,
   setTabContent,
   setSaveable,
   setColumn,
-  resetColumn
+  resetColumn,
+  incrementColumn
 }

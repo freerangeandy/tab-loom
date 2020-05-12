@@ -1,4 +1,4 @@
-import { BLANK_TAB } from '../shared/inStringConsts'
+import { BLANK_TAB, COLUMN_COUNT } from '../shared/inStringConsts'
 
 const defaultEditorState = {
   tab: {
@@ -48,6 +48,13 @@ const tabEditor = (state = defaultEditorState, action) => {
       return {
         ...state,
         column: defaultEditorState.column
+      }
+    case "INCREMENT_COLUMN":
+      const increment = 1
+      const newColumn = Math.min(state.column + increment, COLUMN_COUNT)
+      return {
+        ...state,
+        column: newColumn
       }
     default:
       return state
