@@ -1,4 +1,4 @@
-import { BLANK_TAB } from '../shared/inStringConsts'
+import { BLANK_TAB, COLUMN_COUNT } from '../shared/inStringConsts'
 
 const defaultEditorState = {
   tab: {
@@ -7,7 +7,7 @@ const defaultEditorState = {
     content: BLANK_TAB
   },
   saveable: false,
-  column: 0,
+  column: 2,
 }
 
 const tabEditor = (state = defaultEditorState, action) => {
@@ -43,6 +43,18 @@ const tabEditor = (state = defaultEditorState, action) => {
       return {
         ...state,
         column: action.payload
+      }
+    case "RESET_COLUMN":
+      return {
+        ...state,
+        column: defaultEditorState.column
+      }
+    case "INCREMENT_COLUMN":
+      const increment = 1
+      const newColumn = Math.min(state.column + increment, COLUMN_COUNT - 1)
+      return {
+        ...state,
+        column: newColumn
       }
     default:
       return state

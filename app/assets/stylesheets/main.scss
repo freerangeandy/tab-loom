@@ -4,6 +4,8 @@
 // $color3: #daad86;
 // $color4: #bc986a;
 // $color5: #fbeec1;
+
+// $color1: #17A2B8;
 $color1: #4285f4;
 $color2: #5c2018;
 $color3: #bc4639;
@@ -49,15 +51,7 @@ $color5: #f3e0dc;
   }
 }
 
-.chordsSidebar {
-  color: $color5;
-  background-color: $color3;
-  div {
-    padding: 0.5rem 0 0 0.5rem;
-    left: 0;
-  }
-}
-
+// index
 .indexSidebar {
   color: $color5;
   background-color: $color2;
@@ -87,6 +81,30 @@ $color5: #f3e0dc;
   }
   .indexItemSelected {
     color: yellow;
+  }
+}
+
+// chords
+.chordsSidebar {
+  color: $color5;
+  background-color: $color3;
+  &>div {
+    padding: 0.5rem 0.5rem 0 0.5rem;
+    left: 0;
+  }
+  h5 {
+    margin: 0 0.5rem 0 0;
+    min-width: 1.5rem;
+  }
+  li {
+    list-style: none;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid $color5;
+  }
+  button {
+    border: 1px solid $color5;
+    color: $color5;
   }
 }
 
@@ -129,12 +147,18 @@ $fixed-width: 80ch;
 }
 
 .editTitle {
-  margin-bottom: 1rem;
   h5, input {
-    width: 40%;
+    width: 50%;
+  }
+  h5 {
+    margin-bottom: 1rem;
   }
   input {
     font-weight: 600;
-    font-size: 16px;
+    font-size: 1.25rem;
+    line-height: 1.7rem;
+    margin-bottom: 0.95rem;
+    height: inherit;
+    padding: 0;
   }
 }

@@ -10,16 +10,26 @@ const IndexContent = props => {
   const currentUser = useSelector(state => state.currentUser)
   const tabList = useSelector(state => state.userTabs.list)
   const tabSelectedIndex = useSelector(state => state.userTabs.selectedIndex)
+  const resetColumn = () => {
+    dispatch(allActions.editorActions.resetColumn())
+  }
   const setTabShown = (index) => {
     dispatch(allActions.editorActions.setTab(tabList[index]))
   }
+  const setSaveable = (saveable) => {
+    dispatch(allActions.editorActions.setSaveable(saveable))
+  }
+
   const setTabSelectedIndex = (index) => {
     dispatch(allActions.tabsActions.setSelectedIndex(index))
     setTabShown(index)
+    resetColumn()
+    setSaveable(false)
   }
   const showNewTab = () => {
     setTabSelectedIndex(tabList.length)
     setTabShown(tabList.length)
+    setSaveable(false)
   }
 
   let tabDisplayList
