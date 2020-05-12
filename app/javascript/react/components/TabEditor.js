@@ -11,6 +11,7 @@ import {
   preventUpdate,
   shiftSelectionRight,
   shiftSelectionLeft,
+  getOffset,
   indexAtRowEnd,
   indexAtRowStart
 } from '../shared/utility'
@@ -24,6 +25,9 @@ const TestEditor = props => {
   }
   const setSaveable = (saveable) => {
     dispatch(allActions.editorActions.setSaveable(saveable))
+  }
+  const setColumn = (index) => {
+    dispatch(allActions.editorActions.setColumn(index))
   }
 
   const changeHandler = (changedText, delta, source, editor) => {
@@ -74,6 +78,8 @@ const TestEditor = props => {
       if (newIndex !== editor.getSelection().index || editor.getSelection().length !== 1) {
         editorByRef.setSelection(newIndex, 1)
       }
+      const newOffset = getOffset(newIndex)
+      setColumn(newOffset)
     }
   }
 

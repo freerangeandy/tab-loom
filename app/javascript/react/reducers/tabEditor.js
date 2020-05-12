@@ -7,7 +7,7 @@ const defaultEditorState = {
     content: BLANK_TAB
   },
   saveable: false,
-  column: 0,
+  column: 2,
 }
 
 const tabEditor = (state = defaultEditorState, action) => {
