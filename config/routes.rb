@@ -8,6 +8,9 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      resources :chords do
+        get '/api/v1/chords/:id', to: 'chords#show'
+      end
       resources :tablatures, only: [:show, :create, :update, :destroy]
       resources :users, only: [:show] do
         resources :tablatures, only: [:index]
