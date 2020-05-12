@@ -51,7 +51,7 @@ const tabEditor = (state = defaultEditorState, action) => {
       }
     case "INCREMENT_COLUMN":
       const increment = 1
-      const newColumn = Math.min(state.column + increment, COLUMN_COUNT)
+      const newColumn = Math.min(state.column + increment, COLUMN_COUNT - 1)
       return {
         ...state,
         column: newColumn
