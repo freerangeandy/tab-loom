@@ -36,10 +36,8 @@ const ChordsContent = props => {
   const rootChordList = roots.map(root => {
     return (
       <li key={root} className="d-flex flex-row">
-        <ButtonGroup size="sm">
-          <h5>{root}</h5>
-          {chordButtonGroup(root)}
-        </ButtonGroup>
+        <h5>{root}</h5>
+        {chordButtonGroup(root)}
       </li>
     )
   })

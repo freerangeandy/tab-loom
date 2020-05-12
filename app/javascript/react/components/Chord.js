@@ -9,7 +9,7 @@ const Chord = props => {
   }
 
   return (
-    <Button onClick={() => clickHandler()}>
+    <Button variant="outline-warning" onClick={() => clickHandler()}>
       {type}
     </Button>
   )

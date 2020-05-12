@@ -4,6 +4,8 @@
 // $color3: #daad86;
 // $color4: #bc986a;
 // $color5: #fbeec1;
+
+// $color1: #17A2B8;
 $color1: #4285f4;
 $color2: #5c2018;
 $color3: #bc4639;
@@ -87,7 +89,7 @@ $color5: #f3e0dc;
   color: $color5;
   background-color: $color3;
   &>div {
-    padding: 0.5rem 0 0 0.5rem;
+    padding: 0.5rem 0.5rem 0 0.5rem;
     left: 0;
   }
   h5 {
@@ -101,7 +103,8 @@ $color5: #f3e0dc;
     border-bottom: 2px solid $color5;
   }
   button {
-
+    border: 1px solid $color5;
+    color: $color5;
   }
 }
 
