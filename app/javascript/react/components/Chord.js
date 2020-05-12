@@ -1,11 +1,11 @@
 import React from 'react'
 import Button from 'react-bootstrap/Button'
- 
+
 const Chord = props => {
-  const { root, type, frets, messageMaker } = props
+  const { root, type, frets, insertChord } = props
 
   const clickHandler = (event) => {
-    console.log(messageMaker(root, type, frets))
+    insertChord(root, type, frets)
   }
 
   return (
