@@ -18,8 +18,7 @@ ActiveRecord::Schema.define(version: 2020_05_13_030626) do
   create_table "chords", force: :cascade do |t|
     t.string "name", null: false
     t.string "root", default: "", null: false
-    t.string "quality", default: ""
-    t.string "tension", default: ""
+    t.string "variant", default: ""
     t.string "strings", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

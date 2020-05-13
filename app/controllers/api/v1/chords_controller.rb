@@ -26,9 +26,15 @@ class Api::V1::ChordsController < ApplicationController
 
   def reformat_chord_data(chord_list)
     return reformatted_list = chord_list.map do |chord_obj|
-      chord_strings = chord_obj["strings"].split(" ")
-      chord_name = reformat_chord_name(chord_obj["chordName"])
-      { strings: chord_strings, name: chord_name }
+      chord_name_split = chord_obj["chordName"].split(',')
+      reformatted_chord_name = reformat_chord_name(chord_obj["chordName"])
+      chord_variant = "#{chord_name_split[1].to_s}#{chord_name_split[2].to_s}"
+      {
+        name: reformatted_chord_name,
+        root: chord_name_split[0],
+        variant: chord_variant,
+        strings: chord_obj["strings"]
+      }
     end
   end
 end
