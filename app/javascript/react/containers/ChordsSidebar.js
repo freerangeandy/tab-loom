@@ -21,22 +21,12 @@ const ChordsSidebar = props => {
     dispatch(allActions.editorActions.incrementColumn())
   }
 
-  // const getChordName = (root, quality, tension) => {
-  //   if (quality.trim().length === 0 && tension.trim().length === 0) {
-  //     return root
-  //   } else {
-  //     return `${root}_${quality}${tension}`
-  //   }
-  // }
-
   useEffect(() => {
-    const chordGroup = ["C"].concat(VARIANT.slice(1).map(variant => `C_${variant}`))
-    fetchChordList(chordGroup)
+    fetchChordList()
   }, [])
 
-  const fetchChordList = (chordNameList) => {
-    const paramsList = chordNameList.join(",")
-    fetch(`/api/v1/chords/${paramsList}.json`)
+  const fetchChordList = () => {
+    fetch(`/api/v1/chords.json`)
     .then((response) => {
       if (response.ok) {
         return response
