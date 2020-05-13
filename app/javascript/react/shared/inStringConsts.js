@@ -20,7 +20,6 @@ export const BLANK_TAB = [
 
 export const ROOTS = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B']
 export const VARIANT = ["", "m", "7", "m7", "maj7", "sus2", "sus4", "dim"]
-// export const VARIANT_DISPLAY = ["M", "m", "7", "m7", "M7", "sus2", "sus4", "dim"]
 export const DISPLAY_VARIANT = {
   [VARIANT[0]]: "M",
   [VARIANT[1]]: "m",
@@ -30,4 +29,19 @@ export const DISPLAY_VARIANT = {
   [VARIANT[5]]: "sus2",
   [VARIANT[6]]: "sus4",
   [VARIANT[7]]: "dim"
+}
+
+export const ALT_ROOTS = {
+  [ROOTS[0]]: ROOTS[0],
+  [ROOTS[1]]: "Db",
+  [ROOTS[2]]: ROOTS[2],
+  [ROOTS[3]]: "Eb",
+  [ROOTS[4]]: ROOTS[4],
+  [ROOTS[5]]: ROOTS[5],
+  [ROOTS[6]]: "Gb",
+  [ROOTS[7]]: ROOTS[7],
+  [ROOTS[8]]: "Ab",
+  [ROOTS[9]]: ROOTS[9],
+  [ROOTS[10]]: "Bb",
+  [ROOTS[11]]: ROOTS[11]
 }
