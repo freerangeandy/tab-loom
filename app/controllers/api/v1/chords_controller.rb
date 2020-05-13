@@ -10,7 +10,18 @@ class Api::V1::ChordsController < ApplicationController
     parsed_response = JSON.parse(api_response.body)
     reformatted_response = reformat_chord_data(parsed_response)
 
-    render json: reformatted_response
+    chord_list = []
+    reformatted_response.each do |chord|
+      new_chord = Chord.new(chord)
+
+      if new_chord.save
+        chord_list << chord
+      else
+        chord_list << chord
+      end
+    end
+
+    render json: chord_list
   end
 
   private

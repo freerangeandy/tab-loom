@@ -2,15 +2,15 @@ import React from 'react'
 import Button from 'react-bootstrap/Button'
 
 const Chord = props => {
-  const { root, type, frets, insertChord } = props
+  const { root, variant, frets, insertChord } = props
 
   const clickHandler = (event) => {
-    insertChord(root, type, frets)
+    insertChord(root, variant, frets)
   }
 
   return (
     <Button variant="outline-warning" onClick={() => clickHandler()}>
-      {type}
+      {variant}
     </Button>
   )
 }

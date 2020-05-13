@@ -4,6 +4,7 @@ import Sidebar from 'react-sidebar'
 
 import ChordsContent from '../components/ChordsContent'
 import allActions from '../actions'
+import { ROOTS, VARIANT } from '../shared/inStringConsts.js'
 
 const ChordsSidebar = props => {
   const dispatch = useDispatch()
@@ -20,17 +21,17 @@ const ChordsSidebar = props => {
     dispatch(allActions.editorActions.incrementColumn())
   }
 
-  const getChordName = (root, quality, tension) => {
-    if (quality.trim().length === 0 && tension.trim().length === 0) {
-      return root
-    } else {
-      return `${root}_${quality}${tension}`
-    }
-  }
+  // const getChordName = (root, quality, tension) => {
+  //   if (quality.trim().length === 0 && tension.trim().length === 0) {
+  //     return root
+  //   } else {
+  //     return `${root}_${quality}${tension}`
+  //   }
+  // }
 
   useEffect(() => {
-    const chordList = ["C", "C_m", "C_7", "C_m7", "C_maj7", "C_sus2", "C_sus4", "C_dim"]
-    fetchChordList(chordList)
+    const chordGroup = ["C"].concat(VARIANT.slice(1).map(variant => `C_${variant}`))
+    fetchChordList(chordGroup)
   }, [])
 
   const fetchChordList = (chordNameList) => {
@@ -58,7 +59,8 @@ const ChordsSidebar = props => {
       tabContent={tabContent}
       setTabContent={setTabContent}
       setSaveable={setSaveable}
-      incrementColumn={incrementColumn} />
+      incrementColumn={incrementColumn}
+      chordList={chordList} />
   )
 
   return (
