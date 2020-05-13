@@ -7,7 +7,7 @@ import allActions from '../actions'
 
 const ChordsSidebar = props => {
   const dispatch = useDispatch()
-  const [chordData, setChordData] = useState({ chordName: "", strings:"", fingering:"" })
+  const [chordList, setChordList] = useState([])
   const column = useSelector(state => state.tabEditor.column)
   const tabContent = useSelector(state => state.tabEditor.tab.content)
   const setTabContent = (content) => {
@@ -29,17 +29,13 @@ const ChordsSidebar = props => {
   }
 
   useEffect(() => {
-    const root = "F"
-    const quality = "m"
-    const tension = "7"
-    fetchChord(root, quality, tension)
+    const chordList = ["C", "C_m", "C_7", "C_m7", "C_maj7", "C_sus2", "C_sus4", "C_dim"]
+    fetchChordList(chordList)
   }, [])
 
-  const fetchChord = (root, quality, tension) => {
-    const name = getChordName(root, quality, tension)
-    // const fetchApi = `/api/v1/chords/F_maj7.json`
-
-    fetch(`/api/v1/chords/${name}.json`)
+  const fetchChordList = (chordNameList) => {
+    const paramsList = chordNameList.join(",")
+    fetch(`/api/v1/chords/${paramsList}.json`)
     .then((response) => {
       if (response.ok) {
         return response
@@ -49,15 +45,13 @@ const ChordsSidebar = props => {
         throw(error)
       }
     })
-    .then((response) => {
-      return response.json()
-    })
+    .then((response) => response.json())
     .then((chordBody) => {
       console.log(chordBody)
-      setChordData(chordBody)
+      setChordList(chordBody)
     })
   }
-  
+
   const chordsContent = (
     <ChordsContent
       column={column}
