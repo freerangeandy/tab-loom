@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_02_183451) do
+ActiveRecord::Schema.define(version: 2020_05_13_030626) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "chords", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "root", default: "", null: false
+    t.string "variant", default: ""
+    t.string "strings", default: "", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_chords_on_name"
+  end
 
   create_table "tablatures", force: :cascade do |t|
     t.string "title", default: "", null: false
