@@ -66,7 +66,7 @@ const EditorContainer = props => {
   }
 
   return (
-    <div className="editorContainer">
+    <div className="editor-container">
       {tabPane}
     </div>
   )

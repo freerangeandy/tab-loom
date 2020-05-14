@@ -54,7 +54,7 @@ const IndexSidebar = props => {
       sidebar={indexContent}
       docked={true}
       defaultSidebarWidth={0}
-      rootClassName={'indexSidebar'}>
+      rootClassName={'index-sidebar'}>
       <div> </div>
     </Sidebar>
   )

@@ -61,7 +61,7 @@ const ChordsSidebar = props => {
       docked={true}
       pullRight
       defaultSidebarWidth={0}
-      rootClassName={'chordsSidebar'}>
+      rootClassName={'chords-sidebar'}>
       <div></div>
     </Sidebar>
   )

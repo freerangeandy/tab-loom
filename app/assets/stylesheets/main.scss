@@ -28,7 +28,7 @@ $notice: #28A745;
 }
 
 // layout
-.middleContainer {
+.middle-container {
   min-height: 100vh;
   padding-left: 0;
   padding-right: 0;
@@ -37,7 +37,7 @@ $notice: #28A745;
 }
 
 // top bar
-.tabTopBar {
+.tab-loom-nav {
   font: Arial, sans-serif;
   background-color: $color1;
   padding-bottom: 0;
@@ -66,7 +66,7 @@ $notice: #28A745;
 }
 
 // sidebars
-.chordsSidebar, .indexSidebar {
+.chords-sidebar, .index-sidebar {
   min-height: 100vh;
   z-index: 100;
   h4 {
@@ -78,7 +78,7 @@ $notice: #28A745;
 }
 
 // index
-.indexSidebar {
+.index-sidebar {
   color: $color5;
   background-color: $color2;
   div {
@@ -99,19 +99,21 @@ $notice: #28A745;
   svg {
     height: 1.0rem;
   }
-  .indexItem {
-    cursor: pointer;
-    &:hover {
-      color: $color4;
-    }
-  }
-  .indexItemSelected {
-    color: yellow;
+}
+
+.index-item {
+  cursor: pointer;
+  &:hover {
+    color: $color4;
   }
 }
 
+.index-item-selected {
+  color: yellow;
+}
+
 // chords
-.chordsSidebar {
+.chords-sidebar {
   color: $color5;
   background-color: $color3;
   &>div {
@@ -139,7 +141,7 @@ $line-height: 1;
 $font-size: 16px;
 $fixed-width: 80ch;
 
-.editorContainer {
+.editor-container {
   min-height: 20rem;
   h5 {
     font-weight: 600;
@@ -176,12 +178,13 @@ $fixed-width: 80ch;
   overflow: hidden;
 }
 
-.saveButton {
+.save-button {
   float: right;
   margin-top: 0.5rem;
+  border-radius: 0.2rem;
 }
 
-.editTitle {
+.edit-title {
   h5, input {
     width: 50%;
   }
@@ -205,16 +208,16 @@ $nut-color: #E5DAB5;
 $string-color: #B08A46;
 $fret-area-height: 1.5rem;
 
-.fretboardContent {
+.fretboard-content {
   border: 1px solid $board-color;
   background-color: $board-color;
 }
 
-.fretboardRow {
+.fretboard-row {
   border-left: 8px solid $nut-color;
 }
 
-.fretArea {
+.fret-area {
   height: $fret-area-height;
   border-right: 4px solid $fret-color;
   width: 100%;
@@ -260,7 +263,7 @@ $fret-area-height: 1.5rem;
   transform: rotate(45deg);
 }
 
-.stringLabels {
+.string-labels {
   list-style: none;
   position: relative;
   top: calc(-12*#{$fret-area-height} - 1.75rem);//-19.75rem;

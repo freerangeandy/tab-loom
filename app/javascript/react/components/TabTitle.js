@@ -31,7 +31,6 @@ const TabTitle = (props) => {
     titleDisplay = (
       <FormControl
         ref={editTitleRef}
-        className="editTitle"
         onChange={(e) => changeHandler(e)}
         defaultValue={tabTitle} />
     )
@@ -41,7 +40,7 @@ const TabTitle = (props) => {
   }
 
   return (
-    <div className="editTitle">
+    <div className="edit-title">
       {titleDisplay}
     </div>
   )

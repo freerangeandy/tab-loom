@@ -2,9 +2,9 @@ import React from 'react'
 
 const LabelsOverlay = (props) => {
   const clickHandler = props.clickHandler
-  
+
   return (
-    <ul className="stringLabels">
+    <ul className="string-labels">
       <li onClick={clickHandler(1, 0)}>e</li>
       <li onClick={clickHandler(2, 0)}>B</li>
       <li onClick={clickHandler(3, 0)}>G</li>

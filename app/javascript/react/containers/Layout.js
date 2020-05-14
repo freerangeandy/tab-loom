@@ -47,7 +47,7 @@ const Layout = props => {
         <Col>
           <IndexSidebar />
         </Col>
-        <Col className="middleContainer">
+        <Col className="middle-container">
           <EditorContainer />
           <FretboardContainer />
         </Col>
