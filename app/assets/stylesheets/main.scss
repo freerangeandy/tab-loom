@@ -1,11 +1,4 @@
 // colors
-// $color1: #8d8741;
-// $color2: #659dbd;
-// $color3: #daad86;
-// $color4: #bc986a;
-// $color5: #fbeec1;
-
-// $color1: #17A2B8;
 $color1: #4285f4;
 $color2: #5c2018;
 $color3: #bc4639;
@@ -14,6 +7,7 @@ $color5: #f3e0dc;
 
 $alert: #DC3545;
 $notice: #28A745;
+
 // flash messages
 .flash-notice {
   font: Arial, sans-serif;
@@ -46,10 +40,18 @@ $notice: #28A745;
 .tabTopBar {
   font: Arial, sans-serif;
   background-color: $color1;
+  padding-bottom: 0;
+  img {
+    margin: 0 0 1.2rem 0.5rem;
+  }
   h1 {
-    margin-left: 0.5rem;
+    margin: -0.5 0 0 0.5rem;
     font-size: 48px;
     font-weight: 800;
+    display: inline-block;
+    span {
+      vertical-align: middle;
+    }
   }
   a {
     color: white;
