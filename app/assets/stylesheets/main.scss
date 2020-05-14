@@ -168,23 +168,47 @@ $fixed-width: 80ch;
 $board-color: #38384A;
 $fret-color: #F9F6F9;
 $nut-color: #E5DAB5;
+$string-color: #B08A46;
 
 .fretboardContainer {
   border: 1px solid $board-color;
   background-color: $board-color;
 }
 
-.leftFretboard {
+.fretboardRow {
   border-left: 8px solid $nut-color;
 }
 
 .fretArea {
   height: 1.5rem;
   border-right: 4px solid $fret-color;
-  border-bottom: 1px solid transparentize($board-color, 0.9);
+  // border-bottom: 1px solid transparentize($board-color, 0.9);
   width: 100%;
   padding: 0;
+  box-sizing: border-box;
+
   &:hover {
     background-color: transparentize($color3, 0.3);
   }
+}
+
+.strings {
+  pointer-events: none;
+  position: relative;
+  top: -9rem;
+  height: 9rem;
+  width: 100%;
+  left: -1.25rem;
+
+  li {
+    list-style: none;
+    height: 2px;
+    background-color: $string-color;
+    margin-bottom: 1.4rem;
+    box-sizing: border-box;
+  }
+  li:nth-child(1) {
+    margin-top: 0.5rem;
+  }
+
 }

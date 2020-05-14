@@ -1,6 +1,8 @@
 import React, { Fragment } from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
 
+import StringOverlay from '../components/StringOverlay'
+
 const FretboardContainer = (props) => {
   const columns = (numCols) => {
     const colGroup = Array.from(Array(numCols).keys()).map(val => {
@@ -20,8 +22,8 @@ const FretboardContainer = (props) => {
 
   const grid = Array.from(Array(6).keys()).map(val => {
     return (
-      <Row key={val}>
-        <Col className="leftFretboard" xs={6}>
+      <Row className="fretboardRow" key={val}>
+        <Col xs={6}>
           {columns1}
         </Col>
         <Col xs={4}>
@@ -35,9 +37,10 @@ const FretboardContainer = (props) => {
   })
   return (
     <>
-    <Container className="fretboardContainer">
-      {grid}
-    </Container>
+      <Container className="fretboardContainer">
+        {grid}
+      </Container>
+      <StringOverlay />
     </>
   )
 }
