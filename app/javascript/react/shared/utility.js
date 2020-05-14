@@ -58,18 +58,32 @@ export const shiftSelectionRight = (editor, curIndex) => {
 }
 
 export const overtypeStringAtPos = (string, position, char) => {
-  return string.slice(0, position) + char + string.slice(position + 1)
+  const note = `${char}`
+  if (note.length + position > COLUMN_COUNT) return string
+  return string.slice(0, position) + note + string.slice(position + note.length)
 }
 
 export const getContentAfterChordInsert = (content, column, chordNotes) => {
   const splitContent = convertParagraphsToLineBreaks(content).split('\n')
   const flippedNotes = chordNotes.reverse()
-  let splitContentPostInsert = splitContent.map((row, rowIndex) => {
+  let splitContentAfterInsert = splitContent.map((row, rowIndex) => {
     return overtypeStringAtPos(row, column, flippedNotes[rowIndex])
   })
 
-  const contentPostInsert = splitContentPostInsert.join('\n')
-  return convertLineBreaksToParagraphs(contentPostInsert)
+  const contentAfterInsert = splitContentAfterInsert.join('\n')
+  return convertLineBreaksToParagraphs(contentAfterInsert)
+}
+
+export const getContentAfterFretNoteInsert = (content, column, stringNum, fretNum) => {
+  const splitContent = convertParagraphsToLineBreaks(content).split('\n')
+  let splitContentAfterInsert = splitContent.map((row, rowIndex) => {
+    if (rowIndex === stringNum - 1) {
+      return overtypeStringAtPos(row, column, fretNum)
+    } else return row
+  })
+
+  const contentAfterInsert = splitContentAfterInsert.join('\n')
+  return convertLineBreaksToParagraphs(contentAfterInsert)
 }
 
 export const getOffset = (index) => index % (COLUMN_COUNT + 1)

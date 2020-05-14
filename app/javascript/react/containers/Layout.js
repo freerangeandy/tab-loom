@@ -5,6 +5,7 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
 import EditorContainer from './EditorContainer'
+import FretboardContainer from './FretboardContainer'
 import IndexSidebar from './IndexSidebar'
 import ChordsSidebar from './ChordsSidebar'
 import allActions from '../actions'
@@ -46,8 +47,9 @@ const Layout = props => {
         <Col>
           <IndexSidebar />
         </Col>
-        <Col className="col">
+        <Col className="middleContainer">
           <EditorContainer />
+          <FretboardContainer />
         </Col>
         <Col>
           <ChordsSidebar />

@@ -13,9 +13,12 @@ $color4: #d4a59a;
 $color5: #f3e0dc;
 
 // layout
-.col {
+.middleContainer {
+  min-height: 100vh;
   padding-left: 0;
   padding-right: 0;
+  background-color: $color5;
+  padding: 1rem 2rem;
 }
 
 // top bar
@@ -114,9 +117,7 @@ $font-size: 16px;
 $fixed-width: 80ch;
 
 .editorContainer {
-  min-height: 100vh;
-  background-color: $color5;
-  padding: 1rem 2rem;
+  min-height: 20rem;
   h5 {
     font-weight: 600;
   }
@@ -160,5 +161,101 @@ $fixed-width: 80ch;
     margin-bottom: 0.95rem;
     height: inherit;
     padding: 0;
+  }
+}
+
+// fretboard
+$board-color: #38384A;
+$fret-color: #F9F6F9;
+$nut-color: #E5DAB5;
+$string-color: #B08A46;
+$fret-area-height: 1.5rem;
+
+.fretboardContainer {
+  border: 1px solid $board-color;
+  background-color: $board-color;
+}
+
+.fretboardRow {
+  border-left: 8px solid $nut-color;
+}
+
+.fretArea {
+  height: $fret-area-height;
+  border-right: 4px solid $fret-color;
+  width: 100%;
+  padding: 0;
+  box-sizing: border-box;
+
+  &:hover {
+    background-color: $color1;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+      transition-property: color, background-color, border-color, box-shadow;
+      transition-duration: 0.15s, 0.15s, 0.15s, 0.15s;
+      transition-timing-function: ease-in-out, ease-in-out, ease-in-out, ease-in-out;
+      transition-delay: 0s, 0s, 0s, 0s;
+  }
+}
+
+.strings {
+  pointer-events: none;
+  position: relative;
+  top: calc(-6*#{$fret-area-height});//-9rem;
+  height: calc(6*#{$fret-area-height});//-9rem;
+  width: 100%;
+  left: calc(-1*#{$fret-area-height} + 0.25rem);//-1.25rem
+
+  li {
+    list-style: none;
+    height: 2px;
+    background-color: $string-color;
+    margin-bottom: calc(#{$fret-area-height} - 0.1rem);//1.4rem;
+    box-sizing: border-box;
+  }
+  li:nth-child(1) {
+    margin-top: calc(#{$fret-area-height}/3);//0.5rem;
+  }
+}
+
+.dot {
+  position: relative;
+  top: calc(-0.5*#{$fret-area-height} - 0.05rem);//-0.8rem;
+  margin-left: 32%;
+  width: 0.2rem;
+  color: #F5F4F0;
+  transform: rotate(45deg);
+}
+
+.stringLabels {
+  list-style: none;
+  position: relative;
+  top: calc(-12*#{$fret-area-height} - 1.75rem);//-19.75rem;
+  height: calc(6*#{$fret-area-height});//9rem;
+  width: 1.05rem;
+  left: -2.4rem;
+  padding-bottom: 4px;
+
+  li {
+    text-align: center;
+    padding-right: 2px;
+    line-height: 25px;
+    padding-left: 2px;
+    font-weight: 600;
+
+    &:hover {
+      cursor: default;
+      color: white;
+      background-color: $color1;
+      border-radius: 35%;
+      transition: color .15s ease-in-out, background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+        transition-property: color, background-color, border-color, box-shadow;
+        transition-duration: 0.15s, 0.15s, 0.15s, 0.15s;
+        transition-timing-function: ease-in-out, ease-in-out, ease-in-out, ease-in-out;
+        transition-delay: 0s, 0s, 0s, 0s;
+    }
+  }
+
+  li:nth-child(1) {
+    line-height: calc(#{$fret-area-height});//1.5rem;
   }
 }
