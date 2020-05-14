@@ -1,10 +1,27 @@
 import React, { Fragment } from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
+import { useSelector, useDispatch } from 'react-redux'
 
 import StringOverlay from '../components/StringOverlay'
+import LabelsOverlay from '../components/LabelsOverlay'
 import Dot from '../components/Dot'
+import allActions from '../actions'
+import { getContentAfterFretNoteInsert } from '../shared/utility'
 
 const FretboardContainer = (props) => {
+  const dispatch = useDispatch()
+  const column = useSelector(state => state.tabEditor.column)
+  const tabContent = useSelector(state => state.tabEditor.tab.content)
+  const setTabContent = (content) => {
+    dispatch(allActions.editorActions.setTabContent(content))
+  }
+  const setSaveable = (saveable) => {
+    dispatch(allActions.editorActions.setSaveable(saveable))
+  }
+  const incrementColumn = () => {
+    dispatch(allActions.editorActions.incrementColumn())
+  }
+
   const showDot = (string, fret) => {
     if (string == 3 && fret == 12
       || string == 5 && fret == 12
@@ -20,6 +37,10 @@ const FretboardContainer = (props) => {
 
   const clickHandler = (stringNum, fretNum) => (event) => {
     console.log(`String: ${stringNum}, Fret: ${fretNum}`)
+    const contentAfterInsert = getContentAfterFretNoteInsert(tabContent, column, stringNum, fretNum)
+    setTabContent(contentAfterInsert)
+    incrementColumn()
+    setSaveable(true)
   }
 
   const makeRow = (row, numCols, colOffset = 0) => {
@@ -69,14 +90,7 @@ const FretboardContainer = (props) => {
         {grid}
       </Container>
       <StringOverlay />
-      <ul className="stringLabels">
-        <li onClick={clickHandler(1, 0)}>e</li>
-        <li onClick={clickHandler(2, 0)}>B</li>
-        <li onClick={clickHandler(3, 0)}>G</li>
-        <li onClick={clickHandler(4, 0)}>D</li>
-        <li onClick={clickHandler(5, 0)}>A</li>
-        <li onClick={clickHandler(6, 0)}>E</li>
-      </ul>
+      <LabelsOverlay clickHandler={clickHandler} />
     </>
   )
 }
