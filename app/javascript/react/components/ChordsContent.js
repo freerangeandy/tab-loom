@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 
 import Chord from './Chord'
@@ -6,7 +7,12 @@ import { getContentAfterChordInsert } from '../shared/utility'
 import { ROOTS, ALT_ROOTS, DISPLAY_VARIANT } from '../shared/inStringConsts.js'
 
 const ChordsContent = props => {
-  const { column, tabContent, setTabContent, setSaveable, incrementColumn, chordList } = props
+  const { column, tabContent, setTabContent, setSaveable, incrementColumn, fetchChordList } = props
+  const chordList =  useSelector(state => state.chords)
+
+  useEffect(() => {
+    fetchChordList()
+  }, [])
 
   const insertChord = (root, variant, frets) => {
     // console.log(`${root}${variant} chord: [${frets.join(', ')}]`)
