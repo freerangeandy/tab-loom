@@ -13,9 +13,12 @@ $color4: #d4a59a;
 $color5: #f3e0dc;
 
 // layout
-.col {
+.middleContainer {
+  min-height: 100vh;
   padding-left: 0;
   padding-right: 0;
+  background-color: $color5;
+  padding: 1rem 2rem;
 }
 
 // top bar
@@ -114,9 +117,7 @@ $font-size: 16px;
 $fixed-width: 80ch;
 
 .editorContainer {
-  min-height: 100vh;
-  background-color: $color5;
-  padding: 1rem 2rem;
+  min-height: 20rem;
   h5 {
     font-weight: 600;
   }
@@ -160,5 +161,30 @@ $fixed-width: 80ch;
     margin-bottom: 0.95rem;
     height: inherit;
     padding: 0;
+  }
+}
+
+// fretboard
+$board-color: #38384A;
+$fret-color: #F9F6F9;
+$nut-color: #E5DAB5;
+
+.fretboardContainer {
+  border: 1px solid $board-color;
+  background-color: $board-color;
+}
+
+.leftFretboard {
+  border-left: 8px solid $nut-color;
+}
+
+.fretArea {
+  height: 1.5rem;
+  border-right: 4px solid $fret-color;
+  border-bottom: 1px solid transparentize($board-color, 0.9);
+  width: 100%;
+  padding: 0;
+  &:hover {
+    background-color: transparentize($color3, 0.3);
   }
 }
