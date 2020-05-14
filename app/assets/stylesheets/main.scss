@@ -182,13 +182,17 @@ $string-color: #B08A46;
 .fretArea {
   height: 1.5rem;
   border-right: 4px solid $fret-color;
-  // border-bottom: 1px solid transparentize($board-color, 0.9);
   width: 100%;
   padding: 0;
   box-sizing: border-box;
 
   &:hover {
-    background-color: transparentize($color3, 0.3);
+    background-color: $color1;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+      transition-property: color, background-color, border-color, box-shadow;
+      transition-duration: 0.15s, 0.15s, 0.15s, 0.15s;
+      transition-timing-function: ease-in-out, ease-in-out, ease-in-out, ease-in-out;
+      transition-delay: 0s, 0s, 0s, 0s;
   }
 }
 
@@ -210,5 +214,39 @@ $string-color: #B08A46;
   li:nth-child(1) {
     margin-top: 0.5rem;
   }
+}
 
+.dot {
+  position: relative;
+  top: -0.8rem;
+  margin-left: 32%;
+  width: 0.2rem;
+  color: #F5F4F0;
+  transform: rotate(45deg);
+}
+
+.stringLabels {
+  list-style: none;
+  position: relative;
+  top: -19.8rem;
+  height: 9rem;
+  width: 1.05rem;
+  left: -2.4rem;
+  padding-bottom: 4px;
+
+  li {
+    line-height: 25px;
+    padding-left: 2px;
+    font-weight: 600;
+
+    &:hover {
+      cursor: default;
+      color: $color1;
+      transition: color .15s ease-in-out .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+        transition-property: color, border-color, box-shadow;
+        transition-duration: 0.15s, 0.15s, 0.15s, 0.15s;
+        transition-timing-function: ease-in-out, ease-in-out, ease-in-out, ease-in-out;
+        transition-delay: 0s, 0s, 0s, 0s;
+    }
+  }
 }
