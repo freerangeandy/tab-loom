@@ -12,6 +12,27 @@ $color3: #bc4639;
 $color4: #d4a59a;
 $color5: #f3e0dc;
 
+$alert: #DC3545;
+$notice: #28A745;
+// flash messages
+.flash-notice {
+  font: Arial, sans-serif;
+  background-color: $notice;
+  line-height: 2rem;
+  color: white;
+  padding-left: 1rem;
+  font-weight: 500;
+}
+
+.flash-alert {
+  font: Arial, sans-serif;
+  background-color: $alert;
+  line-height: 2rem;
+  color: white;
+  padding-left: 1rem;
+  font-weight: 500;
+}
+
 // layout
 .middleContainer {
   min-height: 100vh;
