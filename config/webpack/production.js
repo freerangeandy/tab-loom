@@ -4,5 +4,4 @@ const environment = require('./environment')
 
 module.exports = environment.toWebpackConfig()
 
-config.serve_static_files = true
-config.assets.compile = true
+RAILS_ENV=production rake assets:precompile
