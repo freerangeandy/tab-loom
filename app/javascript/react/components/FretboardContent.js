@@ -23,13 +23,8 @@ const FretboardContent = (props) => {
   }
 
   const showDot = (string, fret) => {
-    if (string == 3 && fret == 12
-      || string == 5 && fret == 12
-      || string == 4 && fret == 9
-      || string == 4 && fret == 7
-      || string == 4 && fret == 5
-      || string == 3 && fret == 3
-      || string == 5 && fret == 3
+    if (fret == 12 && [3, 5].includes(string)
+      || string == 4 && [3, 5, 7, 9].includes(fret)
     ) {
       return true
     } else return false
