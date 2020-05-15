@@ -8,9 +8,17 @@ $color5: #f3e0dc;
 $alert: #dc3545;
 $notice: #28a745;
 
+$form-bg: #3c943c;
+$form-border: #378c37;
+
 $select: #ffc107;
 $item-hover: #ffe998;
 $new-hover: #5ee647;
+
+body {
+  background-color: $color5;
+}
+
 // flash messages
 .flash-notice {
   font: Arial, sans-serif;
@@ -28,6 +36,110 @@ $new-hover: #5ee647;
   color: white;
   padding-left: 1rem;
   font-weight: 500;
+}
+
+// forms
+.form-container {
+  display: inline-block;
+  background-color: $form-bg;
+  border: medium solid $form-border;
+  margin-top: 3rem;
+  width: 40rem;
+  border-radius: 2%;
+  margin: 3rem 20rem 0 20rem;
+  h2 {
+    color: white;
+    font-weight: 600;
+  }
+}
+
+.field label, em {
+  display: inline-block;
+  color: white;
+  font-weight: 500;
+}
+
+.field em {
+  font-size: small;
+  margin: 0.25rem 0 0 0.25rem;
+}
+
+.field span {
+  display: flex;
+}
+
+.field input[type='checkbox'] {
+  position: relative;
+  top: -0.1rem;
+  right: -0.2rem;
+}
+
+.actions {
+  text-align: right;
+  h6 {
+    padding: 0 0.9rem 0 0;
+    font-weight: 500;
+    color: white;
+    margin-bottom: 0;
+  }
+}
+
+.login-btn a {
+  float: right;
+}
+
+.signup-btn {
+  float: right;
+  margin-bottom: 0.3rem;
+  a {
+    margin-top: 0.25rem;
+  }
+}
+
+.forget-pw {
+  float: left;
+  a {
+    color: black !important;
+    background-color: #ffc107 !important;
+    border: 2px solid #e2ab06 !important;
+    &:hover {
+      background-color: #e0a800 !important;
+      border-color: #d39e00 !important;
+    }
+  }
+}
+.actions input {
+  margin-top: 0.2rem;
+}
+
+.actions input, .devise-link a {
+  display: inline-block;
+  font-weight: 500;
+  color: #fff;
+  background-color: #007bff;
+  border: 2px solid #3973b1;
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: .25rem;
+  &:hover {
+    background-color: #0069d9;
+    border-color: #0062cc;
+  }
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.errors {
+  border-width: medium;
+  h4 {
+    font-weight: 500;
+  }
+  ul {
+    list-style: none;
+    li {
+      font-weight: 500;
+    }
+  }
 }
 
 // layout
