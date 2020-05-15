@@ -346,8 +346,15 @@ $fixed-width: 80ch;
 
 .save-button {
   float: right;
+  font-size: 1rem;
+  font-weight: 500;
   margin-top: 0.5rem;
-  border-radius: 0.2rem;
+  padding: .375rem .75rem;
+  border-radius: 0.25rem;
+  background-color: #007bff;
+  &:hover {
+    background-color: #0069d9;
+  }
 }
 
 .edit-title {
@@ -437,19 +444,17 @@ $fret-area-height: 1.5rem;
   width: 1.05rem;
   left: -2.4rem;
   padding-bottom: 4px;
-
   li {
     text-align: center;
     padding-right: 2px;
     line-height: 25px;
     padding-left: 2px;
     font-weight: 600;
-
     &:hover {
       cursor: default;
       color: white;
       background-color: $color1;
-      border-radius: 35%;
+      border-radius: 25%;
       transition: color .15s ease-in-out, background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
         transition-property: color, background-color, border-color, box-shadow;
         transition-duration: 0.15s, 0.15s, 0.15s, 0.15s;
