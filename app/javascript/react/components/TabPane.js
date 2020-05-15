@@ -13,7 +13,7 @@ const TabPane = props => {
   const setSaveable = (saveable) => {
     dispatch(allActions.editorActions.setSaveable(saveable))
   }
-  
+
   const saveClickHandler = (event) => {
     saveTab()
     setSaveable(false)
@@ -25,7 +25,7 @@ const TabPane = props => {
       <TabTitle />
       <TabEditor />
       <Button
-        className="saveButton"
+        className="save-button"
         variant="primary"
         size="md"
         {...disabledSave}

@@ -54,7 +54,7 @@ const FretboardContent = (props) => {
       return (
         <Col key={val}
           xs={2}
-          className="fretArea"
+          className="fret-area"
           onClick={clickHandler(stringNum, fretNum)}>
          {dot}
         </Col>
@@ -70,7 +70,7 @@ const FretboardContent = (props) => {
     const fretArea3 = makeRow(row, 6, 12)
 
     return (
-      <Row className="fretboardRow" key={val}>
+      <Row className="fretboard-row" key={val}>
         <Col xs={6}>
           {fretArea1}
         </Col>
@@ -85,7 +85,7 @@ const FretboardContent = (props) => {
   })
   return (
     <>
-      <Container className="fretboardContent">
+      <Container className="fretboard-content">
         {grid}
       </Container>
       <StringOverlay />

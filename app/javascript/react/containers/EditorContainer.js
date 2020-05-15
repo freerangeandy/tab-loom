@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import TabPane from '../components/TabPane'
 import allActions from '../actions'
+import blurredBackground from '../../../assets/images/new_tab_blurred.png'
 
 const EditorContainer = props => {
   const dispatch = useDispatch()
@@ -56,11 +57,16 @@ const EditorContainer = props => {
       <TabPane saveTab={saveTab} />
     )
   } else {
-    tabPane = <h4>Sign in to begin editing</h4>
+    tabPane = (
+      <>
+      <img src={blurredBackground} />
+      <h4 className="login-prompt">Sign in to begin editing</h4>
+      </>
+    )
   }
 
   return (
-    <div className="editorContainer">
+    <div className="editor-container">
       {tabPane}
     </div>
   )
