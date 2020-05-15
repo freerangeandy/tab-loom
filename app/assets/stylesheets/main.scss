@@ -5,9 +5,12 @@ $color3: #bc4639;
 $color4: #d4a59a;
 $color5: #f3e0dc;
 
-$alert: #DC3545;
-$notice: #28A745;
+$alert: #dc3545;
+$notice: #28a745;
 
+$select: #ffc107;
+$item-hover: #ffe998;
+$new-hover: #5ee647;
 // flash messages
 .flash-notice {
   font: Arial, sans-serif;
@@ -101,15 +104,33 @@ $notice: #28A745;
   }
 }
 
+.new-tab {
+  display: inline-block;
+  &:hover {
+    color: $new-hover;
+  }
+}
+
 .index-item {
+  &:hover {
+    color: $item-hover;
+  }
+}
+
+.index-item, .new-tab {
   cursor: pointer;
   &:hover {
-    color: $color4;
+
+    transition: color .15s ease-in-out,box-shadow .15s ease-in-out;
+      transition-property: color, box-shadow;
+      transition-duration: 0.15s, 0.15s;
+      transition-timing-function: ease-in-out, ease-in-out;
+      transition-delay: 0s, 0s;
   }
 }
 
 .index-item-selected {
-  color: yellow;
+  color: $select;
 }
 
 // chords
