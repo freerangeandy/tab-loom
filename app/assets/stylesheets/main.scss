@@ -40,13 +40,16 @@ body {
 
 // forms
 .form-container {
+  position: fixed;
+  left: 50%;
+  transform: translate(-50%, 0);
   display: inline-block;
   background-color: $form-bg;
   border: medium solid $form-border;
   margin-top: 3rem;
   width: 40rem;
   border-radius: 2%;
-  margin: 3rem 20rem 0 20rem;
+
   h2 {
     color: white;
     font-weight: 600;
@@ -84,13 +87,10 @@ body {
   }
 }
 
-.login-btn a {
+.login-btn, .signup-btn {
   float: right;
-}
-
-.signup-btn {
-  float: right;
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.3em;
+  margin-left: 0.3em;
   a {
     margin-top: 0.25rem;
   }
@@ -112,6 +112,19 @@ body {
   margin-top: 0.2rem;
 }
 
+.reset-pw {
+  input {
+    margin: 0.2rem 0;
+    color: black !important;
+    background-color: #ffc107 !important;
+    border: 2px solid #e2ab06 !important;
+    &:hover {
+      background-color: #e0a800 !important;
+      border-color: #d39e00 !important;
+    }
+  }
+}
+
 .actions input, .devise-link a {
   display: inline-block;
   font-weight: 500;
@@ -123,6 +136,7 @@ body {
   line-height: 1.5;
   border-radius: .25rem;
   &:hover {
+    text-decoration: none;
     background-color: #0069d9;
     border-color: #0062cc;
   }
@@ -232,7 +246,6 @@ body {
 .index-item, .new-tab {
   cursor: pointer;
   &:hover {
-
     transition: color .15s ease-in-out,box-shadow .15s ease-in-out;
       transition-property: color, box-shadow;
       transition-duration: 0.15s, 0.15s;
