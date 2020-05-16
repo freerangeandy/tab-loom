@@ -5,6 +5,7 @@ import FormControl from 'react-bootstrap/FormControl'
 import allActions from '../actions'
 
 const TabTitle = (props) => {
+  const { enterPressHandler } = props
   const [editMode, setEditMode] = useState(false)
   const editTitleRef = useRef(null)
   const dispatch = useDispatch()
@@ -26,12 +27,20 @@ const TabTitle = (props) => {
     setSaveable(true)
   }
 
+  const keyPressHandler = (event) => {
+    if (event.key === 'Enter'){
+      setEditMode(false)
+      enterPressHandler()
+    }
+  }
+
   let titleDisplay
   if (editMode) {
     titleDisplay = (
       <FormControl
         ref={editTitleRef}
         onChange={(e) => changeHandler(e)}
+        onKeyPress={(e => keyPressHandler(e))}
         defaultValue={tabTitle} />
     )
     document.addEventListener("mousedown", clickOutHandler)

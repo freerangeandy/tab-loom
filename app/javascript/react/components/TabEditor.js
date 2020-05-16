@@ -17,6 +17,7 @@ import {
 } from '../shared/utility'
 
 const TestEditor = props => {
+  const { setSaveFocus, saveClickHandler } = props
   const editorRef = useRef(null)
   const dispatch = useDispatch()
   const tabContent = useSelector(state => state.tabEditor.tab.content)
@@ -60,6 +61,14 @@ const TestEditor = props => {
         let newContent = insertDashIntoTabContent(tabContent, newIndex, 1)
         setTabContent(newContent)
         setSaveable(true)
+      } else if (e.key === 'Tab') {
+        e.preventDefault()
+        setSaveFocus()
+        editorByRef.blur()
+      } else if (e.key === 'Enter') {
+        e.preventDefault()
+        shiftSelectionLeft(editorByRef, newIndex)
+        saveClickHandler()
       } else {
         if (indexAtRowEnd(newIndex)) {
           shiftSelectionLeft(editorByRef, newIndex)
@@ -83,12 +92,20 @@ const TestEditor = props => {
     }
   }
 
+  const bindings = { tab: false }
+  const moduleConfig = {
+    keyboard: {
+      bindings: bindings
+    }
+  }
+
   return (
     <Fragment>
       <ReactQuill
         theme="snow"
         value={tabContent}
         ref={editorRef}
+        modules={moduleConfig}
         onChange={(val, del, s, ed) => changeHandler(val, del, s, ed)}
         onChangeSelection={(ra, s, ed) => changeSelectHandler(ra, s, ed)}
         onKeyDown={e => keyDownHandler(e)}
