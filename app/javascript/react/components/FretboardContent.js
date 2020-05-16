@@ -24,7 +24,7 @@ const FretboardContent = (props) => {
 
   const showDot = (string, fret) => {
     if (fret == 12 && [3, 5].includes(string)
-      || string == 4 && [3, 5, 7, 9].includes(fret)
+      || string == 4 && [3, 5, 7, 9, 15].includes(fret)
     ) {
       return true
     } else return false
@@ -46,9 +46,11 @@ const FretboardContent = (props) => {
       if (showDot(stringNum, fretNum)) {
         dot = <Dot />
       }
+      const colSlotsPer = 12 / numCols
+
       return (
         <Col key={val}
-          xs={2}
+          xs={colSlotsPer}
           className="fret-area"
           onClick={clickHandler(stringNum, fretNum)}>
          {dot}
@@ -61,19 +63,27 @@ const FretboardContent = (props) => {
 
   const grid = Array.from(Array(6).keys()).map((val, row) => {
     const fretArea1 = makeRow(row, 6)
-    const fretArea2 = makeRow(row, 6, 6)
-    const fretArea3 = makeRow(row, 6, 12)
+    const fretArea2 = makeRow(row, 4, 6)
+    const fretArea3 = makeRow(row, 3, 10)
+    const fretArea4 = makeRow(row, 2, 13)
+    const fretArea5 = makeRow(row, 3, 15)
 
     return (
       <Row className="fretboard-row" key={val}>
-        <Col xs={6}>
+        <Col xs={5}>
           {fretArea1}
         </Col>
-        <Col xs={4}>
+        <Col xs={3}>
           {fretArea2}
         </Col>
         <Col xs={2}>
           {fretArea3}
+        </Col>
+        <Col xs={1}>
+          {fretArea4}
+        </Col>
+        <Col xs={1}>
+          {fretArea5}
         </Col>
       </Row>
     )
