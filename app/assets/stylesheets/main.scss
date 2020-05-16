@@ -430,7 +430,7 @@ $fret-area-height: 1.5rem;
 .dot {
   position: relative;
   top: calc(-0.5*#{$fret-area-height} - 0.05rem);//-0.8rem;
-  margin-left: 32%;
+  margin-left: calc(38% - 0.15rem);
   width: 0.2rem;
   color: #F5F4F0;
   transform: rotate(45deg);
