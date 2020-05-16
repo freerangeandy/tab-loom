@@ -19,11 +19,15 @@ const TabPane = props => {
     setSaveable(false)
   }
 
+  const enterPressHandler = () => {
+    saveTab()
+    setSaveable(false)
+  }
   let disabledSave = saveable ? {} : { disabled: 'disabled' }
   return (
     <>
-      <TabTitle />
       <TabEditor />
+      <TabTitle enterPressHandler={enterPressHandler}/>
       <Button
         className="save-button"
         variant="primary"
