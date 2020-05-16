@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useRef } from 'react'
 import Button from 'react-bootstrap/Button'
 import { useSelector, useDispatch } from 'react-redux'
 
@@ -8,6 +8,7 @@ import allActions from '../actions'
 
 const TabPane = props => {
   const saveTab = props.saveTab
+  const saveRef = useRef(null)
   const dispatch = useDispatch()
   const saveable = useSelector(state => state.tabEditor.saveable)
   const setSaveable = (saveable) => {
@@ -23,15 +24,23 @@ const TabPane = props => {
     saveTab()
     setSaveable(false)
   }
+
+  const setSaveFocus = () => {
+    if (saveRef != null) {
+      saveRef.current.focus()
+    }
+  }
+
   let disabledSave = saveable ? {} : { disabled: 'disabled' }
   return (
     <>
-      <TabEditor />
       <TabTitle enterPressHandler={enterPressHandler}/>
+      <TabEditor setSaveFocus={setSaveFocus} saveClickHandler={saveClickHandler} />
       <Button
         className="save-button"
         variant="primary"
         size="md"
+        ref={saveRef}
         {...disabledSave}
         onClick={(e) => saveClickHandler(e)}>
           Save
