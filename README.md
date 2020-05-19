@@ -35,7 +35,7 @@ If those commands ran successfully, Postgres should be hosting a `tab-loom_devel
 
 ## Running the Application
 ### Hosting
-To host an instance of this application on a local server, open a terminal window and run the following command to start the Node server:
+To host an instance of this application on a local server, open a terminal window in the root directory of the application and run the following command to start the Node server:
 ```
 yarn start
 ```
@@ -84,7 +84,23 @@ Open a browser window and navigate to `http://localhost:3000/` to view the Tab L
     Click on a fret and string position to overlay the corresponding fret value onto the corresponding 'string' in the tab editor at the column position containing the currently selected character (defaults to left-most column). Subsequent fretboard clicks will overlay a value in every other column.
 
 ## Testing
-### TBD
+### Model and Controller testing
+Before testing the Rails models and controller routes, the database in the test environment needs to be set up. Upon creating or making changes to the development database, open a terminal window in the root directory of the application and run the following command:
+```
+bundle exec rake db:test:prepare
+```
+To then run the tests, run the following command:
+```
+bundle exec rspec
+```
+After test suites have been run, a list of failing and pending tests will be displayed. Passing tests will be represented by a green dot in the first line below your command.
+
+### Unit and Feature testing
+To test the JavaScript utility functions and React components, open a terminal window in the root directory of the application and run the following command:
+```
+yarn test
+```
+After test suites have been run, a list of passing, failing, and skipped tests will be displayed.
 
 ### Built With
 * [make_it_so](https://github.com/LaunchAcademy/make_it_so) - Provided initial app configuration and support for ReactJS, Ruby on Rails, Devise, SASS, RSpec, and Jest
