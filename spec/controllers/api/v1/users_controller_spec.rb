@@ -2,8 +2,10 @@ require "rails_helper"
 
 RSpec.describe Api::V1::UsersController, type: :controller do
   describe "GET#show" do
-    let(:user){ create(:user) }
-    before(:example) { allow(controller).to receive(:current_user) { user } }
+    before(:example) do
+      @user = create(:user, username: "current")
+      sign_in @user
+    end
 
     it "returns a successful response status and a content type of JSON" do
       get :show, params: {id: -1}
@@ -18,9 +20,9 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
       expect(returned_json).to be_kind_of(Hash)
       expect(returned_json).to_not be_kind_of(Array)
-      expect(returned_json["id"]).to eq(user["id"])
-      expect(returned_json["username"]).to eq(user["username"])
-      expect(returned_json["email"]).to eq(user["email"])
+      expect(returned_json["id"]).to eq(@user["id"])
+      expect(returned_json["username"]).to eq("current")
+      expect(returned_json["email"]).to eq(@user["email"])
       expect(returned_json["tablatures"]).to be_kind_of(Array)
     end
   end
