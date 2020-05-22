@@ -25,7 +25,7 @@ RSpec.describe User, type: :model do
     end
   end
 
-  context "instance variables" do
+  context "instance variables" do 
     before(:example) do
       complete_user = User.create(username: "complete", password: "2complete4u", password_confirmation: "2complete4u", email: "this@isntreal.com")
       @complete_user_saved = User.find(complete_user.id)
