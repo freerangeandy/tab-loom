@@ -18,6 +18,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
       expect(returned_json).to be_kind_of(Hash)
       expect(returned_json).to_not be_kind_of(Array)
+      expect(returned_json["id"]).to eq(user["id"])
       expect(returned_json["username"]).to eq(user["username"])
       expect(returned_json["email"]).to eq(user["email"])
       expect(returned_json["tablatures"]).to be_kind_of(Array)
