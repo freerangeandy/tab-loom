@@ -18,7 +18,7 @@ RSpec.describe Api::V1::ChordsController, type: :controller do
           voicingID: "9223372036924084354",
           tones: "Gb,Bb,Db"
       }
-      VCR.use_cassette "chords/major", :record => :new_episodes  do
+      VCR.use_cassette "chords/major" do
         url = "#{base_url}/#{major_chord_param}"
         api_response = Faraday.get(url)
         parsed_response = JSON.parse(api_response.body)
@@ -42,7 +42,7 @@ RSpec.describe Api::V1::ChordsController, type: :controller do
           voicingID: "9223372036889412705",
           tones: "F,Ab,C,Eb"
       }
-      VCR.use_cassette "chords/variant", :record => :new_episodes do
+      VCR.use_cassette "chords/variant" do
         url = "#{base_url}/#{variant_chord_param}"
         api_response = Faraday.get(url)
         parsed_response = JSON.parse(api_response.body)
@@ -61,7 +61,7 @@ RSpec.describe Api::V1::ChordsController, type: :controller do
       expected_first_chord_name = "C,,,"
       expected_last_chord_name = "B,dim,,"
 
-      VCR.use_cassette "chords/all_96", :record => :new_episodes do
+      VCR.use_cassette "chords/all_96" do
         url = "#{base_url}?names=#{all_chord_params}"
         api_response = Faraday.get(url)
         parsed_response = JSON.parse(api_response.body)
