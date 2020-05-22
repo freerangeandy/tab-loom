@@ -7,5 +7,5 @@ class User < ApplicationRecord
   has_many :tablatures
 
   validates :username, presence: true
-  validates_uniqueness_of :username
+  validates_uniqueness_of :username, case_sensitive: false
 end
