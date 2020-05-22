@@ -1,0 +1,49 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.uberchord.com/v1/chords/Gb
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.0.1
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      date:
+      - Fri, 22 May 2020 15:48:04 GMT
+      content-type:
+      - application/json; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - keep-alive
+      set-cookie:
+      - __cfduid=de42a7624c343700ffdd70d517841a71a1590162484; expires=Sun, 21-Jun-20
+        15:48:04 GMT; path=/; domain=.uberchord.com; HttpOnly; SameSite=Lax
+      access-control-allow-origin:
+      - "*"
+      etag:
+      - W/"9c-OA9sZV9Z4FnrZE9dUuFE4OsAFZc"
+      x-powered-by:
+      - Express
+      cf-cache-status:
+      - DYNAMIC
+      expect-ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      server:
+      - cloudflare
+      cf-ray:
+      - 5977ade9ec230ca9-EWR
+      cf-request-id:
+      - 02deab063200000ca96dbf3200000001
+    body:
+      encoding: ASCII-8BIT
+      string: '[{"strings":"2 4 4 3 2 2","fingering":"1 3 4 2 1 1","chordName":"Gb,,,","enharmonicChordName":"F#,,,","voicingID":"9223372036924084354","tones":"Gb,Bb,Db"}]'
+    http_version: null
+  recorded_at: Fri, 22 May 2020 15:48:04 GMT
+recorded_with: VCR 5.1.0
