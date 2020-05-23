@@ -251,7 +251,23 @@ RSpec.describe Api::V1::TablaturesController, type: :controller do
     end
   end
 
-  xdescribe "DELETE#destroy" do
+  describe "DELETE#destroy" do
+    it "deletes tablature upon successful request" do
+      delete :destroy, params: {id: @first_tab.id}
 
+      expect(response.status).to eq 200
+      expect(response.content_type).to eq("application/json")
+      expect(Tablature.count).to eq(@prev_count - 1)
+    end
+
+    it "returns array of user's remaining tablatures" do
+      delete :destroy, params: {id: @first_tab.id}
+
+      returned_json = JSON.parse(response.body)
+      expect(returned_json).to be_kind_of(Array)
+      expect(returned_json.first).to be_kind_of(Hash)
+      expect(returned_json.last).to be_kind_of(Hash)
+      expect(returned_json.length).to eq(@user.tablatures.length)
+    end
   end
 end
