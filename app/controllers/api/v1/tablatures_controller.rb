@@ -6,11 +6,15 @@ class Api::V1::TablaturesController < ApplicationController
   end
 
   def show
-    tab = Tablature.find(params[:id])
-    render json: {
-      tablature: serialized_data(tab, TablatureSerializer),
-      current_user: current_user
-    }
+    if Tablature.exists?(params[:id])
+      tab = Tablature.find(params[:id])
+      render json: {
+        tablature: serialized_data(tab, TablatureSerializer),
+        current_user: current_user
+      }
+    else
+      render json: {error: no_id_match_error_msg}
+    end
   end
 
   def create
@@ -24,23 +28,33 @@ class Api::V1::TablaturesController < ApplicationController
   end
 
   def update
-    tab = Tablature.find(params[:id])
-    tab.update_attributes(tab_params)
+    if Tablature.exists?(params[:id])
+      tab = Tablature.find(params[:id])
+      tab.update_attributes(tab_params)
 
-    if tab.save
-      render json: tab
+      if tab.save
+        render json: tab
+      else
+        render json: {error: tab.errors.full_messages.to_sentence}
+      end
     else
-      render json: {error: tab.errors.full_messages.to_sentence}
+      render json: {error: no_id_match_error_msg}
     end
   end
 
   def destroy
-    tab_by_current_user = current_user.tablatures.exists?(params[:id])
-    if tab_by_current_user
-      tab = Tablature.find(params[:id])
-      user = tab.user
-      tab.delete
-      render json: user.tablatures
+    if Tablature.exists?(params[:id])
+      tab_by_current_user = current_user.tablatures.exists?(params[:id])
+      if tab_by_current_user
+        tab = Tablature.find(params[:id])
+        user = tab.user
+        tab.delete
+        render json: user.tablatures
+      else
+        render json: {error: invalid_id_error_msg}
+      end
+    else
+      render json: {error: no_id_match_error_msg}
     end
   end
 
@@ -58,5 +72,13 @@ class Api::V1::TablaturesController < ApplicationController
     if !user_signed_in?
       raise ActionController::RoutingError.new("Not Found")
     end
+  end
+
+  def no_id_match_error_msg
+    return "ID doesn't match an existing Tablature record"
+  end
+
+  def invalid_id_error_msg
+    return "ID doesn't match a Tablature belonging to the current user"
   end
 end

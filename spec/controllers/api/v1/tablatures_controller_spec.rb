@@ -46,6 +46,15 @@ RSpec.describe Api::V1::TablaturesController, type: :controller do
       expect(returned_json["current_user"]["username"]).to eq(@user.username)
       expect(returned_json["current_user"]["email"]).to eq(@user.email)
     end
+
+    it "returns an error if tablature id doesn't match a tablature" do
+      get :show, params: { id: 0 }
+      returned_json = JSON.parse(response.body)
+
+      expect(response.status).to eq 200
+      expect(response.content_type).to eq("application/json")
+      expect(returned_json["error"]).to eq "ID doesn't match an existing Tablature record"
+    end
   end
 
   describe "POST#create" do
@@ -208,6 +217,18 @@ RSpec.describe Api::V1::TablaturesController, type: :controller do
 
       expect(returned_json["error"]).to eq "User must exist and User can't be blank"
     end
+
+    it "returns an error if tablature id doesn't match a tablature" do
+      tab_wrong_json = { **@patch_json, id: 0 }
+
+      patch :update, params: tab_wrong_json
+
+      returned_json = JSON.parse(response.body)
+      expect(response.status).to eq 200
+      expect(response.content_type).to eq("application/json")
+
+      expect(returned_json["error"]).to eq "ID doesn't match an existing Tablature record"
+    end
   end
 
   describe "DELETE#destroy" do
@@ -227,6 +248,32 @@ RSpec.describe Api::V1::TablaturesController, type: :controller do
       expect(returned_json.first).to be_kind_of(Hash)
       expect(returned_json.last).to be_kind_of(Hash)
       expect(returned_json.length).to eq(@user.tablatures.length)
+    end
+
+    it "returns an error if tablature id doesn't match a tablature" do
+      delete :destroy, params: { id: 0 }
+
+      returned_json = JSON.parse(response.body)
+      expect(response.status).to eq 200
+      expect(response.content_type).to eq("application/json")
+
+      expect(returned_json["error"]).to eq "ID doesn't match an existing Tablature record"
+      expect(Tablature.count).to eq(@prev_count)
+    end
+
+    it "returns an error if tablature id doesn't match a tablature belonging to current user" do
+      other_user = create(:user, username: "not current")
+      other_tab = create(:tablature, user: other_user)
+      new_previous_count = @prev_count + 1
+      
+      delete :destroy, params: { id: other_tab.id }
+
+      returned_json = JSON.parse(response.body)
+      expect(response.status).to eq 200
+      expect(response.content_type).to eq("application/json")
+
+      expect(returned_json["error"]).to eq "ID doesn't match a Tablature belonging to the current user"
+      expect(Tablature.count).to eq(new_previous_count)
     end
   end
 end
