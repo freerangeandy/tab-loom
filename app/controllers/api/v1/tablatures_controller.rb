@@ -13,7 +13,7 @@ class Api::V1::TablaturesController < ApplicationController
         current_user: current_user
       }
     else
-      render json: {error: no_id_match_error_msg}
+      render json: { error: no_id_match_error_msg }
     end
   end
 
@@ -23,7 +23,7 @@ class Api::V1::TablaturesController < ApplicationController
     if tab.save
       render json: tab
     else
-      render json: {error: tab.errors.full_messages.to_sentence}
+      render json: { error: tab.errors.full_messages.to_sentence }
     end
   end
 
@@ -35,10 +35,10 @@ class Api::V1::TablaturesController < ApplicationController
       if tab.save
         render json: tab
       else
-        render json: {error: tab.errors.full_messages.to_sentence}
+        render json: { error: tab.errors.full_messages.to_sentence }
       end
     else
-      render json: {error: no_id_match_error_msg}
+      render json: { error: no_id_match_error_msg }
     end
   end
 
@@ -51,10 +51,10 @@ class Api::V1::TablaturesController < ApplicationController
         tab.delete
         render json: user.tablatures
       else
-        render json: {error: invalid_id_error_msg}
+        render json: { error: invalid_id_error_msg }
       end
     else
-      render json: {error: no_id_match_error_msg}
+      render json: { error: no_id_match_error_msg }
     end
   end
 

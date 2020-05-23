@@ -10,14 +10,14 @@ RSpec.describe Api::V1::TablaturesController, type: :controller do
 
   describe "GET#show" do
     it "returns a successful response status and a content type of JSON" do
-      get :show, params: {id: @first_tab.id}
+      get :show, params: { id: @first_tab.id }
 
       expect(response.status).to eq 200
       expect(response.content_type).to eq("application/json")
     end
 
     it "returns a JSON with 'tablature' and 'current_user' keys" do
-      get :show, params: {id: @first_tab.id}
+      get :show, params: { id: @first_tab.id }
       returned_json = JSON.parse(response.body)
 
       expect(returned_json).to be_kind_of(Hash)
@@ -26,7 +26,7 @@ RSpec.describe Api::V1::TablaturesController, type: :controller do
     end
 
     it "returns the specific tablature" do
-      get :show, params: {id: @first_tab.id}
+      get :show, params: { id: @first_tab.id }
       returned_json = JSON.parse(response.body)
 
       expect(returned_json["tablature"]).to be_kind_of(Hash)
@@ -38,7 +38,7 @@ RSpec.describe Api::V1::TablaturesController, type: :controller do
     end
 
     it "returns the current user" do
-      get :show, params: {id: @first_tab.id}
+      get :show, params: { id: @first_tab.id }
       returned_json = JSON.parse(response.body)
 
       expect(returned_json["current_user"]).to be_kind_of(Hash)
@@ -233,7 +233,7 @@ RSpec.describe Api::V1::TablaturesController, type: :controller do
 
   describe "DELETE#destroy" do
     it "deletes tablature upon successful request" do
-      delete :destroy, params: {id: @first_tab.id}
+      delete :destroy, params: { id: @first_tab.id }
 
       expect(response.status).to eq 200
       expect(response.content_type).to eq("application/json")
@@ -265,7 +265,7 @@ RSpec.describe Api::V1::TablaturesController, type: :controller do
       other_user = create(:user, username: "not current")
       other_tab = create(:tablature, user: other_user)
       new_previous_count = @prev_count + 1
-      
+
       delete :destroy, params: { id: other_tab.id }
 
       returned_json = JSON.parse(response.body)
