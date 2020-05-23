@@ -49,15 +49,18 @@ RSpec.describe Api::V1::TablaturesController, type: :controller do
   end
 
   describe "POST#create" do
-    it "posts a new tablature upon successful request" do
-      post_json = {
+    before(:each) do
+      @post_json = {
         tablature: {
           title: "Sample Tab",
           content: "--41--42",
           user_id: @user.id
         }
       }
-      post :create, params: post_json
+    end
+
+    it "posts a new tablature upon successful request" do
+      post :create, params: @post_json
 
       expect(response.status).to eq 200
       expect(response.content_type).to eq("application/json")
@@ -65,33 +68,22 @@ RSpec.describe Api::V1::TablaturesController, type: :controller do
     end
 
     it "returns the JSON of the newly created tablature" do
-      post_json = {
-        tablature: {
-          title: "Sample Tab",
-          content: "--41--42",
-          user_id: @user.id
-        }
-      }
-      post :create, params: post_json
+      post :create, params: @post_json
 
       returned_json = JSON.parse(response.body)
 
       expect(returned_json).to be_kind_of(Hash)
       expect(returned_json).to_not be_kind_of(Array)
-      expect(returned_json["title"]).to eq(post_json[:tablature][:title])
-      expect(returned_json["content"]).to eq(post_json[:tablature][:content])
+      expect(returned_json["title"]).to eq(@post_json[:tablature][:title])
+      expect(returned_json["content"]).to eq(@post_json[:tablature][:content])
       expect(returned_json["user_id"]).to eq(@user.id)
       expect(returned_json["user_name"]).to eq(@user.username)
     end
 
     it "returns errors if title field missing" do
-      title_missing_json = {
-        tablature: {
-          title: "",
-          content: "--41--42",
-          user_id: @user.id
-        }
-      }
+      tab_title_missing = { **@post_json[:tablature], title: ""}
+      title_missing_json = { tablature: tab_title_missing }
+
       post :create, params: title_missing_json
 
       returned_json = JSON.parse(response.body)
@@ -103,13 +95,9 @@ RSpec.describe Api::V1::TablaturesController, type: :controller do
     end
 
     it "returns errors if content field missing" do
-      content_missing_json = {
-        tablature: {
-          title: "No content",
-          content: "",
-          user_id: @user.id
-        }
-      }
+      tab_content_missing = { **@post_json[:tablature], content: ""}
+      content_missing_json = { tablature: tab_content_missing }
+
       post :create, params: content_missing_json
 
       returned_json = JSON.parse(response.body)
@@ -121,13 +109,8 @@ RSpec.describe Api::V1::TablaturesController, type: :controller do
     end
 
     it "returns errors if user id missing" do
-      user_missing_json = {
-        tablature: {
-          title: "No user",
-          content: "--41--42",
-          user_id: ""
-        }
-      }
+      tab_user_missing = { **@post_json[:tablature], user_id: ""}
+      user_missing_json = { tablature: tab_user_missing }
 
       post :create, params: user_missing_json
 
@@ -140,13 +123,8 @@ RSpec.describe Api::V1::TablaturesController, type: :controller do
     end
 
     it "returns errors if user id doesn't match a user" do
-      user_wrong_json = {
-        tablature: {
-          title: "Not a user",
-          content: "--41--42",
-          user_id: 0
-        }
-      }
+      tab_user_wrong = { **@post_json[:tablature], user_id: 0}
+      user_wrong_json = { tablature: tab_user_wrong }
 
       post :create, params: user_wrong_json
 
@@ -160,8 +138,8 @@ RSpec.describe Api::V1::TablaturesController, type: :controller do
   end
 
   describe "PATCH#update" do
-    it "returns a successful response status and a content type of JSON" do
-      patch_json = {
+    before(:each) do
+      @patch_json = {
         id: @first_tab.id,
         tablature: {
           title: "Sample Tab",
@@ -169,7 +147,10 @@ RSpec.describe Api::V1::TablaturesController, type: :controller do
           user_id: @user.id
         }
       }
-      patch :update, params: patch_json
+    end
+
+    it "returns a successful response status and a content type of JSON" do
+      patch :update, params: @patch_json
 
       expect(response.status).to eq 200
       expect(response.content_type).to eq("application/json")
@@ -177,34 +158,22 @@ RSpec.describe Api::V1::TablaturesController, type: :controller do
     end
 
     it "returns the JSON of the updated tablature" do
-      patch_json = {
-        id: @first_tab.id,
-        tablature: {
-          title: "Sample Tab",
-          content: "--41--42",
-          user_id: @user.id
-        }
-      }
-      patch :update, params: patch_json
+      patch :update, params: @patch_json
 
       returned_json = JSON.parse(response.body)
       expect(returned_json).to be_kind_of(Hash)
       expect(returned_json).to_not be_kind_of(Array)
-      expect(returned_json["title"]).to eq(patch_json[:tablature][:title])
-      expect(returned_json["content"]).to eq(patch_json[:tablature][:content])
+      expect(returned_json["id"]).to eq(@patch_json[:id])
+      expect(returned_json["title"]).to eq(@patch_json[:tablature][:title])
+      expect(returned_json["content"]).to eq(@patch_json[:tablature][:content])
       expect(returned_json["user_id"]).to eq(@user.id)
       expect(returned_json["user_name"]).to eq(@user.username)
     end
 
     it "returns errors if title field missing" do
-      missing_title_json = {
-        id: @first_tab.id,
-        tablature: {
-          title: "",
-          content: "--41--42",
-          user_id: @user.id
-        }
-      }
+      tab_missing_title = { **@patch_json[:tablature], title: ""}
+      missing_title_json = { **@patch_json, tablature: tab_missing_title}
+
       patch :update, params: missing_title_json
 
       returned_json = JSON.parse(response.body)
@@ -215,14 +184,9 @@ RSpec.describe Api::V1::TablaturesController, type: :controller do
     end
 
     it "returns errors if content field missing" do
-      missing_content_json = {
-        id: @first_tab.id,
-        tablature: {
-          title: "Sample Tab",
-          content: "",
-          user_id: @user.id
-        }
-      }
+      tab_missing_content = { **@patch_json[:tablature], content: ""}
+      missing_content_json = { **@patch_json, tablature: tab_missing_content}
+
       patch :update, params: missing_content_json
 
       returned_json = JSON.parse(response.body)
@@ -232,15 +196,10 @@ RSpec.describe Api::V1::TablaturesController, type: :controller do
       expect(returned_json["error"]).to eq "Content can't be blank"
     end
 
-    it "returns errors if user id missing" do
-      user_wrong_json = {
-        id: @first_tab.id,
-        tablature: {
-          title: "Sample Tab",
-          content: "--41--42",
-          user_id: 0
-        }
-      }
+    it "returns errors if user id doesn't match a user" do
+      tab_user_wrong = { **@patch_json[:tablature], user_id: 0}
+      user_wrong_json = { **@patch_json, tablature: tab_user_wrong}
+
       patch :update, params: user_wrong_json
 
       returned_json = JSON.parse(response.body)
@@ -261,7 +220,7 @@ RSpec.describe Api::V1::TablaturesController, type: :controller do
     end
 
     it "returns array of user's remaining tablatures" do
-      delete :destroy, params: {id: @first_tab.id}
+      delete :destroy, params: { id: @first_tab.id }
 
       returned_json = JSON.parse(response.body)
       expect(returned_json).to be_kind_of(Array)
