@@ -102,6 +102,7 @@ yarn test
 ```
 After test suites have been run, a list of passing, failing, and skipped tests will be displayed.
 
+## About
 ### Built With
 * [make_it_so](https://github.com/LaunchAcademy/make_it_so) - Provided initial app configuration and support for ReactJS, Ruby on Rails, Devise, SASS, RSpec, and Jest
 * [React Bootstrap](https://react-bootstrap.github.io/) - Basis for layout and button components
