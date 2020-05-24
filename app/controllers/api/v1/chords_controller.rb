@@ -1,8 +1,8 @@
 require 'faraday'
 
 class Api::V1::ChordsController < ApplicationController
-  include ChordsHelper
-  
+  include ChordsConcern
+
   protect_from_forgery unless: -> { request.format.json? }
 
   def index

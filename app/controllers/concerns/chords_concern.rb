@@ -1,4 +1,4 @@
-module ChordsHelper
+module ChordsConcern
   extend ActiveSupport::Concern
 
   def reformat_chord_name(chord_name)
