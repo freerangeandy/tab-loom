@@ -1,4 +1,6 @@
 module ChordsHelper
+  extend ActiveSupport::Concern
+
   def reformat_chord_name(chord_name)
     chord_name_split = chord_name.split(',')
     if !chord_name.include?(",,,")

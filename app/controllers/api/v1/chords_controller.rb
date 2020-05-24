@@ -1,8 +1,8 @@
 require 'faraday'
-require_relative '../../concerns/chords_helper.rb'
 
 class Api::V1::ChordsController < ApplicationController
   include ChordsHelper
+  
   protect_from_forgery unless: -> { request.format.json? }
 
   def index
