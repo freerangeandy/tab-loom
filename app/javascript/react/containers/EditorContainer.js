@@ -60,7 +60,7 @@ const EditorContainer = props => {
     tabPane = (
       <>
       <img src={blurredBackground} />
-      <h4 className="login-prompt">Sign in to begin editing</h4>
+      <a href="/users/sign_in"><h4 className="login-prompt">Sign in to begin editing</h4></a>
       </>
     )
   }

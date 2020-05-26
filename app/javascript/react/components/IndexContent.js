@@ -48,7 +48,7 @@ const IndexContent = props => {
     })
   }
 
-  let newTabButton = <h5>Sign in to add new tabs</h5>
+  let newTabButton = (<a href="/users/sign_in"><h5>Sign in to add new tabs</h5></a>)
   if (currentUser.id != null) {
     newTabButton = (
       <h5 className="new-tab" onClick={() => showNewTab()}>+ New Tab</h5>
