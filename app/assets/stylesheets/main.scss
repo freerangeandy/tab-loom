@@ -1,20 +1,35 @@
-// colors
+/* COLORS */
 $color1: #4285f4;
 $color2: #5c2018;
 $color3: #bc4639;
 $color4: #d4a59a;
 $color5: #f3e0dc;
 
+// forms
 $alert: #dc3545;
 $notice: #28a745;
-
 $form-bg: #3c943c;
 $form-border: #378c37;
 
+// index
 $item-hover: #ffefb5;
 $nav-hover: #fbdf79;
 $select: #ffd500;
 $new-hover: #5ee647;
+
+// tab editor
+$line-height: 1;
+$font-size: 16px;
+$fixed-width: 80ch;
+
+// fretboard
+$board-color: #38384A;
+$fret-color: #F9F6F9;
+$nut-color: #E5DAB5;
+$string-color: #B08A46;
+$fret-area-height: 1.5rem;
+
+/* CLASSES */
 
 body {
   background-color: $color5;
@@ -211,8 +226,8 @@ body {
   left: 0;
   width: 100%;
   height: 2rem;
-  background-color: $color1;
-  border-top: 2px solid $color5;
+  background-color: $board-color;
+  border-top: 2px solid $nut-color;
   z-index: 100;
   div {
     margin: 0 0.5rem;
@@ -326,10 +341,6 @@ body {
 }
 
 // tab editor
-$line-height: 1;
-$font-size: 16px;
-$fixed-width: 80ch;
-
 .editor-container {
   min-height: 20rem;
   h5 {
@@ -409,12 +420,6 @@ $fixed-width: 80ch;
 }
 
 // fretboard
-$board-color: #38384A;
-$fret-color: #F9F6F9;
-$nut-color: #E5DAB5;
-$string-color: #B08A46;
-$fret-area-height: 1.5rem;
-
 .fretboard-content {
   border: 1px solid $board-color;
   background-color: $board-color;
