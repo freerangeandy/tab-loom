@@ -27,10 +27,10 @@ $board-color: #38384A;
 $fret-color: #F9F6F9;
 $nut-color: #E5DAB5;
 $string-color: #B08A46;
+$dot-color: #F5F4F0;
 $fret-area-height: 1.5rem;
 
 /* CLASSES */
-
 body {
   background-color: $color5;
 }
@@ -225,15 +225,36 @@ body {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 2rem;
+  height: 1.8rem;
   background-color: $board-color;
   border-top: 2px solid $nut-color;
   z-index: 100;
   div {
-    margin: 0 0.5rem;
+    margin: 0.2rem 0.5rem;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    p {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: $dot-color;
+    }
+  }
+}
+
+.git-link {
+  color: $dot-color;
+  &:focus {
+    color: $dot-color;
+  }  
+  &:hover {
+    text-decoration: none;
+    color: $nav-hover;
+    transition: color .15s ease-in-out,box-shadow .15s ease-in-out;
+      transition-property: color, box-shadow;
+      transition-duration: 0.15s, 0.15s;
+      transition-timing-function: ease-in-out, ease-in-out;
+      transition-delay: 0s, 0s;
   }
 }
 
@@ -281,7 +302,6 @@ body {
   svg {
     height: 1.0rem;
   }
-
   a {
     color: $color5;
     text-decoration: none;
@@ -471,7 +491,7 @@ body {
   top: calc(-0.5*#{$fret-area-height} - 0.05rem);//-0.8rem;
   margin-left: calc(38% - 0.15rem);
   width: 0.2rem;
-  color: #F5F4F0;
+  color: $dot-color;
   transform: rotate(45deg);
 }
 
