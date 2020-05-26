@@ -230,26 +230,26 @@ body {
   border-top: 2px solid $nut-color;
   z-index: 100;
   div {
-    margin: 0.2rem 0.5rem;
+    margin: 0.2rem 0.8rem;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     p {
       font-size: 0.8rem;
       font-weight: 500;
-      color: $dot-color;
+      color: transparentize($dot-color, 0.2);
     }
   }
 }
 
 .git-link {
-  color: $dot-color;
+  color: transparentize($dot-color, 0.2);
   &:focus {
-    color: $dot-color;
-  }  
+    color: transparentize($dot-color, 0.2);
+  }
   &:hover {
     text-decoration: none;
-    color: $nav-hover;
+    color: $item-hover;
     transition: color .15s ease-in-out,box-shadow .15s ease-in-out;
       transition-property: color, box-shadow;
       transition-duration: 0.15s, 0.15s;
@@ -265,7 +265,6 @@ body {
   h4 {
     font-weight: 600;
     margin-left: 0.3rem;
-
   }
   h5 {
     font-weight: 500;
