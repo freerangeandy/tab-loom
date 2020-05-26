@@ -248,6 +248,11 @@ body {
   svg {
     height: 1.0rem;
   }
+
+  a {
+    color: $color5;
+    text-decoration: none;
+  }
 }
 
 .new-tab {
