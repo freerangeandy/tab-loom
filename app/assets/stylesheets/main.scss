@@ -1,21 +1,36 @@
-// colors
+/* COLORS */
 $color1: #4285f4;
 $color2: #5c2018;
 $color3: #bc4639;
 $color4: #d4a59a;
 $color5: #f3e0dc;
 
+// forms
 $alert: #dc3545;
 $notice: #28a745;
-
 $form-bg: #3c943c;
 $form-border: #378c37;
 
+// index
 $item-hover: #ffefb5;
 $nav-hover: #fbdf79;
 $select: #ffd500;
 $new-hover: #5ee647;
 
+// tab editor
+$line-height: 1;
+$font-size: 16px;
+$fixed-width: 80ch;
+
+// fretboard
+$board-color: #38384A;
+$fret-color: #F9F6F9;
+$nut-color: #E5DAB5;
+$string-color: #B08A46;
+$dot-color: #F5F4F0;
+$fret-area-height: 1.5rem;
+
+/* CLASSES */
 body {
   background-color: $color5;
 }
@@ -204,14 +219,52 @@ body {
   }
 }
 
+// footer
+.tab-loom-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1.8rem;
+  background-color: $board-color;
+  border-top: 2px solid $nut-color;
+  z-index: 100;
+  div {
+    margin: 0.2rem 0.8rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    p {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: transparentize($dot-color, 0.2);
+    }
+  }
+}
+
+.git-link {
+  color: transparentize($dot-color, 0.2);
+  &:focus {
+    color: transparentize($dot-color, 0.2);
+  }
+  &:hover {
+    text-decoration: none;
+    color: $item-hover;
+    transition: color .15s ease-in-out,box-shadow .15s ease-in-out;
+      transition-property: color, box-shadow;
+      transition-duration: 0.15s, 0.15s;
+      transition-timing-function: ease-in-out, ease-in-out;
+      transition-delay: 0s, 0s;
+  }
+}
+
 // sidebars
 .chords-sidebar, .index-sidebar {
   min-height: 100vh;
-  z-index: 100;
+  z-index: 99;
   h4 {
     font-weight: 600;
     margin-left: 0.3rem;
-
   }
   h5 {
     font-weight: 500;
@@ -248,7 +301,6 @@ body {
   svg {
     height: 1.0rem;
   }
-
   a {
     color: $color5;
     text-decoration: none;
@@ -308,10 +360,6 @@ body {
 }
 
 // tab editor
-$line-height: 1;
-$font-size: 16px;
-$fixed-width: 80ch;
-
 .editor-container {
   min-height: 20rem;
   h5 {
@@ -391,12 +439,6 @@ $fixed-width: 80ch;
 }
 
 // fretboard
-$board-color: #38384A;
-$fret-color: #F9F6F9;
-$nut-color: #E5DAB5;
-$string-color: #B08A46;
-$fret-area-height: 1.5rem;
-
 .fretboard-content {
   border: 1px solid $board-color;
   background-color: $board-color;
@@ -448,7 +490,7 @@ $fret-area-height: 1.5rem;
   top: calc(-0.5*#{$fret-area-height} - 0.05rem);//-0.8rem;
   margin-left: calc(38% - 0.15rem);
   width: 0.2rem;
-  color: #F5F4F0;
+  color: $dot-color;
   transform: rotate(45deg);
 }
 
