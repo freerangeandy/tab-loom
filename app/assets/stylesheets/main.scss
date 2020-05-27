@@ -225,31 +225,31 @@ body {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 1.8rem;
-  background-color: $board-color;
-  border-top: 2px solid $nut-color;
+  height: 1.6rem;
+  background-color: $nut-color;
+  border-top: 1px solid transparentize($board-color, 0.8);
   z-index: 100;
   div {
-    margin: 0.2rem 0.8rem;
+    margin: 0.1rem 0.8rem;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     p {
       font-size: 0.8rem;
       font-weight: 500;
-      color: transparentize($dot-color, 0.2);
+      color: transparentize($board-color, 0.3);
     }
   }
 }
 
 .git-link {
-  color: transparentize($dot-color, 0.2);
+  color: transparentize($board-color, 0.3);
   &:focus {
-    color: transparentize($dot-color, 0.2);
+    color: transparentize($board-color, 0.3);
   }
   &:hover {
     text-decoration: none;
-    color: $item-hover;
+    color: $board-color;
     transition: color .15s ease-in-out,box-shadow .15s ease-in-out;
       transition-property: color, box-shadow;
       transition-duration: 0.15s, 0.15s;
