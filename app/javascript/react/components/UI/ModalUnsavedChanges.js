@@ -29,10 +29,10 @@ const ModalUnsavedChanges = (props) => {
         </Modal.Body>
         <Modal.Footer className="modal-button-area">
           <Button className="secondary-button" variant="secondary" onClick={handleCancel}>
-            Back
+            No
           </Button>
           <Button className="primary-button" variant="primary" onClick={handleConfirm}>
-            Confirm
+            Yes
           </Button>
         </Modal.Footer>
       </Modal>
