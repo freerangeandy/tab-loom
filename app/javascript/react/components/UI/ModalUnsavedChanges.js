@@ -27,11 +27,11 @@ const ModalUnsavedChanges = (props) => {
           You have unsaved changes in the tab editor which will be lost.<br />
           Do you still want to {clickActionText}?
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCancel}>
+        <Modal.Footer className="modal-button-area">
+          <Button className="back-button" variant="secondary" onClick={handleCancel}>
             Back
           </Button>
-          <Button variant="primary" onClick={handleConfirm}>
+          <Button className="confirm-button" variant="primary" onClick={handleConfirm}>
             Confirm
           </Button>
         </Modal.Footer>

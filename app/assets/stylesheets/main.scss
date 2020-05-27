@@ -408,7 +408,7 @@ body {
   overflow: hidden;
 }
 
-.save-button {
+.save-button, .confirm-button {
   float: right;
   font-size: 1rem;
   font-weight: 500;
@@ -419,6 +419,19 @@ body {
   &:hover {
     background-color: #0069d9;
   }
+}
+
+.back-button {
+  float: right;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-top: 0.5rem;
+  padding: .375rem .75rem;
+  border-radius: 0.25rem;
+}
+
+.modal-button-area {
+  padding: 0 0.5rem 0.5rem 0.5rem;
 }
 
 .edit-title {
