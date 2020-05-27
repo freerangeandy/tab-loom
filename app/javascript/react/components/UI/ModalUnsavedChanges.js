@@ -28,10 +28,10 @@ const ModalUnsavedChanges = (props) => {
           Do you still want to {clickActionText}?
         </Modal.Body>
         <Modal.Footer className="modal-button-area">
-          <Button className="back-button" variant="secondary" onClick={handleCancel}>
+          <Button className="secondary-button" variant="secondary" onClick={handleCancel}>
             Back
           </Button>
-          <Button className="confirm-button" variant="primary" onClick={handleConfirm}>
+          <Button className="primary-button" variant="primary" onClick={handleConfirm}>
             Confirm
           </Button>
         </Modal.Footer>
