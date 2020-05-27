@@ -1,9 +1,10 @@
 import React, { Fragment, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { Modal, Button } from 'react-bootstrap'
 
 import IndexItem from './IndexItem'
+import ModalUnsavedChanges from './UI/ModalUnsavedChanges'
 import allActions from '../actions'
+import { NEW_TAB_INDEX } from '../shared/inStringConsts.js'
 
 const IndexContent = props => {
   const deleteTabByIndex = props.deleteTabByIndex
@@ -39,30 +40,12 @@ const IndexContent = props => {
     if (saveable) {
       setClickIndex(index)
     } else {
-      if (index === -1) {
+      if (index === NEW_TAB_INDEX) {
         showNewTab()
       } else {
         setTabSelectedIndex(index)
       }
     }
-  }
-
-  const handleConfirm = () => {
-    if (clickIndex === -1) {
-      showNewTab()
-    } else {
-      setTabSelectedIndex(clickIndex)
-    }
-    setClickIndex(null)
-  }
-
-  const handleCancel = () => {
-    setClickIndex(null)
-  }
-
-  const showModal = () => {
-    if (clickIndex === null) return false
-    else                     return true
   }
 
   let tabDisplayList
@@ -84,7 +67,7 @@ const IndexContent = props => {
   let newTabButton = (<a href="/users/sign_in"><h5 className="index-item">Sign in to add new tabs</h5></a>)
   if (currentUser.id != null) {
     newTabButton = (
-      <h5 className="new-tab" onClick={() => handleIndexClick(-1)}>+ New Tab</h5>
+      <h5 className="new-tab" onClick={() => handleIndexClick(NEW_TAB_INDEX)}>+ New Tab</h5>
     )
   }
 
@@ -95,20 +78,12 @@ const IndexContent = props => {
         <ul>{tabDisplayList}</ul>
         {newTabButton}
       </div>
-      <Modal show={showModal()} onHide={handleCancel}>
-        <Modal.Header closeButton>
-          <Modal.Title>Unsaved changes</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>You have unsaved work in the tab editor which will be lost. Do you still want to (view this tab/create a new tab)?</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCancel}>
-            Back
-          </Button>
-          <Button variant="primary" onClick={handleConfirm}>
-            Confirm
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      <ModalUnsavedChanges
+        clickIndex={clickIndex}
+        setClickIndex={setClickIndex}
+        showNewTab={showNewTab}
+        setTabSelectedIndex={setTabSelectedIndex}
+      />
     </>
   )
 }
