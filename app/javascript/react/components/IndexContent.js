@@ -37,6 +37,7 @@ const IndexContent = props => {
   }
 
   const handleIndexClick = (index) => {
+    if (index === tabSelectedIndex) return false
     if (saveable) {
       setClickIndex(index)
     } else {
