@@ -35,7 +35,7 @@ body {
   background-color: $color5;
 }
 
-// flash messages
+// UI
 .flash-notice {
   font: Arial, sans-serif;
   background-color: $notice;
@@ -52,6 +52,28 @@ body {
   color: white;
   padding-left: 1rem;
   font-weight: 500;
+}
+
+.primary-button {
+  float: right;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-top: 0.5rem;
+  padding: .375rem .75rem;
+  border-radius: 0.25rem;
+  background-color: #007bff;
+  &:hover {
+    background-color: #0069d9;
+  }
+}
+
+.secondary-button {
+  float: right;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-top: 0.5rem;
+  padding: .375rem .75rem;
+  border-radius: 0.25rem;  
 }
 
 // forms
@@ -408,17 +430,8 @@ body {
   overflow: hidden;
 }
 
-.save-button {
-  float: right;
-  font-size: 1rem;
-  font-weight: 500;
-  margin-top: 0.5rem;
-  padding: .375rem .75rem;
-  border-radius: 0.25rem;
-  background-color: #007bff;
-  &:hover {
-    background-color: #0069d9;
-  }
+.modal-button-area {
+  padding: 0 0.5rem 0.5rem 0.5rem;
 }
 
 .edit-title {

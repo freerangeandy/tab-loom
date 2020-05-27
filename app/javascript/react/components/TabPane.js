@@ -37,7 +37,7 @@ const TabPane = props => {
       <TabTitle enterPressHandler={enterPressHandler}/>
       <TabEditor setSaveFocus={setSaveFocus} saveClickHandler={saveClickHandler} />
       <Button
-        className="save-button"
+        className="primary-button"
         variant="primary"
         size="md"
         ref={saveRef}

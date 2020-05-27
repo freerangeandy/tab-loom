@@ -1,5 +1,6 @@
 export const COLUMN_COUNT = 71
 export const STEP_SIZE = 2
+export const NEW_TAB_INDEX = -1
 
 const BLANK_LINE = '-'.repeat(COLUMN_COUNT-2)
 export const BLANK_TAB = [
