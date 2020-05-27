@@ -14,27 +14,19 @@ const ModalUnsavedChanges = (props) => {
     }
     setClickIndex(null)
   }
-
   const handleCancel = () => {
     setClickIndex(null)
   }
-
   const showModal = () => clickIndex !== null
-
-  let clickActionText
-  if (clickIndex === NEW_TAB_INDEX) {
-    clickActionText = "create a new tab"
-  } else {
-    clickActionText = "view this tab"
-  }
+  const clickActionText = clickIndex === NEW_TAB_INDEX ? "create a new tab" : "view this tab"
 
   return (
     <>
       <Modal show={showModal()} onHide={handleCancel}>
-        <Modal.Header closeButton>
-          <Modal.Title>Unsaved changes</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>You have unsaved work in the tab editor which will be lost.<br />Do you still want to {clickActionText}?</Modal.Body>
+        <Modal.Body>
+          You have unsaved changes in the tab editor which will be lost.<br />
+          Do you still want to {clickActionText}?
+        </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCancel}>
             Back
