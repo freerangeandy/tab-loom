@@ -11,6 +11,7 @@ const IndexContent = props => {
   const deleteTabByIndex = props.deleteTabByIndex
   const [clickIndex, setClickIndex] = useState(null)
   const [deleteIndexClicked, setDeleteIndexClicked] = useState(null)
+  const [deleteTitleClicked, setDeleteTitleClicked] = useState(null)
   const dispatch = useDispatch()
   const currentUser = useSelector(state => state.currentUser)
   const tabList = useSelector(state => state.userTabs.list)
@@ -51,8 +52,9 @@ const IndexContent = props => {
     }
   }
 
-  const handleDeleteClick = (index) => {
+  const handleDeleteClick = (index, tabTitle) => {
     setDeleteIndexClicked(index)
+    setDeleteTitleClicked(tabTitle)
   }
 
   let tabDisplayList
@@ -65,7 +67,7 @@ const IndexContent = props => {
           index={index}
           indexItemClass={indexItemClass}
           indexItemTitle={tab.title}
-          deleteHandler={() => handleDeleteClick(index)}
+          deleteHandler={() => handleDeleteClick(index, tab.title)}
           clickHandler={() => handleIndexClick(index)} />
       )
     })
@@ -94,6 +96,8 @@ const IndexContent = props => {
       <ModalDeleteTab
         deleteIndexClicked={deleteIndexClicked}
         setDeleteIndexClicked={setDeleteIndexClicked}
+        deleteTitleClicked={deleteTitleClicked}
+        setDeleteTitleClicked={setDeleteTitleClicked}
         deleteTabByIndex={deleteTabByIndex}
       />
     </>
