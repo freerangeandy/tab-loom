@@ -25,9 +25,39 @@ const decrementSelectedIndex = () => {
   }
 }
 
+const setDeleteClickedIndex = (index) => {
+  return {
+    type: "SET_DELETE_CLICKED_INDEX",
+    payload: index
+  }
+}
+
+const clearDeleteClickedIndex = () => {
+  return {
+    type: "CLEAR_DELETE_CLICKED_INDEX"
+  }
+}
+
+const setTitleClickedIndex = (index) => {
+  return {
+    type: "SET_TITLE_CLICKED_INDEX",
+    payload: index
+  }
+}
+
+const clearTitleClickedIndex = () => {
+  return {
+    type: "CLEAR_TITLE_CLICKED_INDEX"
+  }
+}
+
 export default {
   setTabList,
   updateInList,
   setSelectedIndex,
-  decrementSelectedIndex
+  decrementSelectedIndex,
+  setDeleteClickedIndex,
+  clearDeleteClickedIndex,
+  setTitleClickedIndex,
+  clearTitleClickedIndex,
 }

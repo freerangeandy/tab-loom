@@ -1,6 +1,8 @@
 const defaultTabsState = {
   list: [],
-  selectedIndex: 0
+  selectedIndex: 0,
+  deleteClickedIndex: null,
+  titleClickedIndex: null
 }
 
 const userTabs = (state = defaultTabsState, action) => {
@@ -35,6 +37,26 @@ const userTabs = (state = defaultTabsState, action) => {
       return {
         ...state,
         selectedIndex: newIndex
+      }
+    case "SET_DELETE_CLICKED_INDEX":
+      return {
+        ...state,
+        deleteClickedIndex: action.payload
+      }
+    case "CLEAR_DELETE_CLICKED_INDEX":
+      return {
+        ...state,
+        deleteClickedIndex: null
+      }
+    case "SET_TITLE_CLICKED_INDEX":
+      return {
+        ...state,
+        titleClickedIndex: action.payload
+      }
+    case "CLEAR_TITLE_CLICKED_INDEX":
+      return {
+        ...state,
+        titleClickedIndex: null
       }
     default:
       return state
