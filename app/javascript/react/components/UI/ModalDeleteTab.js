@@ -3,24 +3,24 @@ import { Modal, Button } from 'react-bootstrap'
 
 const ModalDeleteTab = (props) => {
   const {
-    deleteIndexClicked,
-    setDeleteIndexClicked,
+    deleteClickedIndex,
+    setDeleteClickedIndex,
     deleteTitleClicked,
     setDeleteTitleClicked,
     deleteTabByIndex
   } = props
 
   const handleConfirm = () => {
-    deleteTabByIndex(deleteIndexClicked)
-    setDeleteIndexClicked(null)
+    deleteTabByIndex(deleteClickedIndex)
+    setDeleteClickedIndex(null)
     setDeleteTitleClicked(null)
   }
   const handleCancel = () => {
-    setDeleteIndexClicked(null)
+    setDeleteClickedIndex(null)
     setDeleteTitleClicked(null)
   }
 
-  const showModal = () => deleteIndexClicked !== null
+  const showModal = () => deleteClickedIndex !== null
   return (
     <>
       <Modal show={showModal()} onHide={handleCancel}>
