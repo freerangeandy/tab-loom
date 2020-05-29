@@ -5,27 +5,25 @@ const ModalDeleteTab = (props) => {
   const {
     deleteClickedIndex,
     setDeleteClickedIndex,
-    deleteTitleClicked,
-    setDeleteTitleClicked,
+    getDeleteTitleClicked,
     deleteTabByIndex
   } = props
 
   const handleConfirm = () => {
     deleteTabByIndex(deleteClickedIndex)
     setDeleteClickedIndex(null)
-    setDeleteTitleClicked(null)
   }
   const handleCancel = () => {
     setDeleteClickedIndex(null)
-    setDeleteTitleClicked(null)
   }
 
   const showModal = () => deleteClickedIndex !== null
+
   return (
     <>
       <Modal show={showModal()} onHide={handleCancel}>
         <Modal.Body>
-          Are you sure you want to delete {deleteTitleClicked}?
+          Are you sure you want to delete {getDeleteTitleClicked()}?
         </Modal.Body>
         <Modal.Footer className="modal-button-area">
           <Button className="secondary-button" variant="secondary" onClick={handleCancel}>

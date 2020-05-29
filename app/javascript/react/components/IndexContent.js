@@ -9,7 +9,6 @@ import { NEW_TAB_INDEX } from '../shared/inStringConsts.js'
 
 const IndexContent = props => {
   const deleteTabByIndex = props.deleteTabByIndex
-  const [deleteTitleClicked, setDeleteTitleClicked] = useState(null)
   const dispatch = useDispatch()
   const currentUser = useSelector(state => state.currentUser)
   const tabList = useSelector(state => state.userTabs.list)
@@ -58,9 +57,15 @@ const IndexContent = props => {
     }
   }
 
-  const handleDeleteClick = (index, tabTitle) => {
+  const handleDeleteClick = (index) => {
     setDeleteClickedIndex(index)
-    setDeleteTitleClicked(tabTitle)
+  }
+
+  const getDeleteTitleClicked = () => {
+    if (deleteClickedIndex === null) return null
+    else {
+      return tabList[deleteClickedIndex].title
+    }
   }
 
   let tabDisplayList
@@ -73,7 +78,7 @@ const IndexContent = props => {
           index={index}
           indexItemClass={indexItemClass}
           indexItemTitle={tab.title}
-          deleteHandler={() => handleDeleteClick(index, tab.title)}
+          deleteHandler={() => handleDeleteClick(index)}
           clickHandler={() => handleTitleClick(index)} />
       )
     })
@@ -102,8 +107,7 @@ const IndexContent = props => {
       <ModalDeleteTab
         deleteClickedIndex={deleteClickedIndex}
         setDeleteClickedIndex={setDeleteClickedIndex}
-        deleteTitleClicked={deleteTitleClicked}
-        setDeleteTitleClicked={setDeleteTitleClicked}
+        getDeleteTitleClicked={getDeleteTitleClicked}
         deleteTabByIndex={deleteTabByIndex}
       />
     </>
