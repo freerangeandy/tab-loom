@@ -3,12 +3,14 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import IndexItem from './IndexItem'
 import ModalUnsavedChanges from './UI/ModalUnsavedChanges'
+import ModalDeleteTab from './UI/ModalDeleteTab'
 import allActions from '../actions'
 import { NEW_TAB_INDEX } from '../shared/inStringConsts.js'
 
 const IndexContent = props => {
   const deleteTabByIndex = props.deleteTabByIndex
   const [clickIndex, setClickIndex] = useState(null)
+  const [deleteIndexClicked, setDeleteIndexClicked] = useState(null)
   const dispatch = useDispatch()
   const currentUser = useSelector(state => state.currentUser)
   const tabList = useSelector(state => state.userTabs.list)
@@ -49,6 +51,10 @@ const IndexContent = props => {
     }
   }
 
+  const handleDeleteClick = (index) => {
+    setDeleteIndexClicked(index)
+  }
+
   let tabDisplayList
   if (tabList.length > 0) {
     tabDisplayList = tabList.map((tab, index) => {
@@ -59,7 +65,7 @@ const IndexContent = props => {
           index={index}
           indexItemClass={indexItemClass}
           indexItemTitle={tab.title}
-          deleteHandler={() => deleteTabByIndex(index)}
+          deleteHandler={() => handleDeleteClick(index)}
           clickHandler={() => handleIndexClick(index)} />
       )
     })
@@ -84,6 +90,11 @@ const IndexContent = props => {
         setClickIndex={setClickIndex}
         showNewTab={showNewTab}
         setTabSelectedIndex={setTabSelectedIndex}
+      />
+      <ModalDeleteTab
+        deleteIndexClicked={deleteIndexClicked}
+        setDeleteIndexClicked={setDeleteIndexClicked}
+        deleteTabByIndex={deleteTabByIndex}
       />
     </>
   )
