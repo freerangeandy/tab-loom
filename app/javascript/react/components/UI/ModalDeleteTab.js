@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment } from 'react'
 import { Modal, Button } from 'react-bootstrap'
 
 const ModalDeleteTab = (props) => {
@@ -23,7 +23,7 @@ const ModalDeleteTab = (props) => {
     <>
       <Modal show={showModal()} onHide={handleCancel}>
         <Modal.Body>
-          Are you sure you want to delete {getDeleteTitleClicked()}?
+          Are you sure you want to delete '{getDeleteTitleClicked()}'?
         </Modal.Body>
         <Modal.Footer className="modal-button-area">
           <Button className="secondary-button" variant="secondary" onClick={handleCancel}>

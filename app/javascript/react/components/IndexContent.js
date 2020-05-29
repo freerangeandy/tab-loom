@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import IndexItem from './IndexItem'
@@ -56,16 +56,10 @@ const IndexContent = props => {
       }
     }
   }
-
-  const handleDeleteClick = (index) => {
-    setDeleteClickedIndex(index)
-  }
-
+  const handleDeleteClick = (index) => { setDeleteClickedIndex(index) }
   const getDeleteTitleClicked = () => {
     if (deleteClickedIndex === null) return null
-    else {
-      return tabList[deleteClickedIndex].title
-    }
+    return tabList[deleteClickedIndex].title
   }
 
   let tabDisplayList
