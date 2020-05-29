@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import IndexItem from './IndexItem'
@@ -9,14 +9,19 @@ import { NEW_TAB_INDEX } from '../shared/inStringConsts.js'
 
 const IndexContent = props => {
   const deleteTabByIndex = props.deleteTabByIndex
-  const [clickIndex, setClickIndex] = useState(null)
-  const [deleteIndexClicked, setDeleteIndexClicked] = useState(null)
-  const [deleteTitleClicked, setDeleteTitleClicked] = useState(null)
   const dispatch = useDispatch()
   const currentUser = useSelector(state => state.currentUser)
   const tabList = useSelector(state => state.userTabs.list)
   const tabSelectedIndex = useSelector(state => state.userTabs.selectedIndex)
+  const titleClickedIndex = useSelector(state => state.userTabs.titleClickedIndex)
+  const deleteClickedIndex = useSelector(state => state.userTabs.deleteClickedIndex)
   const saveable = useSelector(state => state.tabEditor.saveable)
+  const setTitleClickedIndex = (index) => {
+    dispatch(allActions.tabsActions.setTitleClickedIndex(index))
+  }
+  const setDeleteClickedIndex = (index) => {
+    dispatch(allActions.tabsActions.setDeleteClickedIndex(index))
+  }
   const resetColumn = () => {
     dispatch(allActions.editorActions.resetColumn())
   }
@@ -39,10 +44,10 @@ const IndexContent = props => {
     setSaveable(false)
   }
 
-  const handleIndexClick = (index) => {
+  const handleTitleClick = (index) => {
     if (index === tabSelectedIndex) return false
     if (saveable) {
-      setClickIndex(index)
+      setTitleClickedIndex(index)
     } else {
       if (index === NEW_TAB_INDEX) {
         showNewTab()
@@ -51,10 +56,10 @@ const IndexContent = props => {
       }
     }
   }
-
-  const handleDeleteClick = (index, tabTitle) => {
-    setDeleteIndexClicked(index)
-    setDeleteTitleClicked(tabTitle)
+  const handleDeleteClick = (index) => { setDeleteClickedIndex(index) }
+  const getDeleteTitleClicked = () => {
+    if (deleteClickedIndex === null) return null
+    return tabList[deleteClickedIndex].title
   }
 
   let tabDisplayList
@@ -67,8 +72,8 @@ const IndexContent = props => {
           index={index}
           indexItemClass={indexItemClass}
           indexItemTitle={tab.title}
-          deleteHandler={() => handleDeleteClick(index, tab.title)}
-          clickHandler={() => handleIndexClick(index)} />
+          deleteHandler={() => handleDeleteClick(index)}
+          clickHandler={() => handleTitleClick(index)} />
       )
     })
   }
@@ -76,7 +81,7 @@ const IndexContent = props => {
   let newTabButton = (<a href="/users/sign_in"><h5 className="index-item">Sign in to add new tabs</h5></a>)
   if (currentUser.id != null) {
     newTabButton = (
-      <h5 className="new-tab" onClick={() => handleIndexClick(NEW_TAB_INDEX)}>+ New Tab</h5>
+      <h5 className="new-tab" onClick={() => handleTitleClick(NEW_TAB_INDEX)}>+ New Tab</h5>
     )
   }
 
@@ -88,16 +93,15 @@ const IndexContent = props => {
         {newTabButton}
       </div>
       <ModalUnsavedChanges
-        clickIndex={clickIndex}
-        setClickIndex={setClickIndex}
+        titleClickedIndex={titleClickedIndex}
+        setTitleClickedIndex={setTitleClickedIndex}
         showNewTab={showNewTab}
         setTabSelectedIndex={setTabSelectedIndex}
       />
       <ModalDeleteTab
-        deleteIndexClicked={deleteIndexClicked}
-        setDeleteIndexClicked={setDeleteIndexClicked}
-        deleteTitleClicked={deleteTitleClicked}
-        setDeleteTitleClicked={setDeleteTitleClicked}
+        deleteClickedIndex={deleteClickedIndex}
+        setDeleteClickedIndex={setDeleteClickedIndex}
+        getDeleteTitleClicked={getDeleteTitleClicked}
         deleteTabByIndex={deleteTabByIndex}
       />
     </>

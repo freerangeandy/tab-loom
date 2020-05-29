@@ -1,31 +1,29 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment } from 'react'
 import { Modal, Button } from 'react-bootstrap'
 
 const ModalDeleteTab = (props) => {
   const {
-    deleteIndexClicked,
-    setDeleteIndexClicked,
-    deleteTitleClicked,
-    setDeleteTitleClicked,
+    deleteClickedIndex,
+    setDeleteClickedIndex,
+    getDeleteTitleClicked,
     deleteTabByIndex
   } = props
 
   const handleConfirm = () => {
-    deleteTabByIndex(deleteIndexClicked)
-    setDeleteIndexClicked(null)
-    setDeleteTitleClicked(null)
+    deleteTabByIndex(deleteClickedIndex)
+    setDeleteClickedIndex(null)
   }
   const handleCancel = () => {
-    setDeleteIndexClicked(null)
-    setDeleteTitleClicked(null)
+    setDeleteClickedIndex(null)
   }
 
-  const showModal = () => deleteIndexClicked !== null
+  const showModal = () => deleteClickedIndex !== null
+
   return (
     <>
       <Modal show={showModal()} onHide={handleCancel}>
         <Modal.Body>
-          Are you sure you want to delete {deleteTitleClicked}?
+          Are you sure you want to delete '{getDeleteTitleClicked()}'?
         </Modal.Body>
         <Modal.Footer className="modal-button-area">
           <Button className="secondary-button" variant="secondary" onClick={handleCancel}>

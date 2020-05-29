@@ -4,21 +4,21 @@ import { Modal, Button } from 'react-bootstrap'
 import { NEW_TAB_INDEX } from '../../shared/inStringConsts.js'
 
 const ModalUnsavedChanges = (props) => {
-  const { clickIndex, setClickIndex, showNewTab, setTabSelectedIndex} = props
+  const { titleClickedIndex, setTitleClickedIndex, showNewTab, setTabSelectedIndex} = props
 
   const handleConfirm = () => {
-    if (clickIndex === NEW_TAB_INDEX) {
+    if (titleClickedIndex === NEW_TAB_INDEX) {
       showNewTab()
     } else {
-      setTabSelectedIndex(clickIndex)
+      setTabSelectedIndex(titleClickedIndex)
     }
-    setClickIndex(null)
+    setTitleClickedIndex(null)
   }
   const handleCancel = () => {
-    setClickIndex(null)
+    setTitleClickedIndex(null)
   }
-  const showModal = () => clickIndex !== null
-  const clickActionText = clickIndex === NEW_TAB_INDEX ? "create a new tab" : "view this tab"
+  const showModal = () => titleClickedIndex !== null
+  const clickActionText = titleClickedIndex === NEW_TAB_INDEX ? "create a new tab" : "view this tab"
 
   return (
     <>
