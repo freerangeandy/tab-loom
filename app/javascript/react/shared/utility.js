@@ -89,3 +89,13 @@ export const getContentAfterFretNoteInsert = (content, column, stringNum, fretNu
 export const getOffset = (index) => index % (COLUMN_COUNT + 1)
 export const indexAtRowEnd = (index) => getOffset(index) === COLUMN_COUNT
 export const indexAtRowStart = (index) => getOffset(index) >= 0 && getOffset(index) <= 1
+
+export const normalizeSelection = (editor) => {
+  let selectStartIndex = editor.getSelection().index
+  while (indexAtRowStart(selectStartIndex)) selectStartIndex++
+  while (indexAtRowEnd(selectStartIndex)) selectStartIndex--
+  if (selectStartIndex !== editor.getSelection().index || editor.getSelection().length !== 1) {
+    editor.setSelection(selectStartIndex, 1)
+  }
+  return selectStartIndex
+}

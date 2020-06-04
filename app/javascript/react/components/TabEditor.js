@@ -12,6 +12,7 @@ import {
   shiftSelectionRight,
   shiftSelectionLeft,
   getOffset,
+  normalizeSelection,
   indexAtRowEnd,
   indexAtRowStart
 } from '../shared/utility'
@@ -21,15 +22,11 @@ const TestEditor = props => {
   const editorRef = useRef(null)
   const dispatch = useDispatch()
   const tabContent = useSelector(state => state.tabEditor.tab.content)
-  const setTabContent = (content) => {
-    dispatch(allActions.editorActions.setTabContent(content))
-  }
-  const setSaveable = (saveable) => {
-    dispatch(allActions.editorActions.setSaveable(saveable))
-  }
-  const setColumn = (index) => {
-    dispatch(allActions.editorActions.setColumn(index))
-  }
+  const { editorActions } = allActions
+  const setTabContent = (content) => { dispatch(editorActions.setTabContent(content)) }
+  const setSaveable = (saveable) => { dispatch(editorActions.setSaveable(saveable)) }
+  const setColumn = (index) => { dispatch(editorActions.setColumn(index)) }
+
 
   const changeHandler = (changedText, delta, source, editor) => {
     const history = editorRef.current != null ? editorRef.current.editor.history : null
@@ -45,34 +42,37 @@ const TestEditor = props => {
   const keyDownHandler = (e) => {
     const editorByRef = editorRef.current != null ? editorRef.current.editor : null
     if (editorByRef && editorByRef.hasFocus()) {
-      let newIndex = editorByRef.getSelection().index
-
-      if (e.key === 'ArrowLeft' && !indexAtRowStart(newIndex)) {
+      const newIndex = editorByRef.getSelection().index
+      let newContent
+      switch(e.key){
+        case 'ArrowLeft':
+          if (!indexAtRowStart(newIndex)) shiftSelectionLeft(editorByRef, newIndex)
+          break
+        case 'Backspace':
+          if (!indexAtRowStart(newIndex)) shiftSelectionLeft(editorByRef, newIndex)
+          newContent = insertDashIntoTabContent(tabContent, newIndex)
+          setTabContent(newContent)
+          break
+        case ' ':
+          e.preventDefault()
+          shiftSelectionRight(editorByRef, newIndex)
+          newContent = insertDashIntoTabContent(tabContent, newIndex, 1)
+          setTabContent(newContent)
+          setSaveable(true)
+          break
+        case 'Tab':
+          e.preventDefault()
+          setSaveFocus()
+          editorByRef.blur()
+          break
+        case 'Enter':
+          e.preventDefault()
           shiftSelectionLeft(editorByRef, newIndex)
-      } else if(e.key === 'Backspace') {
-        if (!indexAtRowStart(newIndex)){
-          shiftSelectionLeft(editorByRef, newIndex)
-        }
-        let newContent = insertDashIntoTabContent(tabContent, newIndex)
-        setTabContent(newContent)
-      } else if (e.key === ' ') {
-        e.preventDefault()
-        shiftSelectionRight(editorByRef, newIndex)
-        let newContent = insertDashIntoTabContent(tabContent, newIndex, 1)
-        setTabContent(newContent)
-        setSaveable(true)
-      } else if (e.key === 'Tab') {
-        e.preventDefault()
-        setSaveFocus()
-        editorByRef.blur()
-      } else if (e.key === 'Enter') {
-        e.preventDefault()
-        shiftSelectionLeft(editorByRef, newIndex)
-        saveClickHandler()
-      } else {
-        if (indexAtRowEnd(newIndex)) {
-          shiftSelectionLeft(editorByRef, newIndex)
-        }
+          saveClickHandler()
+          break
+        default:
+          if (indexAtRowEnd(newIndex)) shiftSelectionLeft(editorByRef, newIndex)
+          break
       }
     }
   }
@@ -80,15 +80,9 @@ const TestEditor = props => {
   const changeSelectHandler = (range, source, editor) => {
     const editorByRef = editorRef.current != null ? editorRef.current.editor : null
     if (editorByRef && editorByRef.hasFocus()) {
-      let newIndex = editorByRef.getSelection().index
-
-      while (indexAtRowStart(newIndex)) newIndex++
-      while (indexAtRowEnd(newIndex)) newIndex--
-      if (newIndex !== editor.getSelection().index || editor.getSelection().length !== 1) {
-        editorByRef.setSelection(newIndex, 1)
-      }
-      const newOffset = getOffset(newIndex)
-      setColumn(newOffset)
+      const newIndex = normalizeSelection(editorByRef)
+      const newColumn = getOffset(newIndex)
+      setColumn(newColumn)
     }
   }
 
