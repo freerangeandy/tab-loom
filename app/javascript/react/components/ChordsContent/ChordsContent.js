@@ -7,11 +7,11 @@ import { getContentAfterChordInsert } from '../../shared/utility'
 import { ROOTS, ALT_ROOTS, DISPLAY_VARIANT } from '../../shared/inStringConsts.js'
 
 const ChordsContent = props => {
-  const { column, tabContent, setTabContent, setSaveable, incrementColumn, fetchChordList } = props
+  const { column, tabContent, setTabContent, setSaveable, incrementColumn, loadChordList } = props
   const chordList =  useSelector(state => state.chords)
 
   useEffect(() => {
-    fetchChordList()
+    loadChordList()
   }, [])
 
   const insertChord = (root, variant, frets) => {

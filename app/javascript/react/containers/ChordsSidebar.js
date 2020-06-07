@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import Sidebar from 'react-sidebar'
 
 import ChordsContent from '../components/ChordsContent/ChordsContent'
+import { fetchChordList } from './FetchRequests'
 import allActions from '../actions'
 import { ROOTS, VARIANT } from '../shared/inStringConsts.js'
 
@@ -17,23 +18,8 @@ const ChordsSidebar = props => {
   const setSaveable = (saveable) => { dispatch(editorActions.setSaveable(saveable)) }
   const incrementColumn = () => { dispatch(editorActions.incrementColumn()) }
 
-  const fetchChordList = () => {
-    fetch(`/api/v1/chords.json`)
-    .then((response) => {
-      if (response.ok) {
-        return response
-      } else {
-        let errorMessage = `${response.status} (${response.statusText})`
-        let error = new Error(errorMessage)
-        throw(error)
-      }
-    })
-    .then((response) => response.json())
-    .then((chordBody) => {
-      // console.log(chordBody)
-      setChordList(chordBody)
-    })
-  }
+  const successCallback = (chordBody) => { setChordList(chordBody) }
+  const loadChordList = fetchChordList(successCallback)
 
   let chordsContent = <div></div>
   if (currentUser.id != null) {
@@ -44,7 +30,7 @@ const ChordsSidebar = props => {
         setTabContent={setTabContent}
         setSaveable={setSaveable}
         incrementColumn={incrementColumn}
-        fetchChordList={fetchChordList} />
+        loadChordList={loadChordList} />
     )
   }
 

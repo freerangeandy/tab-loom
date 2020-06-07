@@ -8,6 +8,7 @@ import EditorContainer from './EditorContainer'
 import FretboardContainer from './FretboardContainer'
 import IndexSidebar from './IndexSidebar'
 import ChordsSidebar from './ChordsSidebar'
+import { fetchUser } from './FetchRequests'
 import allActions from '../actions'
 
 const Layout = props => {
@@ -17,27 +18,15 @@ const Layout = props => {
   const setCurrentUser = (user) => { dispatch(userActions.setCurrentUser(user)) }
   const setTabList = (tabList) => { dispatch(tabsActions.setTabList(tabList)) }
 
+  const successCallback = user => {
+    if (user != null) {
+      setCurrentUser({ id: user.id, username: user.username })
+      setTabList(user.tablatures)
+    }
   }
 
   useEffect(() => {
-    fetch("/api/v1/users/:id.json")
-    .then((response) => {
-      if (response.ok) {
-        return response
-      } else {
-        let errorMessage = `${response.status} (${response.statusText})`
-        let error = new Error(errorMessage)
-        throw(error)
-      }
-    })
-    .then(response => response.json())
-    .then(user => {
-      if (user != null){
-        setCurrentUser({ id: user.id, username: user.username })
-        setTabList(user.tablatures)
-      }
-    })
-    .catch(error => console.error(`Error in fetch: ${error.message}`))
+    fetchUser(successCallback)
   }, [])
 
   return (

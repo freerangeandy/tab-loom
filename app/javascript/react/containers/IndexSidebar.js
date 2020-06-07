@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import Sidebar from 'react-sidebar'
 
 import IndexContent from '../components/IndexContent/IndexContent'
+import { fetchDeleteTabByIndex } from './FetchRequests'
 import allActions from '../actions'
 
 const IndexSidebar = props => {
@@ -16,34 +17,13 @@ const IndexSidebar = props => {
   const deletingSelectedAtEndOfList = (deleteIndex) => {
     return deleteIndex === selectedIndex && selectedIndex === tabList.length - 1
   }
-
-  const deleteTabByIndex = (deleteIndex) => {
-    const deleteId = tabList[deleteIndex].id
-    fetch(`/api/v1/tablatures/${deleteId}`, {
-      credentials: "same-origin",
-      method: "DELETE",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      }
-    })
-    .then((response) => {
-      if (response.ok) {
-        return response
-      } else {
-        let errorMessage = `${response.status} (${response.statusText})`
-        let error = new Error(errorMessage)
-        throw(error)
-      }
-    })
-    .then(response => response.json())
-    .then(updatedList => {
-      setTabList(updatedList)
-      if (deleteIndex < selectedIndex || deletingSelectedAtEndOfList(deleteIndex)) {
-        decrementSelectedIndex()
-      }
-    })
+  const successCallback = deleteIndex => updatedList => {
+    setTabList(updatedList)
+    if (deleteIndex < selectedIndex || deletingSelectedAtEndOfList(deleteIndex)) {
+      decrementSelectedIndex()
+    }
   }
+  const deleteTabByIndex = fetchDeleteTabByIndex(successCallback, tabList)
 
   const indexContent = <IndexContent deleteTabByIndex={deleteTabByIndex} />
   return (
