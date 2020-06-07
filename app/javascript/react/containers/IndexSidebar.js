@@ -7,6 +7,7 @@ import { fetchDeleteTabByIndex } from './FetchRequests'
 import allActions from '../actions'
 
 const IndexSidebar = props => {
+  const showUserContent = props.showUserContent
   const dispatch = useDispatch()
   const tabList = useSelector(state => state.userTabs.list)
   const selectedIndex = useSelector(state => state.userTabs.selectedIndex)
@@ -25,7 +26,17 @@ const IndexSidebar = props => {
   }
   const deleteTabByIndex = fetchDeleteTabByIndex(successCallback, tabList)
 
-  const indexContent = <IndexContent deleteTabByIndex={deleteTabByIndex} />
+  const indexContent = showUserContent
+    ? <IndexContent deleteTabByIndex={deleteTabByIndex} />
+    : (
+      <div>
+        <h4>Welcome, visitor!</h4>
+        <a href="/users/sign_in"><h5 className="index-item">
+          Sign in to add new tabs
+        </h5></a>
+      </div>
+    )
+
   return (
     <Sidebar
       sidebar={indexContent}

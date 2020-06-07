@@ -69,19 +69,14 @@ const IndexContent = props => {
     })
   }
 
-  let newTabButton = (<a href="/users/sign_in"><h5 className="index-item">Sign in to add new tabs</h5></a>)
-  if (currentUser.id != null) {
-    newTabButton = (
-      <h5 className="new-tab" onClick={() => handleTitleClick(NEW_TAB_INDEX)}>+ New Tab</h5>
-    )
-  }
-
   return (
     <>
       <div>
         <h4>{currentUser.username}</h4>
         <ul>{tabDisplayList}</ul>
-        {newTabButton}
+        <h5 className="new-tab" onClick={() => handleTitleClick(NEW_TAB_INDEX)}>
+          + New Tab
+        </h5>
       </div>
       <ModalUnsavedChanges
         titleClickedIndex={titleClickedIndex}

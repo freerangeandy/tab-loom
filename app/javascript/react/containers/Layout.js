@@ -33,7 +33,9 @@ const Layout = props => {
   }, [])
 
   let mainView
+  let showUserContent
   if (currentUser.id !== null) {
+    showUserContent = true
     mainView = (
       <>
         <EditorContainer />
@@ -41,6 +43,7 @@ const Layout = props => {
       </>
     )
   } else {
+    showUserContent = false
     mainView = (
       <div className="editor-container">
         <img src={blurredBackground} />
@@ -53,7 +56,7 @@ const Layout = props => {
     <Container fluid>
       <Row>
         <Col>
-          <IndexSidebar />
+          <IndexSidebar showUserContent={showUserContent} />
         </Col>
         <Col className="middle-container">
           {mainView}
