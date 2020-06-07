@@ -2,10 +2,10 @@ import React, { Fragment } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import IndexItem from './IndexItem'
-import ModalUnsavedChanges from './UI/ModalUnsavedChanges'
-import ModalDeleteTab from './UI/ModalDeleteTab'
-import allActions from '../actions'
-import { NEW_TAB_INDEX } from '../shared/inStringConsts.js'
+import ModalUnsavedChanges from '../UI/ModalUnsavedChanges'
+import ModalDeleteTab from '../UI/ModalDeleteTab'
+import allActions from '../../actions'
+import { NEW_TAB_INDEX } from '../../shared/inStringConsts.js'
 
 const IndexContent = props => {
   const deleteTabByIndex = props.deleteTabByIndex
@@ -16,24 +16,15 @@ const IndexContent = props => {
   const titleClickedIndex = useSelector(state => state.userTabs.titleClickedIndex)
   const deleteClickedIndex = useSelector(state => state.userTabs.deleteClickedIndex)
   const saveable = useSelector(state => state.tabEditor.saveable)
-  const setTitleClickedIndex = (index) => {
-    dispatch(allActions.tabsActions.setTitleClickedIndex(index))
-  }
-  const setDeleteClickedIndex = (index) => {
-    dispatch(allActions.tabsActions.setDeleteClickedIndex(index))
-  }
-  const resetColumn = () => {
-    dispatch(allActions.editorActions.resetColumn())
-  }
-  const setTabShown = (index) => {
-    dispatch(allActions.editorActions.setTab(tabList[index]))
-  }
-  const setSaveable = (saveable) => {
-    dispatch(allActions.editorActions.setSaveable(saveable))
-  }
+  const { tabsActions, editorActions } = allActions
+  const setTitleClickedIndex = (index) => { dispatch(tabsActions.setTitleClickedIndex(index)) }
+  const setDeleteClickedIndex = (index) => { dispatch(tabsActions.setDeleteClickedIndex(index)) }
+  const resetColumn = () => { dispatch(editorActions.resetColumn()) }
+  const setTabShown = (index) => { dispatch(editorActions.setTab(tabList[index])) }
+  const setSaveable = (saveable) => { dispatch(editorActions.setSaveable(saveable)) }
 
   const setTabSelectedIndex = (index) => {
-    dispatch(allActions.tabsActions.setSelectedIndex(index))
+    dispatch(tabsActions.setSelectedIndex(index))
     setTabShown(index)
     resetColumn()
     setSaveable(false)
@@ -78,19 +69,14 @@ const IndexContent = props => {
     })
   }
 
-  let newTabButton = (<a href="/users/sign_in"><h5 className="index-item">Sign in to add new tabs</h5></a>)
-  if (currentUser.id != null) {
-    newTabButton = (
-      <h5 className="new-tab" onClick={() => handleTitleClick(NEW_TAB_INDEX)}>+ New Tab</h5>
-    )
-  }
-
   return (
     <>
       <div>
         <h4>{currentUser.username}</h4>
         <ul>{tabDisplayList}</ul>
-        {newTabButton}
+        <h5 className="new-tab" onClick={() => handleTitleClick(NEW_TAB_INDEX)}>
+          + New Tab
+        </h5>
       </div>
       <ModalUnsavedChanges
         titleClickedIndex={titleClickedIndex}

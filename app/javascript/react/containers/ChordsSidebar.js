@@ -2,7 +2,8 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import Sidebar from 'react-sidebar'
 
-import ChordsContent from '../components/ChordsContent'
+import ChordsContent from '../components/ChordsContent/ChordsContent'
+import { fetchChordList } from './fetchHandlers'
 import allActions from '../actions'
 import { ROOTS, VARIANT } from '../shared/inStringConsts.js'
 
@@ -11,36 +12,14 @@ const ChordsSidebar = props => {
   const currentUser = useSelector(state => state.currentUser)
   const column = useSelector(state => state.tabEditor.column)
   const tabContent = useSelector(state => state.tabEditor.tab.content)
-  const setChordList  = (chords) => {
-    dispatch(allActions.chordsActions.setChords(chords))
-  }
-  const setTabContent = (content) => {
-    dispatch(allActions.editorActions.setTabContent(content))
-  }
-  const setSaveable = (saveable) => {
-    dispatch(allActions.editorActions.setSaveable(saveable))
-  }
-  const incrementColumn = () => {
-    dispatch(allActions.editorActions.incrementColumn())
-  }
+  const { chordsActions, editorActions } = allActions
+  const setChordList  = (chords) => { dispatch(chordsActions.setChords(chords)) }
+  const setTabContent = (content) => { dispatch(editorActions.setTabContent(content)) }
+  const setSaveable = (saveable) => { dispatch(editorActions.setSaveable(saveable)) }
+  const incrementColumn = () => { dispatch(editorActions.incrementColumn()) }
 
-  const fetchChordList = () => {
-    fetch(`/api/v1/chords.json`)
-    .then((response) => {
-      if (response.ok) {
-        return response
-      } else {
-        let errorMessage = `${response.status} (${response.statusText})`
-        let error = new Error(errorMessage)
-        throw(error)
-      }
-    })
-    .then((response) => response.json())
-    .then((chordBody) => {
-      // console.log(chordBody)
-      setChordList(chordBody)
-    })
-  }
+  const successCallback = (chordBody) => { setChordList(chordBody) }
+  const loadChordList = fetchChordList(successCallback)
 
   let chordsContent = <div></div>
   if (currentUser.id != null) {
@@ -51,7 +30,7 @@ const ChordsSidebar = props => {
         setTabContent={setTabContent}
         setSaveable={setSaveable}
         incrementColumn={incrementColumn}
-        fetchChordList={fetchChordList} />
+        loadChordList={loadChordList} />
     )
   }
 

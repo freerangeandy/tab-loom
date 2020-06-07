@@ -2,53 +2,41 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import Sidebar from 'react-sidebar'
 
-import IndexContent from '../components/IndexContent'
+import IndexContent from '../components/IndexContent/IndexContent'
+import { fetchDeleteTabByIndex } from './fetchHandlers'
 import allActions from '../actions'
 
 const IndexSidebar = props => {
+  const showUserContent = props.showUserContent
   const dispatch = useDispatch()
   const tabList = useSelector(state => state.userTabs.list)
   const selectedIndex = useSelector(state => state.userTabs.selectedIndex)
-  const setTabList = (tabList) => {
-    dispatch(allActions.tabsActions.setTabList(tabList))
-  }
-  const decrementSelectedIndex = () => {
-    dispatch(allActions.tabsActions.decrementSelectedIndex())
-  }
+  const { tabsActions } = allActions
+  const setTabList = (tabList) => { dispatch(tabsActions.setTabList(tabList)) }
+  const decrementSelectedIndex = () => { dispatch(tabsActions.decrementSelectedIndex()) }
 
   const deletingSelectedAtEndOfList = (deleteIndex) => {
     return deleteIndex === selectedIndex && selectedIndex === tabList.length - 1
   }
-
-  const deleteTabByIndex = (deleteIndex) => {
-    const deleteId = tabList[deleteIndex].id
-    fetch(`/api/v1/tablatures/${deleteId}`, {
-      credentials: "same-origin",
-      method: "DELETE",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      }
-    })
-    .then((response) => {
-      if (response.ok) {
-        return response
-      } else {
-        let errorMessage = `${response.status} (${response.statusText})`
-        let error = new Error(errorMessage)
-        throw(error)
-      }
-    })
-    .then(response => response.json())
-    .then(updatedList => {
-      setTabList(updatedList)
-      if (deleteIndex < selectedIndex || deletingSelectedAtEndOfList(deleteIndex)) {
-        decrementSelectedIndex()
-      }
-    })
+  const successCallback = deleteIndex => updatedList => {
+    setTabList(updatedList)
+    if (deleteIndex < selectedIndex || deletingSelectedAtEndOfList(deleteIndex)) {
+      decrementSelectedIndex()
+    }
   }
+  const deleteTabByIndex = fetchDeleteTabByIndex(successCallback, tabList)
 
-  const indexContent = <IndexContent deleteTabByIndex={deleteTabByIndex} />
+  const indexContent = showUserContent
+    ? <IndexContent deleteTabByIndex={deleteTabByIndex} />
+    : (
+      <div>
+        <h4>Welcome, visitor!</h4>
+        <a href="/users/sign_in"><h5 className="index-item">
+          Sign in to add new tabs
+        </h5></a>
+      </div>
+    )
+
   return (
     <Sidebar
       sidebar={indexContent}

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Fragment } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
@@ -8,48 +8,58 @@ import EditorContainer from './EditorContainer'
 import FretboardContainer from './FretboardContainer'
 import IndexSidebar from './IndexSidebar'
 import ChordsSidebar from './ChordsSidebar'
+import { fetchUser } from './fetchHandlers'
 import allActions from '../actions'
+
+import blurredBackground from '../../../assets/images/new_tab_blurred.png'
 
 const Layout = props => {
   const dispatch = useDispatch()
+  const currentUser = useSelector(state => state.currentUser)
   const tab = useSelector(state => state.tabEditor.tab)
-  const setCurrentUser = (user) => {
-    dispatch(allActions.userActions.setCurrentUser(user))
-  }
-  const setTabList = (tabList) => {
-    dispatch(allActions.tabsActions.setTabList(tabList))
+  const { tabsActions, userActions } = allActions
+  const setCurrentUser = (user) => { dispatch(userActions.setCurrentUser(user)) }
+  const setTabList = (tabList) => { dispatch(tabsActions.setTabList(tabList)) }
+
+  const successCallback = user => {
+    if (user != null) {
+      setCurrentUser({ id: user.id, username: user.username })
+      setTabList(user.tablatures)
+    }
   }
 
   useEffect(() => {
-    fetch("/api/v1/users/:id.json")
-    .then((response) => {
-      if (response.ok) {
-        return response
-      } else {
-        let errorMessage = `${response.status} (${response.statusText})`
-        let error = new Error(errorMessage)
-        throw(error)
-      }
-    })
-    .then(response => response.json())
-    .then(user => {
-      if (user != null){
-        setCurrentUser({ id: user.id, username: user.username })
-        setTabList(user.tablatures)
-      }
-    })
-    .catch(error => console.error(`Error in fetch: ${error.message}`))
+    fetchUser(successCallback)
   }, [])
+
+  let mainView
+  let showUserContent
+  if (currentUser.id !== null) {
+    showUserContent = true
+    mainView = (
+      <>
+        <EditorContainer />
+        <FretboardContainer />
+      </>
+    )
+  } else {
+    showUserContent = false
+    mainView = (
+      <div className="editor-container">
+        <img src={blurredBackground} />
+        <a href="/users/sign_in"><h4 className="login-prompt">Sign in to begin editing</h4></a>
+      </div>
+    )
+  }
 
   return (
     <Container fluid>
       <Row>
         <Col>
-          <IndexSidebar />
+          <IndexSidebar showUserContent={showUserContent} />
         </Col>
         <Col className="middle-container">
-          <EditorContainer />
-          <FretboardContainer />
+          {mainView}
         </Col>
         <Col>
           <ChordsSidebar />
