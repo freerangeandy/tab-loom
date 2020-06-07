@@ -2,10 +2,10 @@ import React, { Fragment } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import IndexItem from './IndexItem'
-import ModalUnsavedChanges from './UI/ModalUnsavedChanges'
-import ModalDeleteTab from './UI/ModalDeleteTab'
-import allActions from '../actions'
-import { NEW_TAB_INDEX } from '../shared/inStringConsts.js'
+import ModalUnsavedChanges from '../UI/ModalUnsavedChanges'
+import ModalDeleteTab from '../UI/ModalDeleteTab'
+import allActions from '../../actions'
+import { NEW_TAB_INDEX } from '../../shared/inStringConsts.js'
 
 const IndexContent = props => {
   const deleteTabByIndex = props.deleteTabByIndex

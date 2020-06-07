@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
-import TabPane from '../components/TabPane'
+import TabPane from '../components/TabContent/TabPane'
 import allActions from '../actions'
 import blurredBackground from '../../../assets/images/new_tab_blurred.png'
 

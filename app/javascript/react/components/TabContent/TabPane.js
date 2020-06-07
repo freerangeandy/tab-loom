@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import TabEditor from './TabEditor'
 import TabTitle from './TabTitle'
-import allActions from '../actions'
+import allActions from '../../actions'
 
 const TabPane = props => {
   const saveTab = props.saveTab

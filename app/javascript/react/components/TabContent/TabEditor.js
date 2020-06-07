@@ -4,7 +4,7 @@ import ReactQuill, { Quill } from 'react-quill';
 import Delta from 'quill-delta';
 import 'react-quill/dist/quill.snow.css';
 
-import allActions from '../actions'
+import allActions from '../../actions'
 import {
   insertDashIntoTabContent,
   clearStrayFormattingFromText,
@@ -15,7 +15,7 @@ import {
   normalizeSelection,
   indexAtRowEnd,
   indexAtRowStart
-} from '../shared/utility'
+} from '../../shared/utility'
 
 const TestEditor = props => {
   const { setSaveFocus, saveClickHandler } = props

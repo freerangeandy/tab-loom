@@ -3,8 +3,8 @@ import { useSelector } from 'react-redux'
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 
 import Chord from './Chord'
-import { getContentAfterChordInsert } from '../shared/utility'
-import { ROOTS, ALT_ROOTS, DISPLAY_VARIANT } from '../shared/inStringConsts.js'
+import { getContentAfterChordInsert } from '../../shared/utility'
+import { ROOTS, ALT_ROOTS, DISPLAY_VARIANT } from '../../shared/inStringConsts.js'
 
 const ChordsContent = props => {
   const { column, tabContent, setTabContent, setSaveable, incrementColumn, fetchChordList } = props

@@ -2,7 +2,7 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import Sidebar from 'react-sidebar'
 
-import ChordsContent from '../components/ChordsContent'
+import ChordsContent from '../components/ChordsContent/ChordsContent'
 import allActions from '../actions'
 import { ROOTS, VARIANT } from '../shared/inStringConsts.js'
 

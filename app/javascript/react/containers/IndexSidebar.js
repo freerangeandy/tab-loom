@@ -2,7 +2,7 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import Sidebar from 'react-sidebar'
 
-import IndexContent from '../components/IndexContent'
+import IndexContent from '../components/IndexContent/IndexContent'
 import allActions from '../actions'
 
 const IndexSidebar = props => {

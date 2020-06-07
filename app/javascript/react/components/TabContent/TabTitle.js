@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import FormControl from 'react-bootstrap/FormControl'
 
-import allActions from '../actions'
+import allActions from '../../actions'
 
 const TabTitle = (props) => {
   const { enterPressHandler } = props

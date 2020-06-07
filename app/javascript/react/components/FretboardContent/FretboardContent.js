@@ -5,8 +5,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import StringOverlay from './StringOverlay'
 import LabelsOverlay from './LabelsOverlay'
 import Dot from './Dot'
-import allActions from '../actions'
-import { getContentAfterFretNoteInsert } from '../shared/utility'
+import allActions from '../../actions'
+import { getContentAfterFretNoteInsert } from '../../shared/utility'
 
 const FretboardContent = (props) => {
   const dispatch = useDispatch()

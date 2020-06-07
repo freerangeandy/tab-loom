@@ -1,9 +1,8 @@
 import React, { Fragment } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 
-import allActions from '../actions'
+import allActions from '../../actions'
 
 const IndexItem = (props) => {
   const { indexItemClass, indexItemTitle, clickHandler, deleteHandler } = props
