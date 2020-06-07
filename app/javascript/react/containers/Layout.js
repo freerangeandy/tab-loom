@@ -8,7 +8,7 @@ import EditorContainer from './EditorContainer'
 import FretboardContainer from './FretboardContainer'
 import IndexSidebar from './IndexSidebar'
 import ChordsSidebar from './ChordsSidebar'
-import { fetchUser } from './FetchRequests'
+import { fetchUser } from './fetchHandlers'
 import allActions from '../actions'
 
 import blurredBackground from '../../../assets/images/new_tab_blurred.png'

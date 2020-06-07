@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import Sidebar from 'react-sidebar'
 
 import IndexContent from '../components/IndexContent/IndexContent'
-import { fetchDeleteTabByIndex } from './FetchRequests'
+import { fetchDeleteTabByIndex } from './fetchHandlers'
 import allActions from '../actions'
 
 const IndexSidebar = props => {

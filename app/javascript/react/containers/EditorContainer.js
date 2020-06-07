@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import TabPane from '../components/TabContent/TabPane'
-import { fetchSaveTab } from './FetchRequests'
+import { fetchSaveTab } from './fetchHandlers'
 import allActions from '../actions'
 
 const EditorContainer = props => {

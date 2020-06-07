@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import Sidebar from 'react-sidebar'
 
 import ChordsContent from '../components/ChordsContent/ChordsContent'
-import { fetchChordList } from './FetchRequests'
+import { fetchChordList } from './fetchHandlers'
 import allActions from '../actions'
 import { ROOTS, VARIANT } from '../shared/inStringConsts.js'
 
