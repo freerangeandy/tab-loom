@@ -5,8 +5,6 @@ import TabPane from '../components/TabContent/TabPane'
 import { fetchSaveTab } from './FetchRequests'
 import allActions from '../actions'
 
-import blurredBackground from '../../../assets/images/new_tab_blurred.png'
-
 const EditorContainer = props => {
   const dispatch = useDispatch()
   const currentUser = useSelector(state => state.currentUser)
@@ -33,21 +31,9 @@ const EditorContainer = props => {
     else                  updateTab(tabPayload, tab.id)
   }
 
-  let tabPane
-  if (currentUser.id != null) {
-    tabPane = <TabPane saveTab={saveTab} />
-  } else {
-    tabPane = (
-      <>
-      <img src={blurredBackground} />
-      <a href="/users/sign_in"><h4 className="login-prompt">Sign in to begin editing</h4></a>
-      </>
-    )
-  }
-
   return (
     <div className="editor-container">
-      {tabPane}
+      <TabPane saveTab={saveTab} />
     </div>
   )
 }
