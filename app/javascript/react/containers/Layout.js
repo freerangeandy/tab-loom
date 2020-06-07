@@ -13,11 +13,10 @@ import allActions from '../actions'
 const Layout = props => {
   const dispatch = useDispatch()
   const tab = useSelector(state => state.tabEditor.tab)
-  const setCurrentUser = (user) => {
-    dispatch(allActions.userActions.setCurrentUser(user))
-  }
-  const setTabList = (tabList) => {
-    dispatch(allActions.tabsActions.setTabList(tabList))
+  const { tabsActions, userActions } = allActions
+  const setCurrentUser = (user) => { dispatch(userActions.setCurrentUser(user)) }
+  const setTabList = (tabList) => { dispatch(tabsActions.setTabList(tabList)) }
+
   }
 
   useEffect(() => {

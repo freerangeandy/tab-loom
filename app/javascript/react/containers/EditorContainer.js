@@ -11,8 +11,9 @@ const EditorContainer = props => {
   const tabList = useSelector(state => state.userTabs.list)
   const tab = useSelector(state => state.tabEditor.tab)
   const tabSelectedIndex = useSelector(state => state.userTabs.selectedIndex)
-  const setTab = (tab) => { dispatch(allActions.editorActions.setTab(tab)) }
-  const updateInList = (tab) => { dispatch(allActions.tabsActions.updateInList(tab)) }
+  const { tabsActions, editorActions } = allActions
+  const setTab = (tab) => { dispatch(editorActions.setTab(tab)) }
+  const updateInList = (tab) => { dispatch(tabsActions.updateInList(tab)) }
 
   useEffect(() => {
     setTab(tabList[tabSelectedIndex])

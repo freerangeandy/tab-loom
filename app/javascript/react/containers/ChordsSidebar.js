@@ -11,18 +11,11 @@ const ChordsSidebar = props => {
   const currentUser = useSelector(state => state.currentUser)
   const column = useSelector(state => state.tabEditor.column)
   const tabContent = useSelector(state => state.tabEditor.tab.content)
-  const setChordList  = (chords) => {
-    dispatch(allActions.chordsActions.setChords(chords))
-  }
-  const setTabContent = (content) => {
-    dispatch(allActions.editorActions.setTabContent(content))
-  }
-  const setSaveable = (saveable) => {
-    dispatch(allActions.editorActions.setSaveable(saveable))
-  }
-  const incrementColumn = () => {
-    dispatch(allActions.editorActions.incrementColumn())
-  }
+  const { chordsActions, editorActions } = allActions
+  const setChordList  = (chords) => { dispatch(chordsActions.setChords(chords)) }
+  const setTabContent = (content) => { dispatch(editorActions.setTabContent(content)) }
+  const setSaveable = (saveable) => { dispatch(editorActions.setSaveable(saveable)) }
+  const incrementColumn = () => { dispatch(editorActions.incrementColumn()) }
 
   const fetchChordList = () => {
     fetch(`/api/v1/chords.json`)

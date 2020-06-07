@@ -9,12 +9,9 @@ const IndexSidebar = props => {
   const dispatch = useDispatch()
   const tabList = useSelector(state => state.userTabs.list)
   const selectedIndex = useSelector(state => state.userTabs.selectedIndex)
-  const setTabList = (tabList) => {
-    dispatch(allActions.tabsActions.setTabList(tabList))
-  }
-  const decrementSelectedIndex = () => {
-    dispatch(allActions.tabsActions.decrementSelectedIndex())
-  }
+  const { tabsActions } = allActions
+  const setTabList = (tabList) => { dispatch(tabsActions.setTabList(tabList)) }
+  const decrementSelectedIndex = () => { dispatch(tabsActions.decrementSelectedIndex()) }
 
   const deletingSelectedAtEndOfList = (deleteIndex) => {
     return deleteIndex === selectedIndex && selectedIndex === tabList.length - 1
