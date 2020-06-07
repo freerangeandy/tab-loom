@@ -27,7 +27,6 @@ const TestEditor = props => {
   const setSaveable = (saveable) => { dispatch(editorActions.setSaveable(saveable)) }
   const setColumn = (index) => { dispatch(editorActions.setColumn(index)) }
 
-
   const changeHandler = (changedText, delta, source, editor) => {
     const history = editorRef.current != null ? editorRef.current.editor.history : null
     const newValue = clearStrayFormattingFromText(changedText)

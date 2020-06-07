@@ -15,7 +15,6 @@ const ChordsContent = props => {
   }, [])
 
   const insertChord = (root, variant, frets) => {
-    // console.log(`${root}${variant} chord: [${frets.join(', ')}]`)
     const contentAfterInsert = getContentAfterChordInsert(tabContent, column, frets)
     setTabContent(contentAfterInsert)
     incrementColumn()

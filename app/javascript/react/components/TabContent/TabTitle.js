@@ -10,12 +10,9 @@ const TabTitle = (props) => {
   const editTitleRef = useRef(null)
   const dispatch = useDispatch()
   const tabTitle = useSelector(state => state.tabEditor.tab.title)
-  const setTabTitle = (title) => {
-    dispatch(allActions.editorActions.setTabTitle(title))
-  }
-  const setSaveable = (saveable) => {
-    dispatch(allActions.editorActions.setSaveable(saveable))
-  }
+  const { editorActions } = allActions
+  const setTabTitle = (title) => { dispatch(editorActions.setTabTitle(title)) }
+  const setSaveable = (saveable) => { dispatch(editorActions.setSaveable(saveable)) }
 
   const clickOutHandler = event => {
     if (editTitleRef.current && !editTitleRef.current.contains(event.target)) {

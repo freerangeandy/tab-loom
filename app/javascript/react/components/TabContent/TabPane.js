@@ -11,9 +11,8 @@ const TabPane = props => {
   const saveRef = useRef(null)
   const dispatch = useDispatch()
   const saveable = useSelector(state => state.tabEditor.saveable)
-  const setSaveable = (saveable) => {
-    dispatch(allActions.editorActions.setSaveable(saveable))
-  }
+  const { editorActions } = allActions
+  const setSaveable = (saveable) => { dispatch(editorActions.setSaveable(saveable)) }
 
   const saveClickHandler = (event) => {
     saveTab()

@@ -12,15 +12,10 @@ const FretboardContent = (props) => {
   const dispatch = useDispatch()
   const column = useSelector(state => state.tabEditor.column)
   const tabContent = useSelector(state => state.tabEditor.tab.content)
-  const setTabContent = (content) => {
-    dispatch(allActions.editorActions.setTabContent(content))
-  }
-  const setSaveable = (saveable) => {
-    dispatch(allActions.editorActions.setSaveable(saveable))
-  }
-  const incrementColumn = () => {
-    dispatch(allActions.editorActions.incrementColumn())
-  }
+  const { editorActions } = allActions
+  const setTabContent = (content) => { dispatch(editorActions.setTabContent(content)) }
+  const setSaveable = (saveable) => { dispatch(editorActions.setSaveable(saveable)) }
+  const incrementColumn = () => { dispatch(editorActions.incrementColumn()) }
 
   const showDot = (string, fret) => {
     if (fret == 12 && [3, 5].includes(string)

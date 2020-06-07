@@ -16,24 +16,15 @@ const IndexContent = props => {
   const titleClickedIndex = useSelector(state => state.userTabs.titleClickedIndex)
   const deleteClickedIndex = useSelector(state => state.userTabs.deleteClickedIndex)
   const saveable = useSelector(state => state.tabEditor.saveable)
-  const setTitleClickedIndex = (index) => {
-    dispatch(allActions.tabsActions.setTitleClickedIndex(index))
-  }
-  const setDeleteClickedIndex = (index) => {
-    dispatch(allActions.tabsActions.setDeleteClickedIndex(index))
-  }
-  const resetColumn = () => {
-    dispatch(allActions.editorActions.resetColumn())
-  }
-  const setTabShown = (index) => {
-    dispatch(allActions.editorActions.setTab(tabList[index]))
-  }
-  const setSaveable = (saveable) => {
-    dispatch(allActions.editorActions.setSaveable(saveable))
-  }
+  const { tabsActions, editorActions } = allActions
+  const setTitleClickedIndex = (index) => { dispatch(tabsActions.setTitleClickedIndex(index)) }
+  const setDeleteClickedIndex = (index) => { dispatch(tabsActions.setDeleteClickedIndex(index)) }
+  const resetColumn = () => { dispatch(editorActions.resetColumn()) }
+  const setTabShown = (index) => { dispatch(editorActions.setTab(tabList[index])) }
+  const setSaveable = (saveable) => { dispatch(editorActions.setSaveable(saveable)) }
 
   const setTabSelectedIndex = (index) => {
-    dispatch(allActions.tabsActions.setSelectedIndex(index))
+    dispatch(tabsActions.setSelectedIndex(index))
     setTabShown(index)
     resetColumn()
     setSaveable(false)
