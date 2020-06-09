@@ -24,10 +24,12 @@ const TabTitle = (props) => {
     setSaveable(true)
   }
 
-  const keyPressHandler = (event) => {
+  const keyDownHandler = (event) => {
     if (event.key === 'Enter'){
       setEditMode(false)
       enterPressHandler()
+    } else if (event.key === 'Tab') {
+      setEditMode(false)
     }
   }
 
@@ -37,7 +39,7 @@ const TabTitle = (props) => {
       <FormControl
         ref={editTitleRef}
         onChange={(e) => changeHandler(e)}
-        onKeyPress={(e => keyPressHandler(e))}
+        onKeyDown={(e => keyDownHandler(e))}
         defaultValue={tabTitle} />
     )
     document.addEventListener("mousedown", clickOutHandler)
