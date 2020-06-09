@@ -1,12 +1,14 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { Fragment, useState, useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import FormControl from 'react-bootstrap/FormControl'
 
+import ModalTitleEmpty from '../UI/ModalTitleEmpty'
 import allActions from '../../actions'
 
 const TabTitle = (props) => {
   const { enterPressHandler } = props
   const [editMode, setEditMode] = useState(false)
+  const [showModal, setShowModal] = useState(false)
   const editTitleRef = useRef(null)
   const dispatch = useDispatch()
   const tabTitle = useSelector(state => state.tabEditor.tab.title)
@@ -14,8 +16,18 @@ const TabTitle = (props) => {
   const setTabTitle = (title) => { dispatch(editorActions.setTabTitle(title)) }
   const setSaveable = (saveable) => { dispatch(editorActions.setSaveable(saveable)) }
 
+  const titleInvalid = (title) => {
+    if (title.trim().length === 0) {
+      setShowModal(true)
+      return true
+    } else {
+      return false
+    }
+  }
+
   const clickOutHandler = event => {
     if (editTitleRef.current && !editTitleRef.current.contains(event.target)) {
+      if (titleInvalid(editTitleRef.current.value)) return
       setEditMode(false)
     }
   }
@@ -26,9 +38,11 @@ const TabTitle = (props) => {
 
   const keyDownHandler = (event) => {
     if (event.key === 'Enter'){
+      if (titleInvalid(editTitleRef.current.value)) return
       setEditMode(false)
       enterPressHandler()
     } else if (event.key === 'Tab') {
+      if (titleInvalid(editTitleRef.current.value)) return
       setEditMode(false)
     }
   }
@@ -48,9 +62,15 @@ const TabTitle = (props) => {
   }
 
   return (
-    <div className="edit-title">
-      {titleDisplay}
-    </div>
+    <>
+      <div className="edit-title">
+        {titleDisplay}
+      </div>
+      <ModalTitleEmpty
+        showModal={showModal}
+        setShowModal={setShowModal}
+      />
+    </>
   )
 }
 
