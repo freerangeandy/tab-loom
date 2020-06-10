@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import FormControl from 'react-bootstrap/FormControl'
 
@@ -14,8 +14,15 @@ const TabTitle = (props) => {
   const setTabTitle = (title) => { dispatch(editorActions.setTabTitle(title)) }
   const setSaveable = (saveable) => { dispatch(editorActions.setSaveable(saveable)) }
 
+  const setTitleDefaultIfEmpty = (titleField) => {
+    if (titleField.value.trim().length === 0) {
+      setTabTitle("Untitled tab")
+    }
+  }
+
   const clickOutHandler = event => {
     if (editTitleRef.current && !editTitleRef.current.contains(event.target)) {
+      setTitleDefaultIfEmpty(editTitleRef.current)
       setEditMode(false)
     }
   }
@@ -24,10 +31,14 @@ const TabTitle = (props) => {
     setSaveable(true)
   }
 
-  const keyPressHandler = (event) => {
+  const keyDownHandler = (event) => {
     if (event.key === 'Enter'){
-      setEditMode(false)
+      setTitleDefaultIfEmpty(editTitleRef.current)
       enterPressHandler()
+      setEditMode(false)
+    } else if (event.key === 'Tab') {
+      setTitleDefaultIfEmpty(editTitleRef.current)
+      setEditMode(false)
     }
   }
 
@@ -37,7 +48,7 @@ const TabTitle = (props) => {
       <FormControl
         ref={editTitleRef}
         onChange={(e) => changeHandler(e)}
-        onKeyPress={(e => keyPressHandler(e))}
+        onKeyDown={(e => keyDownHandler(e))}
         defaultValue={tabTitle} />
     )
     document.addEventListener("mousedown", clickOutHandler)

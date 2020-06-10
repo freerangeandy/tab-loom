@@ -89,6 +89,9 @@ const TestEditor = props => {
   const moduleConfig = {
     keyboard: {
       bindings: bindings
+    },
+    history: {
+      delay: 50
     }
   }
 
