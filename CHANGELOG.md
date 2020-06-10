@@ -7,3 +7,7 @@
 * Confirmation modal added for when user has unsaved changes and tries to navigate to another tab
 ### v1.0.3 (2020-5-29)
 * Confirmation modal added for when user tries to delete a tab
+### v1.0.4 (2020-6-10)
+* Bug fixed: pressing 'Tab' while editing title didn't switch input field to header
+* Bug fixed: all-whitespace tab titles could be saved (now defaults to 'Untitled Tab')
+* Bug fixed: pressing 'Return' while in tab editor failed to save changes made up to 1sec prior
