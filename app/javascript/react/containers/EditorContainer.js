@@ -26,7 +26,8 @@ const EditorContainer = props => {
   const addNewTab = (tab) => { fetchSaveTab(successCallback, tab, "POST") }
   const updateTab = (tab, id) => { fetchSaveTab(successCallback, tab, "PATCH", `/${id}`) }
   const saveTab = () => {
-    const tabPayload = {...tab, user_id: currentUser.id}
+    const newTitle = tab.title.trim().length > 0 ? tab.title : "Untitled tab"
+    const tabPayload = {...tab, title: newTitle, user_id: currentUser.id}
     if (tab.id === null)  addNewTab(tabPayload)
     else                  updateTab(tabPayload, tab.id)
   }
