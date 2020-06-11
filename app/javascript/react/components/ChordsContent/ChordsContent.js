@@ -12,6 +12,7 @@ const ChordsContent = props => {
   const dispatch = useDispatch()
   const chordList =  useSelector(state => state.chords.list)
   const setHoverFrets = (frets) => { dispatch(allActions.chordsActions.setHoverFrets(frets)) }
+  const resetHoverFrets = () => { dispatch(allActions.chordsActions.resetHoverFrets()) }
 
   useEffect(() => {
     loadChordList()
@@ -46,7 +47,7 @@ const ChordsContent = props => {
       return (
         <li key={root} className="d-flex flex-row">
           <h5>{root}</h5>
-          <div onMouseLeave={() => setHoverFrets([])}>
+          <div onMouseLeave={resetHoverFrets}>
             {chordButtonGroup(root)}
           </div>
         </li>

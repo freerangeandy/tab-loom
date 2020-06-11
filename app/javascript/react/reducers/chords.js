@@ -15,6 +15,11 @@ const chords = (state = defaultChordState, action) => {
         ...state,
         hoverFrets: action.payload
       }
+    case "RESET_HOVER_FRETS":
+      return {
+        ...state,
+        hoverFrets: []
+      }
     default:
       return state
   }

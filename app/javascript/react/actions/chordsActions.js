@@ -12,7 +12,14 @@ const setHoverFrets = (frets) => {
     }
 }
 
+const resetHoverFrets = () => {
+    return {
+      type: "RESET_HOVER_FRETS"
+    }
+}
+
 export default {
   setChords,
-  setHoverFrets
+  setHoverFrets,
+  resetHoverFrets
 }
