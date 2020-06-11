@@ -8,7 +8,7 @@ import { ROOTS, ALT_ROOTS, DISPLAY_VARIANT } from '../../shared/inStringConsts.j
 
 const ChordsContent = props => {
   const { column, tabContent, setTabContent, setSaveable, incrementColumn, loadChordList } = props
-  const chordList =  useSelector(state => state.chords)
+  const chordList =  useSelector(state => state.chords.list)
 
   useEffect(() => {
     loadChordList()
