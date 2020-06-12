@@ -65,9 +65,8 @@ export const overtypeStringAtPos = (string, position, char) => {
 
 export const getContentAfterChordInsert = (content, column, chordNotes) => {
   const splitContent = convertParagraphsToLineBreaks(content).split('\n')
-  const flippedNotes = chordNotes.reverse()
   let splitContentAfterInsert = splitContent.map((row, rowIndex) => {
-    return overtypeStringAtPos(row, column, flippedNotes[rowIndex])
+    return overtypeStringAtPos(row, column, chordNotes[rowIndex])
   })
 
   const contentAfterInsert = splitContentAfterInsert.join('\n')

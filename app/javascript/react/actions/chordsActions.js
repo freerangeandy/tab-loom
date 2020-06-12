@@ -5,6 +5,21 @@ const setChords = (chordList) => {
   }
 }
 
+const setHoverFrets = (frets) => {
+    return {
+      type: "SET_HOVER_FRETS",
+      payload: frets
+    }
+}
+
+const resetHoverFrets = () => {
+    return {
+      type: "RESET_HOVER_FRETS"
+    }
+}
+
 export default {
-  setChords
+  setChords,
+  setHoverFrets,
+  resetHoverFrets
 }

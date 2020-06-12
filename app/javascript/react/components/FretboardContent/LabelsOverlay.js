@@ -1,16 +1,36 @@
 import React from 'react'
 
+import { STRING_LABEL } from '../../shared/inStringConsts'
+
 const LabelsOverlay = (props) => {
-  const clickHandler = props.clickHandler
+  const { hoverFrets, clickHandler} = props
+
+  const getLabelClass = (stringNum) => {
+    const hoverFretOnString = hoverFrets[stringNum-1]
+    if (hoverFretOnString === "0") {
+      return { className: "string-label-hl" }
+    } else {
+      return null
+    }
+  }
+
+  const string_labels = STRING_LABEL.map((label, row) => {
+    const stringNum = row + 1
+    const labelClass = getLabelClass(stringNum)
+    return (
+      <li
+        key={row}
+        {...labelClass}
+        onClick={clickHandler(stringNum, 0)}
+      >
+        {STRING_LABEL[row]}
+      </li>
+    )
+  })
 
   return (
     <ul className="string-labels">
-      <li onClick={clickHandler(1, 0)}>e</li>
-      <li onClick={clickHandler(2, 0)}>B</li>
-      <li onClick={clickHandler(3, 0)}>G</li>
-      <li onClick={clickHandler(4, 0)}>D</li>
-      <li onClick={clickHandler(5, 0)}>A</li>
-      <li onClick={clickHandler(6, 0)}>E</li>
+      {string_labels}
     </ul>
   )
 }

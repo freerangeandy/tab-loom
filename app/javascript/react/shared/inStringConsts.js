@@ -1,16 +1,12 @@
 export const COLUMN_COUNT = 71
 export const STEP_SIZE = 2
 export const NEW_TAB_INDEX = -1
+export const STRING_LABEL = ["e", "B", "G", "D", "A", "E"]
 
 const BLANK_LINE = '-'.repeat(COLUMN_COUNT-2)
-export const BLANK_TAB = [
-  '<p>e|'.concat(BLANK_LINE).concat('</p>'),
-  '<p>B|'.concat(BLANK_LINE).concat('</p>'),
-  '<p>G|'.concat(BLANK_LINE).concat('</p>'),
-  '<p>D|'.concat(BLANK_LINE).concat('</p>'),
-  '<p>A|'.concat(BLANK_LINE).concat('</p>'),
-  '<p>E|'.concat(BLANK_LINE).concat('</p>')
-].join('')
+export const BLANK_TAB = STRING_LABEL.map(label =>
+  `<p>${label}|`.concat(BLANK_LINE).concat('</p>')
+).join('')
 
 export const ROOTS = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B']
 export const VARIANT = ["", "m", "7", "m7", "maj7", "sus2", "sus4", "dim"]

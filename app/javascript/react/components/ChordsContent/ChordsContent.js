@@ -1,14 +1,18 @@
 import React, { useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 
 import Chord from './Chord'
 import { getContentAfterChordInsert } from '../../shared/utility'
 import { ROOTS, ALT_ROOTS, DISPLAY_VARIANT } from '../../shared/inStringConsts.js'
+import allActions from '../../actions'
 
 const ChordsContent = props => {
   const { column, tabContent, setTabContent, setSaveable, incrementColumn, loadChordList } = props
-  const chordList =  useSelector(state => state.chords)
+  const dispatch = useDispatch()
+  const chordList =  useSelector(state => state.chords.list)
+  const setHoverFrets = (frets) => { dispatch(allActions.chordsActions.setHoverFrets(frets)) }
+  const resetHoverFrets = () => { dispatch(allActions.chordsActions.resetHoverFrets()) }
 
   useEffect(() => {
     loadChordList()
@@ -24,19 +28,17 @@ const ChordsContent = props => {
   const chordButtonGroup = (root) => {
     const chordRootList = chordList.filter(chord => (chord.root == root || chord.root == ALT_ROOTS[root]))
     const chordGroup = chordRootList.map(chord => {
-      const chordStrings = chord.strings.split(' ')
+      const chordStrings = chord.strings.split(' ').reverse()
       return (<Chord
                 key={`${chord.name}`}
                 root={ALT_ROOTS[root]}
                 variant={DISPLAY_VARIANT[chord.variant]}
                 frets={chordStrings}
-                insertChord={insertChord}/>)
+                insertChord={insertChord}
+                setHoverFrets={setHoverFrets}
+              />)
     })
-    return (
-      <ButtonGroup size="sm">
-        {chordGroup}
-      </ButtonGroup>
-    )
+    return (<ButtonGroup size="sm">{chordGroup}</ButtonGroup>)
   }
 
   let rootChordList
@@ -45,7 +47,9 @@ const ChordsContent = props => {
       return (
         <li key={root} className="d-flex flex-row">
           <h5>{root}</h5>
-          {chordButtonGroup(root)}
+          <div onMouseLeave={resetHoverFrets}>
+            {chordButtonGroup(root)}
+          </div>
         </li>
       )
     })
