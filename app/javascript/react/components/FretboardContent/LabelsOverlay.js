@@ -1,16 +1,21 @@
 import React from 'react'
 
+import { STRING_LABEL } from '../../shared/inStringConsts'
+
 const LabelsOverlay = (props) => {
   const clickHandler = props.clickHandler
 
+  const string_labels = STRING_LABEL.map((label, stringNum) => {
+    return (
+      <li key={stringNum} onClick={clickHandler(stringNum + 1, 0)}>
+        {STRING_LABEL[stringNum]}
+      </li>
+    )
+  })
+
   return (
     <ul className="string-labels">
-      <li onClick={clickHandler(1, 0)}>e</li>
-      <li onClick={clickHandler(2, 0)}>B</li>
-      <li onClick={clickHandler(3, 0)}>G</li>
-      <li onClick={clickHandler(4, 0)}>D</li>
-      <li onClick={clickHandler(5, 0)}>A</li>
-      <li onClick={clickHandler(6, 0)}>E</li>
+      {string_labels}
     </ul>
   )
 }
