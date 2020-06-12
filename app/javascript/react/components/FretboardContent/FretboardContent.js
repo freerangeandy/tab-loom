@@ -12,6 +12,7 @@ const FretboardContent = (props) => {
   const dispatch = useDispatch()
   const column = useSelector(state => state.tabEditor.column)
   const tabContent = useSelector(state => state.tabEditor.tab.content)
+  const hoverFrets = useSelector(state => state.chords.hoverFrets)
   const { editorActions } = allActions
   const setTabContent = (content) => { dispatch(editorActions.setTabContent(content)) }
   const setSaveable = (saveable) => { dispatch(editorActions.setSaveable(saveable)) }
@@ -23,6 +24,17 @@ const FretboardContent = (props) => {
     ) {
       return true
     } else return false
+  }
+
+  const getFretAreaClass = (stringNum, fretNum) => {
+    const flippedHoverFrets = [...hoverFrets].reverse()
+    const hoverFretOnString = flippedHoverFrets[stringNum-1]
+    if (hoverFretOnString === fretNum.toString()) {
+      if (stringNum === 6) return "fret-area-hl-nb"
+      else                 return "fret-area-hl"
+    } else {
+      return "fret-area"
+    }
   }
 
   const clickHandler = (stringNum, fretNum) => (event) => {
@@ -37,16 +49,13 @@ const FretboardContent = (props) => {
       const stringNum = row + 1
       const fretNum = val + colOffset + 1
 
-      let dot
-      if (showDot(stringNum, fretNum)) {
-        dot = <Dot />
-      }
+      const dot = showDot(stringNum, fretNum) ? <Dot /> : null
       const colSlotsPer = 12 / numCols
-
+      const fretAreaClass = getFretAreaClass(stringNum, fretNum)
       return (
         <Col key={val}
           xs={colSlotsPer}
-          className="fret-area"
+          className={fretAreaClass}
           onClick={clickHandler(stringNum, fretNum)}>
          {dot}
         </Col>
