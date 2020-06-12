@@ -98,7 +98,10 @@ const FretboardContent = (props) => {
         {grid}
       </Container>
       <StringOverlay />
-      <LabelsOverlay clickHandler={clickHandler} />
+      <LabelsOverlay
+        hoverFrets={hoverFrets}
+        clickHandler={clickHandler}
+      />
     </>
   )
 }
