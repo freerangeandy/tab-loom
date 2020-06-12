@@ -27,8 +27,7 @@ const FretboardContent = (props) => {
   }
 
   const getFretAreaClass = (stringNum, fretNum) => {
-    const flippedHoverFrets = [...hoverFrets].reverse()
-    const hoverFretOnString = flippedHoverFrets[stringNum-1]
+    const hoverFretOnString = hoverFrets[stringNum-1]
     if (hoverFretOnString === fretNum.toString()) {
       if (stringNum === 6) return "fret-area-hl-nb"
       else                 return "fret-area-hl"

@@ -28,7 +28,7 @@ const ChordsContent = props => {
   const chordButtonGroup = (root) => {
     const chordRootList = chordList.filter(chord => (chord.root == root || chord.root == ALT_ROOTS[root]))
     const chordGroup = chordRootList.map(chord => {
-      const chordStrings = chord.strings.split(' ')
+      const chordStrings = chord.strings.split(' ').reverse()
       return (<Chord
                 key={`${chord.name}`}
                 root={ALT_ROOTS[root]}

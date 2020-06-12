@@ -6,8 +6,7 @@ const LabelsOverlay = (props) => {
   const { hoverFrets, clickHandler} = props
 
   const getLabelClass = (stringNum) => {
-    const flippedHoverFrets = [...hoverFrets].reverse()
-    const hoverFretOnString = flippedHoverFrets[stringNum-1]
+    const hoverFretOnString = hoverFrets[stringNum-1]
     if (hoverFretOnString === "0") {
       return { className: "string-label-hl" }
     } else {
