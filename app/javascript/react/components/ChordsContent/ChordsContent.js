@@ -35,7 +35,7 @@ const ChordsContent = props => {
                 variant={DISPLAY_VARIANT[chord.variant]}
                 frets={chordStrings}
                 insertChord={insertChord}
-                hoverHandler={() => setHoverFrets(chordStrings)}
+                setHoverFrets={setHoverFrets}
               />)
     })
     return (<ButtonGroup size="sm">{chordGroup}</ButtonGroup>)
