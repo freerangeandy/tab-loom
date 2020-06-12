@@ -546,6 +546,13 @@ body {
     }
   }
 
+  .string-label-hl {
+    cursor: default;
+    color: white;
+    background-color: $color1;
+    border-radius: 25%;
+  }
+
   li:nth-child(1) {
     line-height: calc(#{$fret-area-height});//1.5rem;
   }
