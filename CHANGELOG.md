@@ -11,3 +11,5 @@
 * Bug fixed: pressing 'Tab' while editing title didn't switch input field to header
 * Bug fixed: all-whitespace tab titles could be saved (now defaults to 'Untitled Tab')
 * Bug fixed: pressing 'Return' while in tab editor failed to save changes made up to 1sec prior
+### v1.0.5 (2020-6-12)
+* Functionality added to highlight chord position on fretboard as user hovers cursor over chord button
