@@ -6,11 +6,13 @@ const ModalDeleteTab = (props) => {
     deleteClickedIndex,
     setDeleteClickedIndex,
     getDeleteTitleClicked,
-    deleteTabByIndex
+    deleteTabByIndex,
+    setSaveable
   } = props
 
   const handleConfirm = () => {
     deleteTabByIndex(deleteClickedIndex)
+    setSaveable(false)
     setDeleteClickedIndex(null)
   }
   const handleCancel = () => {
