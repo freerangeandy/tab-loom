@@ -89,6 +89,8 @@ const IndexContent = props => {
         setDeleteClickedIndex={setDeleteClickedIndex}
         getDeleteTitleClicked={getDeleteTitleClicked}
         deleteTabByIndex={deleteTabByIndex}
+        saveable={saveable}
+        setSaveable={setSaveable}
       />
     </>
   )
