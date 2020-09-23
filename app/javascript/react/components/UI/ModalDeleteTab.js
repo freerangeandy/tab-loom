@@ -7,6 +7,7 @@ const ModalDeleteTab = (props) => {
     setDeleteClickedIndex,
     getDeleteTitleClicked,
     deleteTabByIndex,
+    saveable,
     setSaveable
   } = props
 
@@ -20,11 +21,13 @@ const ModalDeleteTab = (props) => {
   }
 
   const showModal = () => deleteClickedIndex !== null
+  const unsavedWarning = saveable ? "You have unsaved changes in the tab editor which will be lost.\n" : null
 
   return (
     <>
       <Modal show={showModal()} onHide={handleCancel}>
         <Modal.Body>
+          {unsavedWarning}
           Are you sure you want to delete '{getDeleteTitleClicked()}'?
         </Modal.Body>
         <Modal.Footer className="modal-button-area">
