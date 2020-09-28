@@ -1,4 +1,4 @@
-import React, { Fragment, useRef } from 'react';
+import React, { Fragment, useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import ReactQuill, { Quill } from 'react-quill';
 import Delta from 'quill-delta';
@@ -26,6 +26,11 @@ const TestEditor = props => {
   const setTabContent = (content) => { dispatch(editorActions.setTabContent(content)) }
   const setSaveable = (saveable) => { dispatch(editorActions.setSaveable(saveable)) }
   const setColumn = (index) => { dispatch(editorActions.setColumn(index)) }
+
+  useEffect(() => {
+    const editorByRef = editorRef.current.editor
+    editorByRef.root.spellcheck = false
+  },[editorRef])
 
   const changeHandler = (changedText, delta, source, editor) => {
     const history = editorRef.current != null ? editorRef.current.editor.history : null
